@@ -47,11 +47,11 @@ const WellnessDetailsScreen = () => {
 
       {/* Prijs en Categorie */}
       <View style={styles.groupContainer}>
-        <View style={styles.detailsItem}>
+        <View style={[styles.detailsItem, styles.shadow]}>
         <TitleMarkup style={{fontSize: 20}}>{data.price}</TitleMarkup>
         </View>
 
-        <View style={styles.detailsItem}>
+        <View style={[styles.detailsItem, styles.shadow]}>
         <TitleMarkup style={{fontSize: 20}}>{data.category}</TitleMarkup>
         </View>
       </View>
@@ -88,31 +88,28 @@ const styles = StyleSheet.create({
   scoreContainer: {
     flexDirection: "row",
     alignItems: "flex-end",
-    marginVertical: 10,
-    gap: 6,
+    marginBottom: -8,
   },
   iconContainer: {
     flexDirection: "row",
     alignItems: "center",
     gap: 8,
     marginVertical: 4,
-  },
-  
+  },  
   groupContainer: {
-  flexDirection: "row",
-  flexWrap: "wrap",
-  justifyContent: "space-between",
-  gap: 12,
-},
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    gap: 12,
+  },
   socialRow: {
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-between",
-  paddingHorizontal: 80,
-  gap: 20,
-  marginTop: 12,
-},
-
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 80,
+    gap: 20,
+    marginTop: 12,
+  },
   detailsItem: {
     width: "48%",
     flexDirection: "row",
@@ -122,31 +119,23 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 10,
     borderRadius: 8,
-
-    // Shadow / elevation
+  },
+  shadow: {
     shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
     elevation: 3,
   },
-
   descriptionContainer: {
-  backgroundColor: "#FFF7E6",       // zacht crème spa-achtergrond
-  padding: 16,
-  borderRadius: 12,
-  marginTop: 16,
-
-  shadowColor: "#000",
-  shadowOffset: { width: 0, height: 2 },
-  shadowOpacity: 0.08,
-  shadowRadius: 6,
-  elevation: 2,
-},
-
-descriptionText: {
-  fontSize: 18,
-  lineHeight: 24,  
-  letterSpacing: 0.3,
-},
+    backgroundColor: "#FFF7E6",
+    padding: 16,
+    borderRadius: 12,
+    marginTop: 16,
+  },
+  descriptionText: {
+    fontSize: 18,
+    lineHeight: 24,  
+    letterSpacing: 0.3,
+  },
 })
