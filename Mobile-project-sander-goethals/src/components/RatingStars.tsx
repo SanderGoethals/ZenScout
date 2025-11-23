@@ -1,16 +1,11 @@
 import React from "react";
 import { View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-interface RatingStarsProps {
-  score: number;      // 0–10
-  size?: number;      // icon size
-  color?: string;     // star color
-}
+import { RatingStarsProps } from "./types";
 
 const RatingStars: React.FC<RatingStarsProps> = ({
   score,
-  size = 20,
+  size = 30,
   color = "#FFD700",
 }) => {
 

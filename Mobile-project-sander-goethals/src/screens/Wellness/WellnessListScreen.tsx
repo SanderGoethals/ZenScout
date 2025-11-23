@@ -2,10 +2,9 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity, Image } from 'react
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 
-import { MaterialCommunityIcons} from '@expo/vector-icons';
-import { ImageCarousel } from '../../components/ImageCarousel';
+import ImageCarousel from '../../components/ImageCarousel';
 import RatingStars from '../../components/RatingStars';
-import TitleTextMarkup from '../../components/TitleTextMarkup';
+import TitleMarkup from '../../components/TitleMarkup';
 
 
 const WELLNESS_API_URL = 'http://10.0.2.2:4000/wellness.json';
@@ -34,28 +33,36 @@ const WellnessListScreen = () => {
          setRefreshing(false);
      }
 
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
   return (
-    <View>
+      <View style={styles.container}>
        <FlatList
          data={wellnessList}
          keyExtractor={(item) => item.id.toString()}
          renderItem={({ item }) => (
            <TouchableOpacity onPress={() => {
-                              navigation.navigate('wellnessDetails', { data: item }); }} >
-             <TitleTextMarkup size={30} align="center" color="#333" >{item.name}</TitleTextMarkup>
+             navigation.navigate('wellnessDetails', { data: item }); }} >
+             <TitleMarkup>{item.name}</TitleMarkup>
              <RatingStars score={Number(item.score)} />
+             <Text style={{ fontSize: 18 }}>{item.location}</Text>
              <ImageCarousel images={item.images.slice(0, 3)} height={250} />
            </TouchableOpacity>
          )}
          refreshing={refreshing}
          onRefresh={onRefresh}
-       />
+         />
     </View>
   )
 }
 
 export default WellnessListScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    borderRadius: 12,
+    overflow: "hidden",
+    width: "100%",
+    backgroundColor: "#FFF7E6"
+  },
+})
