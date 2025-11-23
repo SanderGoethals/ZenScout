@@ -3,9 +3,9 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 import { DrawerParamList } from './types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import ProfileScreen from '../screens/dashboard/profileScreen';
-import AboutScreen from '../screens/dashboard/aboutScreen';
-import SettingsScreen from '../screens/dashboard/settingsScreen';
+import ProfileScreen from '../screens/dashboard/ProfileScreen';
+import AboutScreen from '../screens/dashboard/AboutScreen';
+import SettingsScreen from '../screens/dashboard/SettingsScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 
