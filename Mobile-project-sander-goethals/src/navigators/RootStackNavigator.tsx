@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import App from '../../App'
-import WellnessDetailsScreen from '../screens/WellnessDetailsScreen'
+import WellnessDetailsScreen from '../screens/Wellness/WellnessDetailsScreen'
 
 const RootStackNavigator = () => {
   
