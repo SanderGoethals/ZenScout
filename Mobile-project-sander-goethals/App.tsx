@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import "./global.css";
-import WellnessListScreen from './src/screens/Wellness/WellnessListScreen';
+import WellnessListScreen from './src/screens/wellness/WellnessListScreen';
 
 export default function App() {
   return (
