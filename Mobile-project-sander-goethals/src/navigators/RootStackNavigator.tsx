@@ -12,8 +12,8 @@ const RootStackNavigator = () => {
 
   return (
     <RootStack.Navigator>
-      <RootStack.Screen name="wellnessList" component={WellnessListScreen} options={{title: "Book a wellness"}}/>
-      <RootStack.Screen name="wellnessDetails" component={WellnessDetailsScreen} options={{title: "Wellnessdetails"}} />
+      <RootStack.Screen name="wellnessList" component={WellnessListScreen} options={{title: "Available wellness"}}/>
+      <RootStack.Screen name="wellnessDetails" component={WellnessDetailsScreen} options={{title: "Book a Wellness"}} />
     </RootStack.Navigator>
   )
 }
