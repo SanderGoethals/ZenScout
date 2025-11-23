@@ -3,15 +3,17 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import App from '../../App'
 import WellnessDetailsScreen from '../screens/Wellness/WellnessDetailsScreen'
+import { RootStackParamList } from './types'
+import WellnessListScreen from '../screens/Wellness/WellnessListScreen'
+
+const RootStack = createStackNavigator<RootStackParamList>()
 
 const RootStackNavigator = () => {
-  
-const RootStack = createStackNavigator();
 
   return (
     <RootStack.Navigator>
-      <RootStack.Screen name="home" component={App} />
-      <RootStack.Screen name="wellnessDetails" component={WellnessDetailsScreen} />
+      <RootStack.Screen name="wellnessList" component={WellnessListScreen} options={{title: "Book a wellness"}}/>
+      <RootStack.Screen name="wellnessDetails" component={WellnessDetailsScreen} options={{title: "Wellnessdetails"}} />
     </RootStack.Navigator>
   )
 }
