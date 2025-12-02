@@ -10,6 +10,8 @@ import SettingsScreen from '../screens/dashboard/SettingsScreen';
 const Drawer = createDrawerNavigator<DrawerParamList>();
 
 const DrawerNavigator = () => {
+
+    // TODO: Zorgen dat drawer gedeeltelijk open gaat en niet direct naar de fucking Profile screen gaat
   return (
     <Drawer.Navigator>
         <Drawer.Screen name="profile" component={ProfileScreen} options={{
