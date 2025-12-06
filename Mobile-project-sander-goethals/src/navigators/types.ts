@@ -9,8 +9,9 @@ export type RootStackParamList = {
 };
 
 export type DrawerParamList = {
-    Home: undefined;
+    home: undefined;
     profile: undefined;
+    favorites: undefined;
     settings: undefined;
     about: undefined;
 };

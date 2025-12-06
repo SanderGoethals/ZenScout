@@ -8,9 +8,13 @@ import ImageCarousel from '../../components/ImageCarousel';
 import RatingStars from '../../components/RatingStars';
 import TitleMarkup from '../../components/TitleMarkup';
 import SocialIconProps from '../../components/SocialsIcon';
+import { useFavorites } from '../../hooks/useFavorites';
+
+
 
 const WellnessDetailsScreen = () => {
-
+  const { favorites, addFavorites } = useFavorites();
+  
   const {
     params: { data },
   } = useRoute<RootStackNavProps<"wellnessDetails">['route']>();
@@ -25,34 +29,34 @@ const WellnessDetailsScreen = () => {
       {/* Score */}
       <View style={styles.scoreContainer}>
         <RatingStars score={Number(data.score)} size={40} ></RatingStars>
-        <TitleMarkup style={{fontSize: 20}}>{data.score}/10</TitleMarkup>
+        <TitleMarkup style={{fontSize: 24}}>{data.score}/10</TitleMarkup>
       </View>
+
+      {/* Image Carousel */}
+        {data.images?.length > 0 && (
+          <ImageCarousel images={data.images} height={250} />
+        )}
 
       {/* Aanbiedingstitel */}
       <View style={styles.iconContainer}>
-        <MaterialCommunityIcons name="spa" size={24} color="#F2B8C6" />
-        <TitleMarkup style={{fontSize: 20, flexShrink: 1}}>{data.offerTitle}</TitleMarkup>
-       </View>
-
-      {/* Image Carousel */}
-      {data.images?.length > 0 && (
-        <ImageCarousel images={data.images} height={250} />
-      )}  
+        <MaterialCommunityIcons name="spa" size={26} color="#F2B8C6" />
+        <TitleMarkup style={{fontSize: 20}}>{data.offerTitle}</TitleMarkup>
+      </View>
 
       {/* Locatie */}
       <View style={styles.iconContainer}>
-      <MaterialCommunityIcons name="map-marker" size={30} color="red" />
-      <TitleMarkup style={{fontSize: 20}}>{data.address}</TitleMarkup>
+        <MaterialCommunityIcons name="map-marker" size={26} color="red" />
+        <TitleMarkup style={{fontSize: 20}}>{data.address}</TitleMarkup>
       </View>
 
       {/* Prijs en Categorie */}
       <View style={styles.groupContainer}>
-        <View style={[styles.detailsItem, styles.shadow]}>
-        <TitleMarkup style={{fontSize: 20}}>{data.price}</TitleMarkup>
+        <View style={[styles.detailsItem]}>
+          <TitleMarkup style={{fontSize: 20}}>{data.price}</TitleMarkup>
         </View>
 
-        <View style={[styles.detailsItem, styles.shadow]}>
-        <TitleMarkup style={{fontSize: 20}}>{data.category}</TitleMarkup>
+        <View style={[styles.detailsItem]}>
+          <TitleMarkup style={{fontSize: 20}}>{data.category}</TitleMarkup>
         </View>
       </View>
         
@@ -70,6 +74,10 @@ const WellnessDetailsScreen = () => {
           <SocialIconProps name="instagram" color="#E1306C" url={data.contact.socials.instagram} />
         )}
 
+        {/* Like Button */}
+        <TouchableOpacity onPress={() => { addFavorites(data) }}>
+           <SocialIconProps name="heart-circle-outline" color="#E0245E" />
+        </TouchableOpacity>
       </View>
 
       {/* Beschrijving */}
@@ -88,13 +96,13 @@ const styles = StyleSheet.create({
   scoreContainer: {
     flexDirection: "row",
     alignItems: "flex-end",
-    marginBottom: -8,
+    // marginBottom: -8,
   },
   iconContainer: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
-    marginVertical: 4,
+    // gap: 8,
+    // marginVertical: 4,
   },  
   groupContainer: {
     flexDirection: "row",
@@ -106,7 +114,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 80,
+    paddingHorizontal: 50,
     gap: 20,
     marginTop: 12,
   },

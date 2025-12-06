@@ -3,7 +3,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 export interface SocialIconProps {
   name: keyof typeof MaterialCommunityIcons.glyphMap; // icoonnaam
   color: string;
-  url: string;
+  url?: string;
 }
 
 export interface RatingStarsProps {

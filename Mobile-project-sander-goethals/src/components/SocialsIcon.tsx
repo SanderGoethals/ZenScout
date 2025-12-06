@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { FC, useRef } from "react";
 import {
   Animated,
   TouchableWithoutFeedback,
@@ -9,7 +9,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SocialIconProps } from "./types";
 
 
-const SocialIcon: React.FC<SocialIconProps> = ({ name, color, url }) => {
+const SocialIcon: FC<SocialIconProps> = ({ name, color, url }) => {
   const scale = useRef(new Animated.Value(1)).current;
 
   const onPressIn = () => {

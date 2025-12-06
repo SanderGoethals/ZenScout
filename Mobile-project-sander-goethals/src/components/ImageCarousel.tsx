@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { View, Image, FlatList, StyleSheet } from "react-native";
 import { ImageCarouselProps } from "./types";
 
-const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, height = 250 }) => {
+const ImageCarousel: FC<ImageCarouselProps> = ({ images, height = 250 }) => {
   const [containerWidth, setContainerWidth] = useState(0);
 
   return (
