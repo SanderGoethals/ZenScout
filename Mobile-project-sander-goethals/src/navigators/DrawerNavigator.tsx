@@ -6,12 +6,12 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ProfileScreen from '../screens/dashboard/ProfileScreen';
 import AboutScreen from '../screens/dashboard/AboutScreen';
 import SettingsScreen from '../screens/dashboard/SettingsScreen';
+import WellnessListScreen from '../screens/wellness/WellnessListScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 
 const DrawerNavigator = () => {
 
-    // TODO: Zorgen dat drawer niet direct naar de Profile screen gaat
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -21,6 +21,13 @@ const DrawerNavigator = () => {
         drawerStyle: { width: "70%", backgroundColor: '#FFF7E6'},
       }}
     >
+        {/* <Drawer.Screen name="Home" component={WellnessListScreen} />  */}
+
+        <Drawer.Screen name="Home" component={WellnessListScreen} options={{
+            drawerIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="home" color={color} size={size} />
+            )
+        }} />
         <Drawer.Screen name="profile" component={ProfileScreen} options={{
             drawerIcon: ({color, size}) => (
                 <MaterialCommunityIcons name="account-circle" color={color} size={size} />
