@@ -11,13 +11,13 @@ const queryClient = new QueryClient();
 const Root = () => {
   return (
     <SafeAreaProvider>
+      <NavigationContainer>
         <QueryClientProvider client={queryClient}>
             <FavoritesProvider>
-              <NavigationContainer>
-                  <RootStackNavigator />
-              </NavigationContainer>
+              <RootStackNavigator />
             </FavoritesProvider>
         </QueryClientProvider>
+      </NavigationContainer>
     </SafeAreaProvider>
   )
 }   
