@@ -10,8 +10,6 @@ import TitleMarkup from '../../components/TitleMarkup';
 import SocialIconProps from '../../components/SocialsIcon';
 import { useFavorites } from '../../hooks/useFavorites';
 
-import SocialIcon from '../../components/SocialsIcon';
-
 
 const WellnessDetailsScreen = () => {
   const { favorites, addFavorites } = useFavorites();
@@ -77,7 +75,15 @@ const WellnessDetailsScreen = () => {
 
         {/* Like Button */}
         <TouchableOpacity onPress={() => { addFavorites(data) }}>
-            <MaterialCommunityIcons style={styles.favoriteButton} name="heart-circle-outline" color="#E0245E" size={60} />
+          <MaterialCommunityIcons style={styles.favoriteButton}
+            name={favorites.some(f => f.id === data.id)
+              ? "heart-circle"             // gevuld icoon
+              : "heart-circle-outline"}    // niet gevuld icoon
+            color={favorites.some(f => f.id === data.id)
+              ? "#E0245E"                  // actief: rood
+              : "#D8A679"}
+            size={64}
+          />
         </TouchableOpacity>
       </View>
 

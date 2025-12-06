@@ -25,26 +25,27 @@ const DrawerNavigator = () => {
         drawerStyle: { width: "70%", backgroundColor: BASE_BACKGROUND_COLOR},
       }}
     >
-        {/* <Drawer.Screen name="Home" component={WellnessListScreen} />  */}
         <Drawer.Group screenOptions={{
             headerStyle: { backgroundColor: ACTIVE_BACKGROUND_COLOR }
         }}>
+            {/* <Drawer.Screen name="Home" component={WellnessListScreen} />  */}
+
             <Drawer.Screen name="home" component={WellnessListScreen} options={{ title: "Home",   
                 drawerIcon: ({color, size}) => (
                     <MaterialCommunityIcons name="home" color={color} size={size} />
                 )
             }} />
-            <Drawer.Screen name="profile" component={ProfileScreen} options={{ title: "Profile" ,
+            <Drawer.Screen name="profile" component={ProfileScreen} options={{ title: "Profiel" ,
                 drawerIcon: ({color, size}) => (
                     <MaterialCommunityIcons name="account-circle" color={color} size={size} />
                 )
             }} />
-            <Drawer.Screen name="favorites" component={FavoritesScreen} options={{ title: "Favorites" ,
+            <Drawer.Screen name="favorites" component={FavoritesScreen} options={{ title: "Favorieten" ,
                 drawerIcon: ({color, size}) => (
                     <MaterialCommunityIcons name="heart" color={color} size={size} />
                 )
             }} />
-            <Drawer.Screen name="settings" component={SettingsScreen} options={{ title: "Settings" ,
+            <Drawer.Screen name="settings" component={SettingsScreen} options={{ title: "Instellingen" ,
                 drawerIcon: ({color, size}) => (
                     <MaterialCommunityIcons name="cog" color={color} size={size} />
                 )
