@@ -16,13 +16,12 @@ const FavoritesScreen = () => {
          data={favorites}
          keyExtractor={(item) => item.id.toString()}
          renderItem={({ item }) => 
-          //  <TouchableOpacity onPress={() => {
-          //    navigation.navigate('wellnessDetails', { data: item }); }} >
-          //    <TitleMarkup>{item.name}</TitleMarkup>
-          //    <Text style={{ fontSize: 18 }}>{item.location}</Text>
-          //    <ImageCarousel images={item.images.slice(0, 3)} height={250} />
-          //  </TouchableOpacity>
-          <Text>{item.name}</Text>
+           <TouchableOpacity onPress={() => {
+             navigation.navigate('wellnessDetails', { data: item }); }} >
+             <TitleMarkup>{item.name}</TitleMarkup>
+             <ImageCarousel images={item.images.slice(0, 3)} height={250} />
+           </TouchableOpacity>
+          // <Text>{item.name}</Text>
          }/>
     </View>
   )

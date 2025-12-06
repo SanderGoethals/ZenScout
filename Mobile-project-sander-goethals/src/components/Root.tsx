@@ -12,11 +12,11 @@ const Root = () => {
   return (
     <SafeAreaProvider>
         <QueryClientProvider client={queryClient}>
-          <NavigationContainer>
             <FavoritesProvider>
-              <RootStackNavigator />
+              <NavigationContainer>
+                  <RootStackNavigator />
+              </NavigationContainer>
             </FavoritesProvider>
-          </NavigationContainer>
         </QueryClientProvider>
     </SafeAreaProvider>
   )

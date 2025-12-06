@@ -7,21 +7,22 @@ interface FavoritesContextType {
 
 export const FavoritesContext = createContext<FavoritesContextType | null>(null);
 
-const FavoritesProvider = (props: PropsWithChildren) => {
+const FavoritesProvider = ({ children }: PropsWithChildren) => {
   const [favorites, setFavorites] = useState<Wellness[]>([]);
 
   const addFavorites = (item: Wellness) => {
-    if (favorites.some((favoriteItem) => favoriteItem.id === item.id)) {
-      const newFavorites = favorites.filter((favoriteItem) => favoriteItem.id !== item.id);
-      setFavorites(newFavorites);
-    } else {
-      setFavorites([...favorites, item]);
-    }
+    setFavorites((prev) =>
+      prev.some((f) => f.id === item.id)
+        ? prev.filter((f) => f.id !== item.id)
+        : [...prev, item]
+    );
   };
 
-  return <FavoritesContext.Provider value={{favorites, addFavorites}}>
-    {props.children}
-  </FavoritesContext.Provider>
-}
+  return (
+    <FavoritesContext.Provider value={{ favorites, addFavorites }}>
+      {children}
+    </FavoritesContext.Provider>
+  );
+};
 
-export default FavoritesProvider
+export default FavoritesProvider;
