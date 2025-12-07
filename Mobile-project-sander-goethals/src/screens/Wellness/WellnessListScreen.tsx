@@ -10,6 +10,7 @@ import { useWellnessList } from '../../hooks/useWellnessList';
 
 const EVEN_COLOR = '#FFF7E6';
 const ODD_COLOR = '#FDECC8';
+const LOADER_COLOR = '#ADD8E6';
 
 const WellnessListScreen = () => {
   const navigation = useNavigation();
@@ -20,7 +21,7 @@ const WellnessListScreen = () => {
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color={LOADER_COLOR} />
       </View>
     );
   }
