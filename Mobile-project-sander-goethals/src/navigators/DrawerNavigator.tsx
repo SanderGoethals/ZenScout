@@ -8,6 +8,7 @@ import AboutScreen from '../screens/dashboard/AboutScreen';
 import SettingsScreen from '../screens/dashboard/SettingsScreen';
 import WellnessListScreen from '../screens/wellness/WellnessListScreen';
 import FavoritesScreen from '../screens/dashboard/FavoritesScreen';
+import { useAppSelector } from '../hooks/reduxHooks';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 
@@ -15,6 +16,8 @@ const ACTIVE_BACKGROUND_COLOR = '#FDECC8';
 const BASE_BACKGROUND_COLOR = '#FFF7E6';
 
 const DrawerNavigator = () => {
+    const favorites = useAppSelector(state => state.favorites);
+    const totalFavorites = favorites.length;
 
   return (
     <Drawer.Navigator
@@ -40,7 +43,7 @@ const DrawerNavigator = () => {
                     <MaterialCommunityIcons name="account-circle" color={color} size={size} />
                 )
             }} />
-            <Drawer.Screen name="favorites" component={FavoritesScreen} options={{ title: "Favorieten" ,
+            <Drawer.Screen name="favorites" component={FavoritesScreen} options={{  title: `Favorieten (${totalFavorites})`,
                 drawerIcon: ({color, size}) => (
                     <MaterialCommunityIcons name="heart" color={color} size={size} />
                 )
