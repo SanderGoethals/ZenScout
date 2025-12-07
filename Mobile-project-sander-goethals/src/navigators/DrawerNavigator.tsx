@@ -12,7 +12,7 @@ import { useAppSelector } from '../hooks/reduxHooks';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 
-const ACTIVE_BACKGROUND_COLOR = '#FDECC8';
+const ACTIVE_BACKGROUND_COLOR = '#EEDDBA';
 const BASE_BACKGROUND_COLOR = '#FFF7E6';
 
 const DrawerNavigator = () => {
