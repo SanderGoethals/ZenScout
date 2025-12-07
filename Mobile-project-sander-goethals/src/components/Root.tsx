@@ -8,19 +8,24 @@ import FavoritesProvider from '../contexts/favoritesContext';
 import { Provider } from 'react-redux';
 import { persistor, store } from '../store';
 import { PersistGate } from 'redux-persist/integration/react';
+import { ActivityIndicator } from 'react-native';
 
 const queryClient = new QueryClient();
+const LOADER_COLOR = '#ADD8E6';
 
 const Root = () => {
   return (
     <SafeAreaProvider>
       <Provider store={store}>
-        <PersistGate persistor={persistor}>
+        <PersistGate 
+         persistor={persistor}
+         loading={
+            <ActivityIndicator 
+            size="large" 
+            color={LOADER_COLOR} />}>
           <NavigationContainer>
             <QueryClientProvider client={queryClient}>
-              {/* <FavoritesProvider> */}
-                <RootStackNavigator />
-              {/* </FavoritesProvider> */}
+              <RootStackNavigator />
             </QueryClientProvider>
           </NavigationContainer>
         </PersistGate>

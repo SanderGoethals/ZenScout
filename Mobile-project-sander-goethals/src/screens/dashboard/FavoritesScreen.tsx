@@ -18,6 +18,11 @@ const FavoritesScreen = () => {
   const dispatch = useAppDispatch();
 
   return (
+    favorites.length === 0 ? (
+      <View style={[styles.screen, { alignItems: 'center'}]}>
+        <TitleMarkup style={{fontSize: 24}}>Er staan nog geen favorieten klaar. Ontdek de mooiste wellnessplekken en bewaar jouw aanraders!</TitleMarkup>
+      </View>
+    ) : (
     <View style={styles.screen}>
       <FlatList
         data={favorites}
@@ -58,6 +63,7 @@ const FavoritesScreen = () => {
         }}
       />
     </View>
+    )
   );
 };
 
@@ -90,7 +96,7 @@ const styles = StyleSheet.create({
   imageWrapper: {
   position: "relative",
   },
-  
+
   favoriteFloating: {
     position: "absolute",
     top: 12,
