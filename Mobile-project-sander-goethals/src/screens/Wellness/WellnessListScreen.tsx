@@ -52,13 +52,18 @@ const WellnessListScreen = () => {
             >
               <View style={[styles.card, { backgroundColor: bgColor }]}>
                 
+                {/* Titel */}
                 <TitleMarkup style={styles.title}>{item.name}</TitleMarkup>
 
+                {/* Rating */}
                 <RatingStars score={Number(item.score)} size={30} />
-
+                
+                {/* Locatie */}
                 <Text style={styles.location}>{item.location}</Text>
 
+                {/* Carousel */}
                 <ImageCarousel images={item.images.slice(0, 3)} height={250} />
+              
               </View>
             </TouchableOpacity>
           );

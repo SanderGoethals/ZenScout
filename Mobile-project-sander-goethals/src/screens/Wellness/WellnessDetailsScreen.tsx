@@ -8,18 +8,19 @@ import ImageCarousel from '../../components/ImageCarousel';
 import RatingStars from '../../components/RatingStars';
 import TitleMarkup from '../../components/TitleMarkup';
 import SocialIconProps from '../../components/SocialsIcon';
-import { useFavorites } from '../../hooks/useFavorites';
+import { toggle } from '../../store/favorites/slice';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 
 
 const WellnessDetailsScreen = () => {
-  const { favorites, addFavorites } = useFavorites();
+  const dispatch = useAppDispatch();
+  const favorites = useAppSelector(state => state);
   
   const {
     params: { data },
   } = useRoute<RootStackNavProps<"wellnessDetails">['route']>();
-
+  
   return (
-    <View>
       <ScrollView>
 
       {/* Naam */}
@@ -74,13 +75,15 @@ const WellnessDetailsScreen = () => {
         )}
 
         {/* Like Button */}
-        <TouchableOpacity onPress={() => { addFavorites(data) }}>
+        <TouchableOpacity onPress={() => { 
+          dispatch(toggle(data));
+        }}>
           <MaterialCommunityIcons style={styles.favoriteButton}
             name={favorites.some(f => f.id === data.id)
-              ? "heart-circle"             // gevuld icoon
-              : "heart-circle-outline"}    // niet gevuld icoon
+              ? "heart-circle"      
+              : "heart-circle-outline"}  
             color={favorites.some(f => f.id === data.id)
-              ? "#E0245E"                  // actief: rood
+              ? "#E0245E"        
               : "#D8A679"}
             size={64}
           />
@@ -93,8 +96,9 @@ const WellnessDetailsScreen = () => {
       </View>
 
       </ScrollView>
-    </View>    
-  )
+
+
+)
 }
 
 export default WellnessDetailsScreen

@@ -2,6 +2,7 @@ import { registerRootComponent } from 'expo';
 import 'react-native-gesture-handler';
 import "./global.css";
 
+
 import Root from './src/components/Root';
 
 

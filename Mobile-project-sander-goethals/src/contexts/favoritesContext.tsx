@@ -5,6 +5,11 @@ interface FavoritesContextType {
   addFavorites: (item: Wellness) => void;
 }
 
+
+// VOORLOPIG OVERBODIG
+
+
+
 export const FavoritesContext = createContext<FavoritesContextType | null>(null);
 
 const FavoritesProvider = ({ children }: PropsWithChildren) => {

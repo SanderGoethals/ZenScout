@@ -5,19 +5,23 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NavigationContainer } from '@react-navigation/native';
 import RootStackNavigator from '../navigators/RootStackNavigator';
 import FavoritesProvider from '../contexts/favoritesContext';
+import { Provider } from 'react-redux';
+import { store } from '../store';
 
 const queryClient = new QueryClient();
 
 const Root = () => {
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <NavigationContainer>
+          <QueryClientProvider client={queryClient}>
             <FavoritesProvider>
               <RootStackNavigator />
             </FavoritesProvider>
-        </QueryClientProvider>
-      </NavigationContainer>
+          </QueryClientProvider>
+        </NavigationContainer>
+      </Provider>
     </SafeAreaProvider>
   )
 }   
