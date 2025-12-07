@@ -79,14 +79,10 @@ const WellnessDetailsScreen = () => {
         dispatch(toggle(data));
       }}>
         <MaterialCommunityIcons style={styles.favoriteButton}
-          name={favorites.some(f => f.id === data.id)
-            ? "heart-circle"      
-            : "heart-circle-outline"}  
-          color={favorites.some(f => f.id === data.id)
-            ? "#E0245E"        
-            : "#D8A679"}
-          size={64}
-        />
+          name={favorites.some(f => f.id === data.id) ? "heart-circle" : "heart-circle-outline"}  
+          color={favorites.some(f => f.id === data.id) ? "#E0245E" : "#D8A679"}
+          size={64}/>
+          
       </TouchableOpacity>
     </View>
 
