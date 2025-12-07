@@ -3,9 +3,12 @@ import favoriteReducer from './favorites/slice';
 
 export const store = configureStore(
     {
-        reducer: favoriteReducer,        
+        reducer:
+        {
+            favorites: favoriteReducer,
+        },        
     }
 );
 
-export type Rootstate = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

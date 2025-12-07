@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView, Linking, TouchableOpacity} from 'react-native'
+import { StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native'
 import React from 'react'
 import { RootStackNavProps } from '../../navigators/types';
 import { useRoute } from '@react-navigation/native';
@@ -14,91 +14,89 @@ import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 
 const WellnessDetailsScreen = () => {
   const dispatch = useAppDispatch();
-  const favorites = useAppSelector(state => state);
+  const favorites = useAppSelector(state => state.favorites);
   
   const {
     params: { data },
   } = useRoute<RootStackNavProps<"wellnessDetails">['route']>();
   
   return (
-      <ScrollView>
+    <ScrollView>
 
-      {/* Naam */}
-      <TitleMarkup>{data.name}</TitleMarkup>
+    {/* Naam */}
+    <TitleMarkup>{data.name}</TitleMarkup>
 
-      {/* Score */}
-      <View style={styles.scoreContainer}>
-        <RatingStars score={Number(data.score)} size={40} ></RatingStars>
-        <TitleMarkup style={{fontSize: 24}}>{data.score}/10</TitleMarkup>
+    {/* Score */}
+    <View style={styles.scoreContainer}>
+      <RatingStars score={Number(data.score)} size={40} ></RatingStars>
+      <TitleMarkup style={{fontSize: 24}}>{data.score}/10</TitleMarkup>
+    </View>
+
+    {/* Image Carousel */}
+      {data.images?.length > 0 && (
+        <ImageCarousel images={data.images} height={250} />
+      )}
+
+    {/* Aanbiedingstitel */}
+    <View style={styles.iconContainer}>
+      <MaterialCommunityIcons name="spa" size={26} color="#F2B8C6" />
+      <TitleMarkup style={{fontSize: 20}}>{data.offerTitle}</TitleMarkup>
+    </View>
+
+    {/* Locatie */}
+    <View style={styles.iconContainer}>
+      <MaterialCommunityIcons name="map-marker" size={26} color="red" />
+      <TitleMarkup style={{fontSize: 20}}>{data.address}</TitleMarkup>
+    </View>
+
+    {/* Prijs en Categorie */}
+    <View style={styles.groupContainer}>
+      <View style={[styles.detailsItem]}>
+        <TitleMarkup style={{fontSize: 20}}>{data.price}</TitleMarkup>
       </View>
 
-      {/* Image Carousel */}
-        {data.images?.length > 0 && (
-          <ImageCarousel images={data.images} height={250} />
-        )}
-
-      {/* Aanbiedingstitel */}
-      <View style={styles.iconContainer}>
-        <MaterialCommunityIcons name="spa" size={26} color="#F2B8C6" />
-        <TitleMarkup style={{fontSize: 20}}>{data.offerTitle}</TitleMarkup>
+      <View style={[styles.detailsItem]}>
+        <TitleMarkup style={{fontSize: 20}}>{data.category}</TitleMarkup>
       </View>
+    </View>
+      
+    {/* Socials */}
+    <View style={styles.socialRow}> 
+      {data.contact.site && (
+        <SocialIconProps name="web" color="#555" url={data.contact.site} />
+      )}
 
-      {/* Locatie */}
-      <View style={styles.iconContainer}>
-        <MaterialCommunityIcons name="map-marker" size={26} color="red" />
-        <TitleMarkup style={{fontSize: 20}}>{data.address}</TitleMarkup>
-      </View>
+      {data.contact.socials.facebook && (
+        <SocialIconProps name="facebook" color="#4267B2" url={data.contact.socials.facebook} />
+      )}
 
-      {/* Prijs en Categorie */}
-      <View style={styles.groupContainer}>
-        <View style={[styles.detailsItem]}>
-          <TitleMarkup style={{fontSize: 20}}>{data.price}</TitleMarkup>
-        </View>
+      {data.contact.socials.instagram && (
+        <SocialIconProps name="instagram" color="#E1306C" url={data.contact.socials.instagram} />
+      )}
 
-        <View style={[styles.detailsItem]}>
-          <TitleMarkup style={{fontSize: 20}}>{data.category}</TitleMarkup>
-        </View>
-      </View>
-        
-      {/* Socials */}
-      <View style={styles.socialRow}> 
-        {data.contact.site && (
-          <SocialIconProps name="web" color="#555" url={data.contact.site} />
-        )}
+      {/* Like Button */}
+      <TouchableOpacity onPress={() => { 
+        dispatch(toggle(data));
+      }}>
+        <MaterialCommunityIcons style={styles.favoriteButton}
+          name={favorites.some(f => f.id === data.id)
+            ? "heart-circle"      
+            : "heart-circle-outline"}  
+          color={favorites.some(f => f.id === data.id)
+            ? "#E0245E"        
+            : "#D8A679"}
+          size={64}
+        />
+      </TouchableOpacity>
+    </View>
 
-        {data.contact.socials.facebook && (
-          <SocialIconProps name="facebook" color="#4267B2" url={data.contact.socials.facebook} />
-        )}
+    {/* Beschrijving */}
+    <View style={styles.descriptionContainer}>
+      <TitleMarkup style={styles.descriptionText}>{data.description}</TitleMarkup>
+    </View>
 
-        {data.contact.socials.instagram && (
-          <SocialIconProps name="instagram" color="#E1306C" url={data.contact.socials.instagram} />
-        )}
-
-        {/* Like Button */}
-        <TouchableOpacity onPress={() => { 
-          dispatch(toggle(data));
-        }}>
-          <MaterialCommunityIcons style={styles.favoriteButton}
-            name={favorites.some(f => f.id === data.id)
-              ? "heart-circle"      
-              : "heart-circle-outline"}  
-            color={favorites.some(f => f.id === data.id)
-              ? "#E0245E"        
-              : "#D8A679"}
-            size={64}
-          />
-        </TouchableOpacity>
-      </View>
-
-      {/* Beschrijving */}
-      <View style={styles.descriptionContainer}>
-        <TitleMarkup style={styles.descriptionText}>{data.description}</TitleMarkup>
-      </View>
-
-      </ScrollView>
-
-
-)
+    </ScrollView>
+  )
 }
 
 export default WellnessDetailsScreen

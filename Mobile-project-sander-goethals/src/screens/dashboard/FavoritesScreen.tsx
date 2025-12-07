@@ -1,6 +1,5 @@
 import { FlatList, TouchableOpacity, View, StyleSheet } from 'react-native'
 import React from 'react'
-import { useFavorites } from '../../hooks/useFavorites'
 import ImageCarousel from '../../components/ImageCarousel'
 import TitleMarkup from '../../components/TitleMarkup'
 import { useNavigation } from '@react-navigation/native';
@@ -13,10 +12,9 @@ const EVEN_COLOR = '#FFF7E6';
 const ODD_COLOR = '#FDECC8';
 
 const FavoritesScreen = () => {
-  // const { favorites } = useFavorites();
   const navigation = useNavigation();
   
-  const favorites = useAppSelector((store) => store);
+  const favorites = useAppSelector((store) => store.favorites);
   const dispatch = useAppDispatch();
 
   return (
@@ -88,19 +86,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '600',
   },
+
   imageWrapper: {
   position: "relative",
-},
-favoriteFloating: {
-  position: "absolute",
-  top: 12,
-  right: 12,
-  // verwijder elke styling die een cirkel maakt
-  backgroundColor: "transparent",
-  padding: 0,
-  borderRadius: 0,
-  elevation: 0,
-  shadowColor: "transparent",
-},
-
+  },
+  
+  favoriteFloating: {
+    position: "absolute",
+    top: 12,
+    right: 12,
+    backgroundColor: "transparent",
+    padding: 0,
+    borderRadius: 0,
+    elevation: 0,
+    shadowColor: "transparent",
+  },
 });
