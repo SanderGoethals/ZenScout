@@ -4,6 +4,8 @@ import WellnessDetailsScreen from '../screens/wellness/WellnessDetailsScreen'
 import WellnessListScreen from '../screens/wellness/WellnessListScreen'
 import PrivateSaunaListScreen from '../screens/privateSauna/PrivateSaunaListScreen'
 import PrivateSaunaDetailsScreen from '../screens/privateSauna/PrivateSaunaDetailsScreen'
+import MassageAndBeautyListScreen from '../screens/massageAndBeauty/MassageAndBeautyList'
+import MassageAndBeautyDetailsScreen from '../screens/massageAndBeauty/MassageAndBeautyDetails'
 import { RootStackParamList } from './types'
 import DrawerNavigator from './DrawerNavigator'
 
@@ -21,10 +23,12 @@ const RootStackNavigator = () => {
     }
     >
       <RootStack.Screen name="menu" component={DrawerNavigator} options={{ headerShown: false }}/>
-      <RootStack.Screen name="wellnessList" component={WellnessListScreen} options={{title: "Available wellness"}}/>
-      <RootStack.Screen name="wellnessDetails" component={WellnessDetailsScreen} options={{title: "Book a Wellness"}} />
-      <RootStack.Screen name="saunaList" component={PrivateSaunaListScreen} options={{title: "Available private saunas"}}/>
-      <RootStack.Screen name="saunaDetails" component={PrivateSaunaDetailsScreen} options={{title: "Book a Private Sauna"}} />
+      <RootStack.Screen name="wellnessList" component={WellnessListScreen} options={{title: "Beschikbare wellness"}}/>
+      <RootStack.Screen name="wellnessDetails" component={WellnessDetailsScreen} options={{title: "Boek een Wellness"}} />
+      <RootStack.Screen name="saunaList" component={PrivateSaunaListScreen} options={{title: "Beschikbare privé sauna's"}}/>
+      <RootStack.Screen name="saunaDetails" component={PrivateSaunaDetailsScreen} options={{title: "Boek een privé sauna"}} />
+      <RootStack.Screen name="massageAndBeautyList" component={MassageAndBeautyListScreen} options={{title: "Beschikbare massage & beauty"}}/>
+      <RootStack.Screen name="massageAndBeautyDetails" component={MassageAndBeautyDetailsScreen} options={{title: "Boek een massage & beauty"}} />
     </RootStack.Navigator>
   )
 }

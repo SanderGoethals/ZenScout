@@ -1,6 +1,6 @@
 import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native'
 import React from 'react'
-import { usePrivateSaunaList } from '../../hooks/usePrivateSaunaList'
+import { useMassageAndBeautyList } from '../../hooks/useMassageAndBeautyList'
 import TitleMarkup from '../../components/TitleMarkup';
 import ImageCarousel from '../../components/ImageCarousel';
 import RatingStars from '../../components/RatingStars';
@@ -9,18 +9,23 @@ import { useAppSelector } from '../../hooks/reduxHooks';
 
 import { useNavigation } from '@react-navigation/native';
 
+const EVEN_COLOR   = '#E7C7BF';
+const ODD_COLOR    = '#D3A89F';
+const LOADER_COLOR = '#8F5D57';
 
-const EVEN_COLOR = '#FFF7E6';
-const ODD_COLOR = '#FDECC8';
-const LOADER_COLOR = '#ADD8E6';
 
 
-const PrivateSaunaListScreen = () => {
+
+
+
+
+
+const MassageAndBeautyListScreen = () => {
 const navigation = useNavigation();
 // const favorites = useAppSelector((store) => store.favorites);
     
-const { data: privateSaunaList, isLoading, isError, refetch, isRefetching } =
-usePrivateSaunaList();  
+const { data: massageAndBeautyList, isLoading, isError, refetch, isRefetching } =
+useMassageAndBeautyList();  
 
   if (isLoading) {
     return (
@@ -33,7 +38,7 @@ usePrivateSaunaList();
   if (isError) {
     return (
       <View style={styles.center}>
-        <TitleMarkup>Failed to load private sauna list. Please try again.</TitleMarkup>
+        <TitleMarkup>Failed to load massage and beauty list. Please try again.</TitleMarkup>
       </View>
     );
   }
@@ -41,7 +46,7 @@ usePrivateSaunaList();
   return (
     <View style={styles.screen}>
       <FlatList
-        data={privateSaunaList}
+        data={massageAndBeautyList}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={{ padding: 12 }}
         refreshing={isRefetching}
@@ -51,7 +56,7 @@ usePrivateSaunaList();
              return (
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => navigation.navigate('saunaDetails', { data: item })}
+              onPress={() => navigation.navigate('massageAndBeautyDetails', { data: item })}
             >
               <View style={[styles.card, { backgroundColor: bgColor }]}>
                 
@@ -84,7 +89,7 @@ usePrivateSaunaList();
   );
 }
 
-export default PrivateSaunaListScreen
+export default MassageAndBeautyListScreen
 
 const styles = StyleSheet.create({
   screen: {

@@ -8,6 +8,8 @@ export type RootStackParamList = {
     wellnessDetails: { data: Wellness };
     saunaList: undefined;
     saunaDetails: { data: PrivateSauna };
+    massageAndBeautyList: undefined;
+    massageAndBeautyDetails: { data: MassageAndBeauty };
 };
 
 export type DrawerParamList = {
@@ -18,6 +20,7 @@ export type DrawerParamList = {
     favorites: undefined;
     settings: undefined;
     about: undefined;
+    beautyAndMassage: undefined;
 };
 
 export type RootStackNavProps< T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;
