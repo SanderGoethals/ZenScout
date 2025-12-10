@@ -2,13 +2,15 @@ import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { DrawerParamList } from './types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useAppSelector } from '../hooks/reduxHooks';
 
 import ProfileScreen from '../screens/dashboard/ProfileScreen';
 import AboutScreen from '../screens/dashboard/AboutScreen';
 import SettingsScreen from '../screens/dashboard/SettingsScreen';
-import WellnessListScreen from '../screens/wellness/WellnessListScreen';
 import FavoritesScreen from '../screens/dashboard/FavoritesScreen';
-import { useAppSelector } from '../hooks/reduxHooks';
+
+import WellnessListScreen from '../screens/wellness/WellnessListScreen';
+import PrivateSaunaListScreen from '../screens/privateSauna/PrivateSaunaListScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 
@@ -36,6 +38,16 @@ const DrawerNavigator = () => {
             <Drawer.Screen name="home" component={WellnessListScreen} options={{ title: "Home",   
                 drawerIcon: ({color, size}) => (
                     <MaterialCommunityIcons name="home" color={color} size={size} />
+                )
+            }} />
+            <Drawer.Screen name="wellness" component={WellnessListScreen} options={{ title: "Wellness",    
+                drawerIcon: ({color, size}) => (
+                    <MaterialCommunityIcons name="spa" color={color} size={size} />
+                )
+            }} />
+            <Drawer.Screen name="privateSauna" component={PrivateSaunaListScreen} options={{ title: "Private Sauna", 
+                drawerIcon: ({color, size}) => (
+                    <MaterialCommunityIcons name="hot-tub" color={color} size={size} />
                 )
             }} />
             <Drawer.Screen name="profile" component={ProfileScreen} options={{ title: "Profiel" ,

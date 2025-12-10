@@ -15,12 +15,11 @@ interface Wellness {
   }[];
   address: string;
   contact: {
-    phone: string;
     site: string;
     socials: {
       facebook: string;
       instagram: string;
     };
   };
-  score: string;
+  score: string | null;
 }

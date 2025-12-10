@@ -3,13 +3,17 @@ import { DrawerScreenProps } from "@react-navigation/drawer"
 
 
 export type RootStackParamList = {
+    menu: undefined;
     wellnessList: undefined;
     wellnessDetails: { data: Wellness };
-    menu: undefined;
+    saunaList: undefined;
+    saunaDetails: { data: PrivateSauna };
 };
 
 export type DrawerParamList = {
     home: undefined;
+    wellness: undefined;
+    privateSauna: undefined;
     profile: undefined;
     favorites: undefined;
     settings: undefined;
