@@ -6,10 +6,12 @@ export type RootStackParamList = {
     menu: undefined;
     wellnessList: undefined;
     wellnessDetails: { data: Wellness };
-    saunaList: undefined;
-    saunaDetails: { data: PrivateSauna };
+    privateSaunaList: undefined;
+    privateSaunaDetails: { data: PrivateSauna };
     massageAndBeautyList: undefined;
     massageAndBeautyDetails: { data: MassageAndBeauty };
+    publicSaunaList: undefined;
+    publicSaunaDetails: { data: PublicSauna };
 };
 
 export type DrawerParamList = {
@@ -21,6 +23,7 @@ export type DrawerParamList = {
     settings: undefined;
     about: undefined;
     beautyAndMassage: undefined;
+    publicSauna: undefined;
 };
 
 export type RootStackNavProps< T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;

@@ -51,7 +51,7 @@ usePrivateSaunaList();
              return (
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => navigation.navigate('saunaDetails', { data: item })}
+              onPress={() => navigation.navigate('privateSaunaDetails', { data: item })}
             >
               <View style={[styles.card, { backgroundColor: bgColor }]}>
                 

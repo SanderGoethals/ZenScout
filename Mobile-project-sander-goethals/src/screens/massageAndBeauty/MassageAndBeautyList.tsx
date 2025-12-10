@@ -9,15 +9,9 @@ import { useAppSelector } from '../../hooks/reduxHooks';
 
 import { useNavigation } from '@react-navigation/native';
 
-const EVEN_COLOR   = '#E7C7BF';
-const ODD_COLOR    = '#D3A89F';
-const LOADER_COLOR = '#8F5D57';
-
-
-
-
-
-
+const EVEN_COLOR   = '#F2DDD8'; 
+const ODD_COLOR    = '#E6C7BF'; 
+const LOADER_COLOR = '#B27C76'; 
 
 
 const MassageAndBeautyListScreen = () => {

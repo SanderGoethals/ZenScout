@@ -12,6 +12,7 @@ import FavoritesScreen from '../screens/dashboard/FavoritesScreen';
 import WellnessListScreen from '../screens/wellness/WellnessListScreen';
 import PrivateSaunaListScreen from '../screens/privateSauna/PrivateSaunaListScreen';
 import MassageAndBeautyListScreen from '../screens/massageAndBeauty/MassageAndBeautyList';
+import PublicSaunaListScreen from '../screens/publicSauna/PublicSaunaListScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 
@@ -46,18 +47,21 @@ const DrawerNavigator = () => {
                     <MaterialCommunityIcons name="spa" color={color} size={size} />
                 )
             }} />
-            <Drawer.Screen name="privateSauna" component={PrivateSaunaListScreen} options={{ title: "Privé Sauna", 
-                drawerIcon: ({color, size}) => (
-                    <MaterialCommunityIcons name="hot-tub" color={color} size={size} />
-                )
-            }} />
-
             <Drawer.Screen name="beautyAndMassage" component={MassageAndBeautyListScreen} options={{ title: "Massage & Beauty", 
                 drawerIcon: ({color, size}) => (
                     <MaterialCommunityIcons name="leaf" color={color} size={size} />
                 )
             }} />
-
+            <Drawer.Screen name="privateSauna" component={PrivateSaunaListScreen} options={{ title: "Privé Sauna", 
+                drawerIcon: ({color, size}) => (
+                    <MaterialCommunityIcons name="hot-tub" color={color} size={size} />
+                )
+            }} />
+            <Drawer.Screen name="publicSauna" component={PublicSaunaListScreen} options={{ title: "Publieke Sauna",
+                drawerIcon: ({color, size}) => (
+                    <MaterialCommunityIcons name="account-group" color={color} size={size} />
+                )
+            }} />            
             <Drawer.Screen name="profile" component={ProfileScreen} options={{ title: "Profiel" ,
                 drawerIcon: ({color, size}) => (
                     <MaterialCommunityIcons name="account-circle" color={color} size={size} />

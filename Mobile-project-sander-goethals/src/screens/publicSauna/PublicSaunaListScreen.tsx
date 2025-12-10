@@ -1,26 +1,26 @@
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
-import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-
+import { ActivityIndicator, StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native'
+import React from 'react'
+import TitleMarkup from '../../components/TitleMarkup';
 import ImageCarousel from '../../components/ImageCarousel';
 import RatingStars from '../../components/RatingStars';
-import TitleMarkup from '../../components/TitleMarkup';
-import { useWellnessList } from '../../hooks/useWellnessList';
-
-import { useAppSelector } from '../../hooks/reduxHooks'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useAppSelector } from '../../hooks/reduxHooks';
 
-const EVEN_COLOR   = '#E3ECE8'; 
-const ODD_COLOR    = '#C7DAD0'; 
-const LOADER_COLOR = '#E6C5AF'; 
+import { useNavigation } from '@react-navigation/native';
+import { usePublicSaunaList } from '../../hooks/usePublicSaunaList';
 
 
-const WellnessListScreen = () => {
-  const navigation = useNavigation();
-  const favorites = useAppSelector((store) => store.favorites);
+const EVEN_COLOR = '#FFF7E6';
+const ODD_COLOR = '#FDECC8';
+const LOADER_COLOR = '#ADD8E6';
 
-  const { data: wellnessList, isLoading, isError, refetch, isRefetching } =
-    useWellnessList();
+
+const PublicSaunaListScreen = () => {
+const navigation = useNavigation();
+// const favorites = useAppSelector((store) => store.favorites);
+    
+const { data: publicSaunaList, isLoading, isError, refetch, isRefetching } =
+usePublicSaunaList();  
 
   if (isLoading) {
     return (
@@ -33,26 +33,25 @@ const WellnessListScreen = () => {
   if (isError) {
     return (
       <View style={styles.center}>
-        <TitleMarkup>Failed to load wellness list. Please try again.</TitleMarkup>
+        <TitleMarkup>Failed to load private sauna list. Please try again.</TitleMarkup>
       </View>
     );
   }
-
+  
   return (
     <View style={styles.screen}>
       <FlatList
-        data={wellnessList}
+        data={publicSaunaList}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={{ padding: 12 }}
         refreshing={isRefetching}
         onRefresh={refetch}
         renderItem={({ item, index }) => {
           const bgColor = index % 2 === 0 ? EVEN_COLOR : ODD_COLOR;
-
-          return (
+             return (
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => navigation.navigate('wellnessDetails', { data: item })}
+              onPress={() => navigation.navigate('publicSaunaDetails', { data: item })}
             >
               <View style={[styles.card, { backgroundColor: bgColor }]}>
                 
@@ -69,25 +68,23 @@ const WellnessListScreen = () => {
                 <View style={styles.imageWrapper}>
                 
                   {/* afbeelding */}
-                  <ImageCarousel images={item.images.slice(0, 3)} height={200} />
-                    
-                    {/* favorite icon */}
+                  <ImageCarousel images={item.detailImages.slice(0, 3)} height={200} />
+                    {/* favorite icon
                     <View style={styles.favoriteFloating}>
                       {favorites.some(f => f.id === item.id) && (
                         <MaterialCommunityIcons name="heart" color="#E0245E" size={34} />
                       )}
-                    </View>  
+                    </View>   */}
                 </View>              
               </View>
             </TouchableOpacity>
           );
-        }}
-      />
+}}      />
     </View>
   );
-};
+}
 
-export default WellnessListScreen;
+export default PublicSaunaListScreen
 
 const styles = StyleSheet.create({
   screen: {

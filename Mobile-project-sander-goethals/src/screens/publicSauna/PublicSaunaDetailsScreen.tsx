@@ -4,19 +4,20 @@ import { RootStackNavProps } from '../../navigators/types';
 import { useRoute } from '@react-navigation/native';
 import ImageCarousel from '../../components/ImageCarousel';
 
-
-const PrivateSaunaDetailsScreen = () => {
+const PublicSaunaDetails = () => {
     const {
       params: { data },
-    } = useRoute<RootStackNavProps<"privateSaunaDetails">['route']>();
+    } = useRoute<RootStackNavProps<"publicSaunaDetails">['route']>();
+
   return (
     <View>
-        <Text>PrivateSaunaDetailsScreen {data.name}</Text>
-        <ImageCarousel images={data.detailImages} />
+      <Text>PublicSaunaDetails Screen - {data.name}</Text>
+      <ImageCarousel images={data.images} />
+      
     </View>
   )
 }
 
-export default PrivateSaunaDetailsScreen
+export default PublicSaunaDetails
 
 const styles = StyleSheet.create({})

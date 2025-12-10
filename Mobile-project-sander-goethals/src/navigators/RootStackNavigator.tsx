@@ -8,6 +8,8 @@ import MassageAndBeautyListScreen from '../screens/massageAndBeauty/MassageAndBe
 import MassageAndBeautyDetailsScreen from '../screens/massageAndBeauty/MassageAndBeautyDetails'
 import { RootStackParamList } from './types'
 import DrawerNavigator from './DrawerNavigator'
+import PublicSaunaListScreen from '../screens/publicSauna/PublicSaunaListScreen'
+import PublicSaunaDetailsScreen from '../screens/publicSauna/PublicSaunaDetailsScreen'
 
 const RootStack = createStackNavigator<RootStackParamList>()
 
@@ -23,12 +25,18 @@ const RootStackNavigator = () => {
     }
     >
       <RootStack.Screen name="menu" component={DrawerNavigator} options={{ headerShown: false }}/>
+      
       <RootStack.Screen name="wellnessList" component={WellnessListScreen} options={{title: "Beschikbare wellness"}}/>
       <RootStack.Screen name="wellnessDetails" component={WellnessDetailsScreen} options={{title: "Boek een Wellness"}} />
-      <RootStack.Screen name="saunaList" component={PrivateSaunaListScreen} options={{title: "Beschikbare privé sauna's"}}/>
-      <RootStack.Screen name="saunaDetails" component={PrivateSaunaDetailsScreen} options={{title: "Boek een privé sauna"}} />
+      
+      <RootStack.Screen name="privateSaunaList" component={PrivateSaunaListScreen} options={{title: "Beschikbare privé sauna's"}}/>
+      <RootStack.Screen name="privateSaunaDetails" component={PrivateSaunaDetailsScreen} options={{title: "Boek een privé sauna"}} />
+      
       <RootStack.Screen name="massageAndBeautyList" component={MassageAndBeautyListScreen} options={{title: "Beschikbare massage & beauty"}}/>
       <RootStack.Screen name="massageAndBeautyDetails" component={MassageAndBeautyDetailsScreen} options={{title: "Boek een massage & beauty"}} />
+      
+      <RootStack.Screen name="publicSaunaList" component={PublicSaunaListScreen} options={{title: "Beschikbare publieke sauna's"}}/>
+      <RootStack.Screen name="publicSaunaDetails" component={PublicSaunaDetailsScreen} options={{title: "Boek een publieke sauna"}} />
     </RootStack.Navigator>
   )
 }

@@ -11,9 +11,8 @@ import SocialIconProps from '../../components/SocialsIcon';
 import { toggle } from '../../store/favorites/slice';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 
-const EVEN_COLOR = '#C8DAD3';
-const ODD_COLOR = '#A3C1AD';
-
+const EVEN_COLOR   = '#E3ECE8'; 
+const ODD_COLOR    = '#C7DAD0'; 
 
 const WellnessDetailsScreen = () => {
   const dispatch = useAppDispatch();
