@@ -36,7 +36,7 @@ const WellnessDetailsScreen = () => {
 
     {/* Image Carousel */}
       {data.images?.length > 0 && (
-        <ImageCarousel images={data.images} height={250} />
+        <ImageCarousel images={data.detailImages} height={250} />
       )}
 
     {/* Aanbiedingstitel */}

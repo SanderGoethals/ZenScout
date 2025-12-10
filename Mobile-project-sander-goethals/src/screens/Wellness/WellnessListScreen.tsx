@@ -69,7 +69,7 @@ const WellnessListScreen = () => {
                 <View style={styles.imageWrapper}>
                 
                   {/* afbeelding */}
-                  <ImageCarousel images={item.images.slice(0, 3)} height={200} />
+                  <ImageCarousel images={item.detailImages.slice(0, 3)} height={200} />
                     
                     {/* favorite icon */}
                     <View style={styles.favoriteFloating}>
