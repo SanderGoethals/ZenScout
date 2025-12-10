@@ -1,24 +1,14 @@
-import React, { ReactNode } from 'react';
+import React, { FC } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import ImageCarousel from './ImageCarousel';
 import RatingStars from './RatingStars';
 import TitleMarkup from './TitleMarkup';
+import { CardProps } from './types';
 
-type Props = {
-  item: SpaBase;
-  index: number;
-  isFavorite: boolean;
-  onPress: (item: SpaBase) => void;
-  evenColor: string;
-  oddColor: string;
 
-  /** Extra content onderaan de card */
-  children?: ReactNode;
-};
-
-const SpaListCard = ({
+const SpaListCard: FC<CardProps> = ({
   item,
   index,
   isFavorite,
@@ -26,7 +16,7 @@ const SpaListCard = ({
   evenColor,
   oddColor,
   children,
-}: Props) => {
+}: CardProps) => {
   const bgColor = index % 2 === 0 ? evenColor : oddColor;
 
   return (

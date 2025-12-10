@@ -6,9 +6,10 @@ import TitleMarkup from '../../components/TitleMarkup';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { usePrivateSaunaList } from '../../hooks/usePrivateSaunaList';
 
-const EVEN_COLOR = '#FFF7E6';
-const ODD_COLOR = '#FDECC8';
-const LOADER_COLOR = '#ADD8E6';
+const EVEN_COLOR   = '#DCE9F2'; 
+const ODD_COLOR    = '#C4D7E6'; 
+const LOADER_COLOR = '#7FA9C9'; 
+
 
 const PrivateSaunaListScreen = () => {
   const navigation = useNavigation();
@@ -29,7 +30,7 @@ const PrivateSaunaListScreen = () => {
     return (
       <View style={styles.center}>
         <TitleMarkup>
-          Wellneslijst kon niet geladen worden.
+          Private sauna lijst kon niet geladen worden.
         </TitleMarkup>
       </View>
     );

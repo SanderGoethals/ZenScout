@@ -6,8 +6,8 @@ import SpaDetailsView from '../../components/SpaDetailsView';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { toggle } from '../../store/favorites/slice';
 
-const EVEN_COLOR = '#E3ECE8';
-const ODD_COLOR  = '#C7DAD0';
+const EVEN_COLOR   = '#DCEFE2'; 
+const ODD_COLOR    = '#C6E3D1'; 
 
 const WellnessDetailsScreen = () => {
   const dispatch = useAppDispatch();

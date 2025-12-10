@@ -29,7 +29,7 @@ const MassageAndBeautyListScreen = () => {
     return (
       <View style={styles.center}>
         <TitleMarkup>
-          Wellneslijst kon niet geladen worden.
+          Massage & beauty lijst kon niet geladen worden.
         </TitleMarkup>
       </View>
     );

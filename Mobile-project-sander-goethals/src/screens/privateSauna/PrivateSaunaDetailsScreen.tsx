@@ -6,9 +6,10 @@ import SpaDetailsView from '../../components/SpaDetailsView';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { toggle } from '../../store/favorites/slice';
 
-const EVEN_COLOR = '#FFF7E6';
-const ODD_COLOR = '#FDECC8';
-const LOADER_COLOR = '#ADD8E6';
+const EVEN_COLOR   = '#DCE9F2'; 
+const ODD_COLOR    = '#C4D7E6'; 
+const LOADER_COLOR = '#7FA9C9'; 
+
 
 const PrivateSaunaDetailsScreen = () => {
   const dispatch = useAppDispatch();

@@ -6,9 +6,9 @@ import TitleMarkup from '../../components/TitleMarkup';
 import { useWellnessList } from '../../hooks/useWellnessList';
 import { useAppSelector } from '../../hooks/reduxHooks';
 
-const EVEN_COLOR   = '#E3ECE8'; 
-const ODD_COLOR    = '#C7DAD0'; 
-const LOADER_COLOR = '#E6C5AF'; 
+const EVEN_COLOR   = '#DCEFE2'; 
+const ODD_COLOR    = '#C6E3D1'; 
+const LOADER_COLOR = '#7FC3A0'; 
 
 const SpaListScreen = () => {
   const navigation = useNavigation();

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -6,24 +6,16 @@ import ImageCarousel from './ImageCarousel';
 import RatingStars from './RatingStars';
 import TitleMarkup from './TitleMarkup';
 import SocialIconProps from './SocialsIcon';
+import { DetailProps } from './types';
 
-type Props = {
-  data: SpaBase;
-  isFavorite: boolean;
 
-  onToggleFavorite: (item: SpaBase) => void;
-
-  evenColor: string;
-  oddColor: string;
-};
-
-const SpaDetailsView = ({
+const SpaDetailsView: FC<DetailProps> = ({
   data,
   isFavorite,
   onToggleFavorite,
   evenColor,
   oddColor,
-}: Props) => {
+}: DetailProps) => {
   return (
     <ScrollView style={{ backgroundColor: evenColor }}>
 

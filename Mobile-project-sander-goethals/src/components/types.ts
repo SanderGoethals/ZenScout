@@ -16,3 +16,21 @@ export interface ImageCarouselProps {
   images: { src: string; alt?: string }[];
   height?: number;
 }
+
+export interface DetailProps {
+  data: any;                       
+  isFavorite: boolean;             
+  onToggleFavorite: (item: any) => void; 
+  evenColor: string;               
+  oddColor: string;                
+}
+
+export interface CardProps {
+  item: any;                        
+  index: number;                    
+  isFavorite: boolean;              
+  onPress: (item: any) => void;     
+  evenColor: string;                
+  oddColor: string;                 
+  children?: React.ReactNode;       
+}
