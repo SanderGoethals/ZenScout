@@ -6,7 +6,7 @@ export const usePublicSaunaList = () => {
   return useQuery({
     queryKey: ["public-sauna-list"],
     queryFn: async () => {
-      const { data } = await api.get<PublicSauna[]>("/publieke-sauna.json");
+      const { data } = await api.get<SpaBase[]>("/publieke-sauna.json");
       return data;
     },
     staleTime: 1000 * 60 * 5,

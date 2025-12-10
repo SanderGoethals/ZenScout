@@ -37,6 +37,7 @@ const RootStackNavigator = () => {
       
       <RootStack.Screen name="publicSaunaList" component={PublicSaunaListScreen} options={{title: "Beschikbare publieke sauna's"}}/>
       <RootStack.Screen name="publicSaunaDetails" component={PublicSaunaDetailsScreen} options={{title: "Boek een publieke sauna"}} />
+
     </RootStack.Navigator>
   )
 }

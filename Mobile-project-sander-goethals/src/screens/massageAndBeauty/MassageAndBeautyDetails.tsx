@@ -1,22 +1,34 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React from 'react';
 import { useRoute } from '@react-navigation/native';
-import { RootStackNavProps } from '../../navigators/types';
-import ImageCarousel from '../../components/ImageCarousel';
 
-const MassageAndBeautyDetails = () => {
-      const {
-        params: { data },
-      } = useRoute<RootStackNavProps<"massageAndBeautyDetails">['route']>();
+import { RootStackNavProps } from '../../navigators/types';
+import SpaDetailsView from '../../components/SpaDetailsView';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import { toggle } from '../../store/favorites/slice';
+
+const EVEN_COLOR   = '#F2DDD8'; 
+const ODD_COLOR    = '#E6C7BF'; 
+
+const MassageAndBeautyDetailsScreen = () => {
+  const dispatch = useAppDispatch();
+  const favorites = useAppSelector(state => state.favorites);
+
+  const {
+    params: { data },
+  } =
+    useRoute<
+      RootStackNavProps<'wellnessDetails'>['route']
+    >();
 
   return (
-    <View>
-        <Text>MassageAndBeautyDetails {data.name}</Text>
-        <ImageCarousel images={data.detailImages} />
-    </View>
-  )
-}
+    <SpaDetailsView
+      data={data}
+      isFavorite={favorites.some(f => f.id === data.id)}
+      onToggleFavorite={(item) => dispatch(toggle(item))}
+      evenColor={EVEN_COLOR}
+      oddColor={ODD_COLOR}
+    />
+  );
+};
 
-export default MassageAndBeautyDetails
-
-const styles = StyleSheet.create({})
+export default MassageAndBeautyDetailsScreen;

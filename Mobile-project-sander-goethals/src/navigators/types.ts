@@ -5,13 +5,14 @@ import { DrawerScreenProps } from "@react-navigation/drawer"
 export type RootStackParamList = {
     menu: undefined;
     wellnessList: undefined;
-    wellnessDetails: { data: Wellness };
+    wellnessDetails: { data: SpaBase };
     privateSaunaList: undefined;
-    privateSaunaDetails: { data: PrivateSauna };
+    privateSaunaDetails: { data: SpaBase };
     massageAndBeautyList: undefined;
-    massageAndBeautyDetails: { data: MassageAndBeauty };
+    massageAndBeautyDetails: { data: SpaBase };
     publicSaunaList: undefined;
-    publicSaunaDetails: { data: PublicSauna };
+    publicSaunaDetails: { data: SpaBase };
+    spaList: undefined;
 };
 
 export type DrawerParamList = {
@@ -24,6 +25,7 @@ export type DrawerParamList = {
     about: undefined;
     beautyAndMassage: undefined;
     publicSauna: undefined;
+    spa: undefined;
 };
 
 export type RootStackNavProps< T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;

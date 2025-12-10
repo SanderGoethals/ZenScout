@@ -1,4 +1,4 @@
-interface MassageAndBeauty {
+interface SpaBase {
   id: string;
   name: string;
   location: string;

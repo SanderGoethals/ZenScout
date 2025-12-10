@@ -5,7 +5,7 @@ export const useWellnessList = () => {
   return useQuery({
     queryKey: ["wellness-list"],
     queryFn: async () => {
-      const { data } = await api.get<Wellness[]>("/wellness.json");
+      const { data } = await api.get<SpaBase[]>("/wellness.json");
       return data;
     },
     staleTime: 1000 * 60 * 5,

@@ -5,7 +5,7 @@ export const usePrivateSaunaList = () => {
   return useQuery({
     queryKey: ["sauna-list"],
     queryFn: async () => {
-      const { data } = await api.get<PrivateSauna[]>("/prive-sauna.json");
+      const { data } = await api.get<SpaBase[]>("/prive-sauna.json");
       return data;
     },
     staleTime: 1000 * 60 * 5,
