@@ -11,6 +11,9 @@ import SocialIconProps from '../../components/SocialsIcon';
 import { toggle } from '../../store/favorites/slice';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 
+const EVEN_COLOR = '#C8DAD3';
+const ODD_COLOR = '#A3C1AD';
+
 
 const WellnessDetailsScreen = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +24,7 @@ const WellnessDetailsScreen = () => {
   } = useRoute<RootStackNavProps<"wellnessDetails">['route']>();
   
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: EVEN_COLOR}}>
 
     {/* Naam */}
     <TitleMarkup>{data.name}</TitleMarkup>
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#FDECC8",
+    backgroundColor: ODD_COLOR,
     padding: 10,
     marginTop: 10,
     borderRadius: 8,
@@ -141,7 +144,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   descriptionContainer: {
-    backgroundColor: "#FFF7E6",
+    backgroundColor: ODD_COLOR,
     padding: 16,
     borderRadius: 12,
     marginTop: 16,
@@ -156,7 +159,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 5,
-    backgroundColor: "#FDECC8",
+    backgroundColor: EVEN_COLOR,
     borderRadius: 999,
   },
 })

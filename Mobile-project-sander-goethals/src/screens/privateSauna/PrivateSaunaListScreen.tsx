@@ -65,11 +65,10 @@ usePrivateSaunaList();
                 <Text style={styles.location}>{item.location}</Text>
 
                 {/* afbeelding met favorite button */}  
-                {/* <View style={styles.imageWrapper}> */}
+                <View style={styles.imageWrapper}>
                 
                   {/* afbeelding */}
-                  <ImageCarousel images={item.images.slice(0, 3)} height={200} />
-                    
+                  <ImageCarousel images={item.detailImages.slice(0, 3)} height={200} />
                     {/* favorite icon
                     <View style={styles.favoriteFloating}>
                       {favorites.some(f => f.id === item.id) && (
@@ -77,7 +76,7 @@ usePrivateSaunaList();
                       )}
                     </View>   */}
                 </View>              
-              {/* </View> */}
+              </View>
             </TouchableOpacity>
           );
 }}      />

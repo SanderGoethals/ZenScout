@@ -8,8 +8,8 @@ import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { toggle } from '../../store/favorites/slice';
 
-const EVEN_COLOR = '#FFF7E6';
-const ODD_COLOR = '#FDECC8';
+const EVEN_COLOR = '#C8DAD3';
+const ODD_COLOR = '#A3C1AD';
 
 const FavoritesScreen = () => {
   const navigation = useNavigation();
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 20,
-    fontWeight: '600',
+    fontWeight: "bold",
   },
 
   imageWrapper: {
