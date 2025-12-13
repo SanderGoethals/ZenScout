@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, ActivityIndicator,} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import SpaListCard from '../../components/SpaListCard';
+import {SpaListCard} from '../../components/SpaListCard';
 import TitleMarkup from '../../components/TitleMarkup';
 import { useWellnessList } from '../../hooks/useWellnessList';
 import { useAppSelector } from '../../hooks/reduxHooks';
@@ -45,7 +45,7 @@ const SpaListScreen = () => {
         onRefresh={refetch}
         renderItem={({ item, index }) => (
           <SpaListCard
-            item={item}
+            data={item}
             index={index}
             evenColor={EVEN_COLOR}
             oddColor={ODD_COLOR}

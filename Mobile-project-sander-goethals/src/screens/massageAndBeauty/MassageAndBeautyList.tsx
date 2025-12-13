@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, ActivityIndicator,} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import SpaListCard from '../../components/SpaListCard';
+import {SpaListCard} from '../../components/SpaListCard';
 import TitleMarkup from '../../components/TitleMarkup';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { useMassageAndBeautyList } from '../../hooks/useMassageAndBeautyList';
+import { RatingDetailsView } from '../../components/RatingDetailsView';
+import { DrawerItem } from '@react-navigation/drawer';
 
 const EVEN_COLOR   = '#F2DDD8'; 
 const ODD_COLOR    = '#E6C7BF'; 
@@ -29,7 +31,7 @@ const MassageAndBeautyListScreen = () => {
     return (
       <View style={styles.center}>
         <TitleMarkup>
-          Massage & beauty lijst kon niet geladen worden.
+          Massage & Beauty lijst kon niet geladen worden.
         </TitleMarkup>
       </View>
     );
@@ -45,26 +47,14 @@ const MassageAndBeautyListScreen = () => {
         onRefresh={refetch}
         renderItem={({ item, index }) => (
           <SpaListCard
-            item={item}
+            data={item}
             index={index}
             evenColor={EVEN_COLOR}
             oddColor={ODD_COLOR}
             isFavorite={favorites.some(f => f.id === item.id)}
             onPress={(spa) =>
               navigation.navigate('massageAndBeautyDetails', { data: spa })
-            }
-          >
-            {/* <Text style={styles.offerTitle}>
-              {item.offerTitle}
-            </Text>
-
-            <Text style={styles.offerDuration}>
-              {item.offerDuration}
-            </Text>
-
-            <Text style={styles.price}>
-              {item.price}
-            </Text> */}
+            }>
           </SpaListCard>
         )}
       />

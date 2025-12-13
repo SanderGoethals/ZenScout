@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, } from 'react-native';
+import React, { FC, useRef, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Dimensions, Pressable, } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import ImageCarousel from './ImageCarousel';
@@ -7,32 +7,67 @@ import RatingStars from './RatingStars';
 import TitleMarkup from './TitleMarkup';
 import SocialIconProps from './SocialsIcon';
 import { DetailProps } from './types';
+import { RatingDetailsView } from './RatingDetailsView';
 
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
-const SpaDetailsView: FC<DetailProps> = ({
-  data,
+export const SpaDetailsView: FC<DetailProps> = ({
+  data: item,
   isFavorite,
   onToggleFavorite,
   evenColor,
   oddColor,
+  ratingDetails,
 }: DetailProps) => {
+
+  const [showRatings, setShowRatings] = useState(false);
+
+  const slideAnim = useRef(
+    new Animated.Value(SCREEN_HEIGHT)
+  ).current;
+
+    const openRatings = () => {
+    setShowRatings(true);
+    Animated.timing(slideAnim, {
+      toValue: SCREEN_HEIGHT / 2,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const closeRatings = () => {
+    Animated.timing(slideAnim, {
+      toValue: SCREEN_HEIGHT,
+      duration: 250,
+      useNativeDriver: false,
+    }).start(() => setShowRatings(false));
+  };
+
   return (
     <ScrollView style={{ backgroundColor: evenColor }}>
 
       {/* Naam */}
-      <TitleMarkup>{data.name}</TitleMarkup>
+      <TitleMarkup>{item.name}</TitleMarkup>
 
-      {/* Score */}
-      <View style={styles.scoreContainer}>
-        <RatingStars score={Number(data.score)} size={40} />
-        <TitleMarkup style={styles.scoreText}>
-          {data.score}/10
-        </TitleMarkup>
-      </View>
+      {/* Score (touchable) */}
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={openRatings}
+      >
+        <View style={styles.scoreContainer}>
+          <RatingStars score={Number(item.score)} size={40} />
+          <TitleMarkup style={styles.scoreText}>
+            {item.score}
+            
+          </TitleMarkup>
+            <Text style={styles.maxScore}>/10</Text>
+        </View>
+      </TouchableOpacity>
+
 
       {/* Afbeeldingen */}
-      {data.images?.length > 0 && (
-        <ImageCarousel images={data.detailImages} height={250} />
+      {item.images?.length > 0 && (
+        <ImageCarousel images={item.detailImages} height={250} />
       )}
 
       {/* Aanbiedingstitel */}
@@ -43,7 +78,7 @@ const SpaDetailsView: FC<DetailProps> = ({
           color="#F2B8C6"
         />
         <TitleMarkup style={styles.iconText}>
-          {data.offerTitle}
+          {item.offerTitle}
         </TitleMarkup>
       </View>
 
@@ -55,7 +90,7 @@ const SpaDetailsView: FC<DetailProps> = ({
           color="red"
         />
         <TitleMarkup style={styles.iconText}>
-          {data.address}
+          {item.address}
         </TitleMarkup>
       </View>
 
@@ -63,45 +98,45 @@ const SpaDetailsView: FC<DetailProps> = ({
       <View style={styles.groupContainer}>
         <View style={[styles.detailsItem, { backgroundColor: oddColor }]}>
           <TitleMarkup style={styles.detailText}>
-            {data.price}
+            {item.price}
           </TitleMarkup>
         </View>
 
         <View style={[styles.detailsItem, { backgroundColor: oddColor }]}>
           <TitleMarkup style={styles.detailText}>
-            {data.category}
+            {item.category}
           </TitleMarkup>
         </View>
       </View>
 
       {/* Socials + favorite */}
       <View style={styles.socialRow}>
-        {data.contact.site && (
+        {item.contact.site && (
           <SocialIconProps
             name="web"
             color="#555"
-            url={data.contact.site}
+            url={item.contact.site}
           />
         )}
 
-        {data.contact.socials.facebook && (
+        {item.contact.socials.facebook && (
           <SocialIconProps
             name="facebook"
             color="#4267B2"
-            url={data.contact.socials.facebook}
+            url={item.contact.socials.facebook}
           />
         )}
 
-        {data.contact.socials.instagram && (
+        {item.contact.socials.instagram && (
           <SocialIconProps
             name="instagram"
             color="#E1306C"
-            url={data.contact.socials.instagram}
+            url={item.contact.socials.instagram}
           />
         )}
 
         <TouchableOpacity
-          onPress={() => onToggleFavorite(data)}
+          onPress={() => onToggleFavorite(item)}
         >
           <MaterialCommunityIcons
             style={[
@@ -124,18 +159,42 @@ const SpaDetailsView: FC<DetailProps> = ({
         style={[
           styles.descriptionContainer,
           { backgroundColor: oddColor },
-        ]}
-      >
+        ]}>
+
         <TitleMarkup style={styles.descriptionText}>
-          {data.description}
+          {item.description}
         </TitleMarkup>
       </View>
-
+      
+      {showRatings && (
+    <>
+      {/* Overlay */}
+      <Pressable
+        style={styles.overlay}
+        onPress={closeRatings}
+      />
+  
+      {/* Sliding panel */}
+      <Animated.View
+        style={[
+          styles.ratingSheet,
+          { top: slideAnim },
+        ]}
+      >
+        <View style={styles.sheetHandle} />
+  
+        <RatingDetailsView
+          data={item}
+          evenColor={evenColor}
+          oddColor={oddColor}
+        />
+      </Animated.View>
+    </>
+  )}
     </ScrollView>
-  );
+    );
 };
 
-export default SpaDetailsView;
 
 const styles = StyleSheet.create({
   scoreContainer: {
@@ -188,5 +247,39 @@ const styles = StyleSheet.create({
   favoriteButton: {
     borderRadius: 999,
     elevation: 5,
+  },
+  overlay: {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(0,0,0,0.35)',
+},
+
+ratingSheet: {
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  height: SCREEN_HEIGHT / 2,
+  backgroundColor: '#FFF',
+  borderTopLeftRadius: 24,
+  borderTopRightRadius: 24,
+  padding: 16,
+  elevation: 20,
+},
+
+sheetHandle: {
+  width: 48,
+  height: 5,
+  borderRadius: 3,
+  backgroundColor: '#D1D5DB',
+  alignSelf: 'center',
+  marginBottom: 12,
+},
+  maxScore: {
+    fontSize: 18,
+    marginLeft: 2,
+    color: '#6B7280',
   },
 });

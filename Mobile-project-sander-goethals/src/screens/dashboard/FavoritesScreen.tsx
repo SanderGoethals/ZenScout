@@ -41,13 +41,15 @@ const FavoritesScreen = () => {
                 {/* titel */}
                 <TitleMarkup style={styles.title}>{item.name}</TitleMarkup>
                 
-                {/* rating */}
-                <RatingStars score={Number(item.score)} size={30} />
-                
                 {/* afbeelding met favorite button */}  
                 <View style={styles.imageWrapper}>
                 {/* afbeelding */}
                   <ImageCarousel images={item.images.slice(0, 3)} height={200} />
+
+                  {/* Rating floating */}
+                      <View style={styles.ratingFloating}>
+                        <RatingStars score={Number(item.score)} size={24} />
+                      </View>
 
                   {/* favorite button */}
                     <TouchableOpacity 
@@ -107,4 +109,13 @@ const styles = StyleSheet.create({
     elevation: 0,
     shadowColor: "transparent",
   },
+    ratingFloating: {
+  position: "absolute",
+  top: 12,
+  left: 6,
+  paddingHorizontal: 8,
+  paddingVertical: 4,
+  borderRadius: 8,
+  zIndex: 2,
+},
 });

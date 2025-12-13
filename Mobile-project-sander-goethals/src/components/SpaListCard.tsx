@@ -8,8 +8,8 @@ import TitleMarkup from './TitleMarkup';
 import { CardProps } from './types';
 
 
-const SpaListCard: FC<CardProps> = ({
-  item,
+export const SpaListCard: FC<CardProps> = ({
+  data: item,
   index,
   isFavorite,
   onPress,
@@ -26,13 +26,10 @@ const SpaListCard: FC<CardProps> = ({
         {/* Titel */}
         <TitleMarkup style={styles.title}>{item.name}</TitleMarkup>
 
-        {/* Rating */}
-        <RatingStars score={Number(item.score)} size={30} />
-
+        {/* Rating
+        <RatingStars score={Number(item.score)} size={30} /> */}
+        
         {/* Locatie */}
-        <Text style={styles.location}>
-          {item.city}, {item.province}
-        </Text>
 
         {/* Afbeeldingen + favorite */}
         <View style={styles.imageWrapper}>
@@ -41,12 +38,29 @@ const SpaListCard: FC<CardProps> = ({
             height={200}
           />
 
+          {/* Rating floating */}
+            <View style={styles.ratingFloating}>
+              <RatingStars score={Number(item.score)} size={24} />
+            </View>
+
           {isFavorite && (
             <View style={styles.favoriteFloating}>
               <MaterialCommunityIcons name="heart" color="#E0245E" size={34} />
             </View>
           )}
         </View>
+
+          <View style={styles.locationRow}>
+            <MaterialCommunityIcons name="map-marker" size={20} color="#6B7280" />
+              <TitleMarkup style={styles.location}>
+                {item.city}, {item.province}
+              </TitleMarkup>
+
+          </View>
+        {/* Beschrijving KORT */}
+          {/* <Text style={ styles.title} numberOfLines={2} ellipsizeMode="tail" >
+            {item.description}
+          </Text> */}
 
         {/* Slot voor uitbreidingen */}
         {children && <View>{children}</View>}
@@ -93,6 +107,19 @@ const styles = StyleSheet.create({
   elevation: 0,
   shadowColor: "transparent",
 },
- });
+ locationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  ratingFloating: {
+  position: "absolute",
+  top: 12,
+  left: 6,
+  paddingHorizontal: 8,
+  paddingVertical: 4,
+  borderRadius: 8,
+  zIndex: 2,
+},
 
-export default SpaListCard;
+ });

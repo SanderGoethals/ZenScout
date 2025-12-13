@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { RatingStarsProps } from "./types";
 

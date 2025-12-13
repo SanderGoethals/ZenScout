@@ -2,7 +2,7 @@ import React from 'react';
 import { useRoute } from '@react-navigation/native';
 
 import { RootStackNavProps } from '../../navigators/types';
-import SpaDetailsView from '../../components/SpaDetailsView';
+import {SpaDetailsView} from '../../components/SpaDetailsView';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { toggle } from '../../store/favorites/slice';
 
