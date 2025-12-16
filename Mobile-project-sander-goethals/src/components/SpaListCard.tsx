@@ -26,11 +26,6 @@ export const SpaListCard: FC<CardProps> = ({
         {/* Titel */}
         <TitleMarkup style={styles.title}>{item.name}</TitleMarkup>
 
-        {/* Rating
-        <RatingStars score={Number(item.score)} size={30} /> */}
-        
-        {/* Locatie */}
-
         {/* Afbeeldingen + favorite */}
         <View style={styles.imageWrapper}>
           <ImageCarousel
@@ -48,19 +43,19 @@ export const SpaListCard: FC<CardProps> = ({
               <MaterialCommunityIcons name="heart" color="#E0245E" size={34} />
             </View>
           )}
-        </View>
 
           <View style={styles.locationRow}>
             <MaterialCommunityIcons name="map-marker" size={20} color="#6B7280" />
               <TitleMarkup style={styles.location}>
                 {item.city}, {item.province}
               </TitleMarkup>
+        </View>
 
           </View>
         {/* Beschrijving KORT */}
-          {/* <Text style={ styles.title} numberOfLines={2} ellipsizeMode="tail" >
+          <Text style={ styles.title} numberOfLines={2} ellipsizeMode="tail" >
             {item.description}
-          </Text> */}
+          </Text>
 
         {/* Slot voor uitbreidingen */}
         {children && <View>{children}</View>}

@@ -40,7 +40,10 @@ const SpaListScreen = () => {
       <FlatList
         data={spaList}
         keyExtractor={(item: SpaBase) => item.id}
-        contentContainerStyle={{ padding: 12 }}
+        contentContainerStyle={{ 
+          padding: 12,  
+          // backgroundColor: '#000000',
+        }}
         refreshing={isRefetching}
         onRefresh={refetch}
         renderItem={({ item, index }) => (
