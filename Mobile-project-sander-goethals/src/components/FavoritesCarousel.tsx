@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, StyleSheet, Dimensions } from 'react-native';
+import { FlatList, View, StyleSheet, Dimensions, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ImageCarousel from './ImageCarousel';
@@ -37,15 +37,19 @@ const FavoritesCarousel = ({ favorites }: Props) => {
 
         return (
           <TouchableOpacity
-            activeOpacity={0.85}
+            // activeOpacity={0.85}
             onPress={() => navigation.navigate('wellnessDetails', { data: item })}
             style={{ marginRight: 16 }}
           >
             <View style={[styles.card, { backgroundColor: bgColor }]}>
-              <TitleMarkup style={styles.title}>{item.name}</TitleMarkup>
+
+              <View style={styles.titleRow}>
+                <TitleMarkup style={styles.title}>{item.name}</TitleMarkup>
+                <TitleMarkup style={styles.category}>{item.category}</TitleMarkup>
+              </View>
 
               <View style={styles.imageWrapper}>
-                <ImageCarousel images={item.images.slice(0, 3)} height={180} />
+                <Image source={{uri: item.images[0].src}} style={{ width: '100%', height: 180, borderRadius: 10 }} />
 
                 <View style={styles.ratingFloating}>
                   <RatingStars score={Number(item.score)} size={22} />
@@ -83,6 +87,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
+    flexShrink: 1,
   },
   imageWrapper: {
     position: 'relative',
@@ -100,5 +105,16 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: 8,
     zIndex: 2,
+  },
+    titleRow: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    marginBottom: -8
+  },
+  category: {
+    fontSize: 14,
+    color: '#5F6F73',
+    marginLeft: 8,
   },
 });
