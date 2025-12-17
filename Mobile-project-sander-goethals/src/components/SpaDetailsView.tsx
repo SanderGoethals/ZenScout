@@ -340,11 +340,15 @@ priceOverlay: {
   right: 16,
 },
 priceText: {
-  fontSize: 28,
+  fontSize: 24,
   fontWeight: '700',
   color: '#FFFFFF',
   letterSpacing: 0.5,
+  textShadowColor: 'rgba(0, 0, 0, 0.8)',
+  textShadowOffset: { width: 0, height: 1 },
+  textShadowRadius: 2,
 },
+
 fullDescriptionContainer: {
   paddingHorizontal: 20,
   marginTop: 20,
