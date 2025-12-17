@@ -98,8 +98,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
         </View>
       )}
 
-
-      {/* Aanbiedingstitel */}
+      {/* Aanbieding */}
       <View style={styles.iconContainer}>
         <MaterialCommunityIcons
           name="spa"
@@ -123,22 +122,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
         </TitleMarkup>
       </View>
 
-      <View style={[styles.fullDescriptionContainer, { backgroundColor: oddColor }]}>
-        {descriptionParts.map((part: string, index: number) => (
-          <TitleMarkup
-            key={index}
-            style={[
-              index === 0
-                ? styles.fullDescriptionIntro
-                : styles.fullDescriptionParagraph,
-          ]}
-          >
-            {part.trim()}
-          </TitleMarkup>
-        ))}
-      </View>      
-
-      {/* Socials + favorite */}
+            {/* Socials + favorite */}
       {item.contact && (
         <View style={styles.socialRow}>
           {item.contact.site ? (
@@ -184,6 +168,23 @@ export const SpaDetailsView: FC<DetailProps> = ({
           </TouchableOpacity>
         </View>
       )}
+
+      {/* Volledige beschrijving */}
+      <View style={[styles.fullDescriptionContainer, { backgroundColor: oddColor }]}>
+        {descriptionParts.map((part: string, index: number) => (
+          <TitleMarkup
+            key={index}
+            style={[
+              index === 0
+                ? styles.fullDescriptionIntro
+                : styles.fullDescriptionParagraph,
+          ]}
+          >
+            {part.trim()}
+          </TitleMarkup>
+        ))}
+      </View>      
+
       {showRatings && (
     <>
       {/* Overlay */}
@@ -251,8 +252,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 40,
     gap: 20,
-    marginTop: 24,
-    marginBottom: 40,
+    marginBottom: -10,
   },
   favoriteButton: {
     borderRadius: 999,
@@ -321,13 +321,11 @@ imageWrapper: {
   position: 'relative',
   marginTop: 16,
 },
-
 priceOverlay: {
   position: 'absolute',
   bottom: 14,
   right: 16,
 },
-
 priceText: {
   fontSize: 28,
   fontWeight: '700',
