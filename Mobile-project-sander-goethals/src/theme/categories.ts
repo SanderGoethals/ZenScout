@@ -22,3 +22,4 @@ export const categoryColors = {
 } as const;
 
 export type CategoryKey = keyof typeof categoryColors;
+export type Variant = 'even' | 'odd' | 'loader';

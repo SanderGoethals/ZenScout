@@ -1,6 +1,5 @@
-import { categoryColors, CategoryKey } from './categories';
+import { categoryColors, CategoryKey, Variant } from './categories';
 
-type Variant = 'even' | 'odd' | 'loader';
 
 export const getCategoryColor = (
   category: CategoryKey,
