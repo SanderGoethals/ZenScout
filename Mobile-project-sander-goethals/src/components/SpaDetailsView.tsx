@@ -43,6 +43,10 @@ export const SpaDetailsView: FC<DetailProps> = ({
     }).start(() => setShowRatings(false));
   };
 
+  const descriptionParts = item.fullDescription
+  ? item.fullDescription.split(/\n\s*\n/)
+  : [];
+
   return (
     <ScrollView style={{ backgroundColor: evenColor }}>
 
@@ -67,6 +71,19 @@ export const SpaDetailsView: FC<DetailProps> = ({
             <Text style={styles.maxScore}>/10</Text>
         </View>
       </TouchableOpacity>
+
+      
+      {/* Beschrijving */}
+      <View
+        style={[
+          styles.descriptionContainer,
+          { backgroundColor: oddColor },
+        ]}>
+
+        <TitleMarkup style={styles.descriptionText} numberOfLines={2} ellipsizeMode="tail" >
+          {item.description}
+        </TitleMarkup>
+      </View>
 
       {/* Afbeeldingen met prijs-overlay */}
       {item.images?.length > 0 && (
@@ -106,78 +123,67 @@ export const SpaDetailsView: FC<DetailProps> = ({
         </TitleMarkup>
       </View>
 
-      {/* Prijs & categorie */}
-      {/* <View style={styles.groupContainer}>
-        <View style={[styles.detailsItem, { backgroundColor: oddColor }]}>
-          <TitleMarkup style={styles.detailText}>
-            {item.price}
+      <View style={[styles.fullDescriptionContainer, { backgroundColor: oddColor }]}>
+        {descriptionParts.map((part: string, index: number) => (
+          <TitleMarkup
+            key={index}
+            style={[
+              index === 0
+                ? styles.fullDescriptionIntro
+                : styles.fullDescriptionParagraph,
+          ]}
+          >
+            {part.trim()}
           </TitleMarkup>
-        </View>
-
-        <View style={[styles.detailsItem, { backgroundColor: oddColor }]}>
-          <TitleMarkup style={styles.detailText}>
-            {item.category}
-          </TitleMarkup>
-        </View>
-      </View> */}
+        ))}
+      </View>      
 
       {/* Socials + favorite */}
-      <View style={styles.socialRow}>
-        {item.contact.site && (
-          <SocialIconProps
-            name="web"
-            color="#555"
-            url={item.contact.site}
-          />
-        )}
+      {item.contact && (
+        <View style={styles.socialRow}>
+          {item.contact.site ? (
+            <SocialIconProps
+              name="web"
+              color="#555"
+              url={item.contact.site}
+            />
+          ) : null}
 
-        {item.contact.socials.facebook && (
-          <SocialIconProps
-            name="facebook"
-            color="#4267B2"
-            url={item.contact.socials.facebook}
-          />
-        )}
+          {item.contact.socials?.facebook ? (
+            <SocialIconProps
+              name="facebook"
+              color="#4267B2"
+              url={item.contact.socials.facebook}
+            />
+          ) : null}
 
-        {item.contact.socials.instagram && (
-          <SocialIconProps
-            name="instagram"
-            color="#E1306C"
-            url={item.contact.socials.instagram}
-          />
-        )}
+          {item.contact.socials?.instagram ? (
+            <SocialIconProps
+              name="instagram"
+              color="#E1306C"
+              url={item.contact.socials.instagram}
+            />
+          ) : null}
 
-        <TouchableOpacity
-          onPress={() => onToggleFavorite(item)}
-        >
-          <MaterialCommunityIcons
-            style={[
-              styles.favoriteButton,
-              { backgroundColor: evenColor },
-            ]}
-            name={
-              isFavorite
-                ? 'heart-circle'
-                : 'heart-circle-outline'
-            }
-            color={isFavorite ? '#E0245E' : '#D8A679'}
-            size={64}
-          />
-        </TouchableOpacity>
-      </View>
-
-      {/* Beschrijving */}
-      <View
-        style={[
-          styles.descriptionContainer,
-          { backgroundColor: oddColor },
-        ]}>
-
-        <TitleMarkup style={styles.descriptionText}>
-          {item.description}
-        </TitleMarkup>
-      </View>
-      
+          <TouchableOpacity
+            onPress={() => onToggleFavorite(item)}
+          >
+            <MaterialCommunityIcons
+              style={[
+                styles.favoriteButton,
+                { backgroundColor: evenColor },
+              ]}
+              name={
+                isFavorite
+                  ? 'heart-circle'
+                  : 'heart-circle-outline'
+              }
+              color={isFavorite ? '#E0245E' : '#D8A679'}
+              size={64}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
       {showRatings && (
     <>
       {/* Overlay */}
@@ -243,9 +249,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 50,
+    paddingHorizontal: 40,
     gap: 20,
-    marginTop: 12,
+    marginTop: 24,
+    marginBottom: 40,
   },
   favoriteButton: {
     borderRadius: 999,
@@ -254,7 +261,8 @@ const styles = StyleSheet.create({
   descriptionContainer: {
     padding: 16,
     borderRadius: 12,
-    marginTop: 16,
+    // marginTop: 16,
+    marginBottom: -24,
   },
   descriptionText: {
     fontSize: 18,
@@ -325,6 +333,26 @@ priceText: {
   fontWeight: '700',
   color: '#FFFFFF',
   letterSpacing: 0.5,
+},
+fullDescriptionContainer: {
+  paddingHorizontal: 20,
+  marginTop: 20,
+  gap: 12,
+},
+
+fullDescriptionIntro: {
+  fontSize: 20,
+  fontWeight: 'bold',
+  lineHeight: 28,
+  letterSpacing: 0.4,
+
+},
+
+fullDescriptionParagraph: {
+  fontSize: 17,
+  lineHeight: 26,
+  letterSpacing: 0.3,
+  color: '#374151',
 },
 
 });

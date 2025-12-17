@@ -30,6 +30,7 @@ interface SpaBase {
     label: string;
     score: string;
   }[];
+  fullDescription: string;
   detailImages: {
     src: string;
     alt: string;

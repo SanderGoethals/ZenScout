@@ -37,7 +37,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({ images, height = 250 }) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 12,
+    // borderRadius: 12,
     overflow: "hidden",
     width: "100%",
   },
