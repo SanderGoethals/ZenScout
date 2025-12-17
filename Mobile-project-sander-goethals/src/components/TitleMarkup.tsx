@@ -1,19 +1,23 @@
-import { StyleSheet, Text, TextProps } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, TextProps } from 'react-native';
+import React from 'react';
 
-const TitleMarkup = (props: TextProps) => {
+const TitleMarkup = ({ style, children, ...rest }: TextProps) => {
   return (
-      <Text style={[styles.TitleText, props.style]}
-      >{props.children}</Text>
-  )
-}
+    <Text
+      style={[styles.titleText, style]}
+      {...rest}
+    >
+      {children}
+    </Text>
+  );
+};
 
 const styles = StyleSheet.create({
-  TitleText: {
+  titleText: {
     fontSize: 30,
     fontWeight: 'bold',
     fontFamily: 'sans-serif',
-  }
-})
+  },
+});
 
-export default TitleMarkup
+export default TitleMarkup;

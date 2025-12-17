@@ -52,7 +52,7 @@ const FavoritesCarousel = ({ favorites }: Props) => {
             <View style={[styles.card, { backgroundColor: bgColor }]}>
 
               <View style={styles.headerRow}>
-                <TitleMarkup style={styles.title}>
+                <TitleMarkup style={styles.title} numberOfLines={2} ellipsizeMode="tail">
                   {item.name}
                 </TitleMarkup>
 

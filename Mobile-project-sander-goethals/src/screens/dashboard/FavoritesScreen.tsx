@@ -1,10 +1,10 @@
-import { FlatList, TouchableOpacity, View, StyleSheet } from 'react-native'
-import React from 'react'
-import ImageCarousel from '../../components/ImageCarousel'
-import TitleMarkup from '../../components/TitleMarkup'
+import { FlatList, TouchableOpacity, View, StyleSheet } from 'react-native';
+import React from 'react';
+import ImageCarousel from '../../components/ImageCarousel';
+import TitleMarkup from '../../components/TitleMarkup';
 import { useNavigation } from '@react-navigation/native';
-import RatingStars from '../../components/RatingStars'
-import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks'
+import RatingStars from '../../components/RatingStars';
+import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { toggle } from '../../store/favorites/slice';
 
@@ -13,16 +13,16 @@ const ODD_COLOR = '#A3C1AD';
 
 const FavoritesScreen = () => {
   const navigation = useNavigation();
-  
   const favorites = useAppSelector((store) => store.favorites);
   const dispatch = useAppDispatch();
 
-  return (
-    favorites.length === 0 ? (
-      <View style={[styles.screen, { alignItems: 'center'}]}>
-        <TitleMarkup style={{fontSize: 24}}>Er staan nog geen favorieten klaar. Ontdek de mooiste wellnessplekken en bewaar jouw aanraders!</TitleMarkup>
-      </View>
-    ) : (
+  return favorites.length === 0 ? (
+    <View style={[styles.screen, { alignItems: 'center' }]}>
+      <TitleMarkup style={{ fontSize: 24 }}>
+        Er staan nog geen favorieten klaar. Ontdek de mooiste wellnessplekken en bewaar jouw aanraders!
+      </TitleMarkup>
+    </View>
+  ) : (
     <View style={styles.screen}>
       <FlatList
         data={favorites}
@@ -33,39 +33,54 @@ const FavoritesScreen = () => {
 
           return (
             <TouchableOpacity
-              onPress={() => navigation.navigate('wellnessDetails', { data: item })}
-              activeOpacity={0.8}>
-
+              onPress={() =>
+                navigation.navigate('wellnessDetails', { data: item })
+              }
+              activeOpacity={0.8}
+            >
               <View style={[styles.card, { backgroundColor: bgColor }]}>
-                
-                {/* titel */}
-                <TitleMarkup style={styles.title}>{item.name}</TitleMarkup>
-                
-                {/* afbeelding met favorite button */}  
-                <View style={styles.imageWrapper}>
-                {/* afbeelding */}
-                  <ImageCarousel images={item.images.slice(0, 3)} height={200} />
 
-                  {/* Rating floating */}
-                      <View style={styles.ratingFloating}>
-                        <RatingStars score={Number(item.score)} size={24} />
-                      </View>
+                <View style={styles.headerRow}>
+                  <TitleMarkup style={styles.title} numberOfLines={1} ellipsizeMode='tail'>
+                    {item.name}
+                  </TitleMarkup>
 
-                  {/* favorite button */}
-                    <TouchableOpacity 
-                      onPress={() => dispatch(toggle(item))}
-                      style={styles.favoriteFloating}>
-                      
-                      <MaterialCommunityIcons name="heart" color="#E0245E" size={35}/>
-                    </TouchableOpacity>
+                  <TitleMarkup style={styles.category}>
+                    {item.category}
+                  </TitleMarkup>
                 </View>
+
+                <View style={styles.imageWrapper}>
+                  <ImageCarousel
+                    images={item.images.slice(0, 3)}
+                    height={200}
+                  />
+
+                  <View style={styles.ratingFloating}>
+                    <RatingStars
+                      score={Number(item.score)}
+                      size={24}
+                    />
+                  </View>
+
+                  <TouchableOpacity
+                    onPress={() => dispatch(toggle(item))}
+                    style={styles.favoriteFloating}
+                  >
+                    <MaterialCommunityIcons
+                      name="heart"
+                      color="#E0245E"
+                      size={35}
+                    />
+                  </TouchableOpacity>
+                </View>
+
               </View>
             </TouchableOpacity>
           );
         }}
       />
     </View>
-    )
   );
 };
 
@@ -79,43 +94,58 @@ const styles = StyleSheet.create({
 
   card: {
     flexDirection: 'column',
-    gap: 8, 
-    padding: 12,      
-    borderRadius: 12, 
-    marginBottom: 14, 
+    gap: 8,
+    padding: 12,
+    borderRadius: 12,
+    marginBottom: 14,
     elevation: 2,
-    shadowColor: '#000', 
+    shadowColor: '#000',
     shadowOpacity: 0.07,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
   },
 
+  headerRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    marginBottom: -8,
+  },
+
   title: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
+    flex: 1,
+    marginRight: 12,
+  },
+
+  category: {
+    fontSize: 14,
+    color: '#6B7C80',
   },
 
   imageWrapper: {
-  position: "relative",
+    position: 'relative',
   },
 
   favoriteFloating: {
-    position: "absolute",
+    position: 'absolute',
     top: 12,
     right: 12,
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     padding: 0,
     borderRadius: 0,
     elevation: 0,
-    shadowColor: "transparent",
+    shadowColor: 'transparent',
   },
-    ratingFloating: {
-  position: "absolute",
-  top: 12,
-  left: 6,
-  paddingHorizontal: 8,
-  paddingVertical: 4,
-  borderRadius: 8,
-  zIndex: 2,
-},
+
+  ratingFloating: {
+    position: 'absolute',
+    top: 12,
+    left: 6,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+    zIndex: 2,
+  },
 });
