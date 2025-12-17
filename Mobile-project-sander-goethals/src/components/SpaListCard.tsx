@@ -33,7 +33,7 @@ export const SpaListCard: FC<CardProps> = ({
         <View style={styles.imageWrapper}>
           <ImageCarousel 
             images={item.detailImages.slice(0, 3)}
-            height={200}
+            rounded
           />
 
           {/* Rating floating */}

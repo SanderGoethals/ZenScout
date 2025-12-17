@@ -53,7 +53,7 @@ const FavoritesScreen = () => {
                 <View style={styles.imageWrapper}>
                   <ImageCarousel
                     images={item.images.slice(0, 3)}
-                    height={200}
+                    rounded
                   />
 
                   <View style={styles.ratingFloating}>

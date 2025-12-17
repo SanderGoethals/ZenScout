@@ -16,7 +16,7 @@ export interface RatingStarsProps {
 
 export interface ImageCarouselProps {
   images: { src: string; alt?: string }[];
-  height?: number;
+  rounded?: boolean;
 }
 
 export interface CardProps {

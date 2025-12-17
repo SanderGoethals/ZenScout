@@ -17,7 +17,6 @@ export const SpaDetailsView: FC<DetailProps> = ({
   onToggleFavorite,
   evenColor,
   oddColor,
-  ratingDetails,
 }: DetailProps) => {
 
   const [showRatings, setShowRatings] = useState(false);
@@ -88,7 +87,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
       {/* Afbeeldingen met prijs-overlay */}
       {item.images?.length > 0 && (
         <View style={styles.imageWrapper}>
-          <ImageCarousel images={item.detailImages} height={250} />
+          <ImageCarousel images={item.detailImages}/>
 
           <View style={styles.priceOverlay}>
             <Text style={styles.priceText}>
