@@ -20,8 +20,7 @@ const ACTIVE_BACKGROUND_COLOR = '#EEDDBA';
 const BASE_BACKGROUND_COLOR = '#FFF7E6';
 
 const DrawerNavigator = () => {
-    const favorites = useAppSelector(state => state.favorites);
-    const totalFavorites = favorites.length;
+    const favorites = useAppSelector(state => state.favorites.length);
 
   return (
     <Drawer.Navigator
@@ -67,7 +66,7 @@ const DrawerNavigator = () => {
                     <MaterialCommunityIcons name="account-circle" color={color} size={size} />
                 )
             }} />
-            <Drawer.Screen name="favorites" component={FavoritesScreen} options={{  title: `Favorieten (${totalFavorites})`,
+            <Drawer.Screen name="favorites" component={FavoritesScreen} options={{  title: `Favorieten (${favorites})`,
                 drawerIcon: ({color, size}) => (
                     <MaterialCommunityIcons name="heart" color={color} size={size} />
                 )
