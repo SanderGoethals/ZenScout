@@ -165,15 +165,20 @@ export const SpaDetailsView: FC<DetailProps> = ({
 
         
       {/* Aanbieding */}
-      <View style={[styles.iconContainer, { marginLeft: -16, }]}>
+      <View style={styles.offerContainer}>
         <MaterialCommunityIcons
           name="spa"
           size={32}
-          color="#F2B8C6"
+          color="#E89AAE"
         />
         <TitleMarkup style={{fontSize: 26, fontWeight: 'bold', color: '#374151', marginLeft: 0,}}>
           {item.offerTitle}
         </TitleMarkup>
+                <MaterialCommunityIcons
+          name="spa"
+          size={32}
+          color="#E89AAE"
+        />
       </View>
         {descriptionParts.map((part: string, index: number) => (
           <TitleMarkup
@@ -227,6 +232,11 @@ const styles = StyleSheet.create({
     marginBottom: 4,
     color: '#9CA3AF',
     fontWeight: '500',
+  },
+  offerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginLeft: -16
   },
   iconContainer: {
     flexDirection: 'row',
