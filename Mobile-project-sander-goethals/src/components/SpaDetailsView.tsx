@@ -117,7 +117,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
               name="web"
               color="#555"
               url={item.contact.site}
-              bgColor={evenColor}
+              bgColor={oddColor}
             />
           ) : null}
 
@@ -126,7 +126,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
               name="facebook"
               color="#4267B2"
               url={item.contact.socials.facebook}
-              bgColor={evenColor}
+              bgColor={oddColor}
             />
           ) : null}
 
@@ -135,7 +135,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
               name="instagram"
               color="#E1306C"
               url={item.contact.socials.instagram}
-              bgColor={evenColor}
+              bgColor={oddColor}
             />
           ) : null}
 
@@ -145,7 +145,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
             <MaterialCommunityIcons
               style={[
                 styles.favoriteButton,
-                { backgroundColor: evenColor },
+                { backgroundColor: oddColor },
               ]}
               name={
                 isFavorite
