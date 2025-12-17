@@ -98,18 +98,6 @@ export const SpaDetailsView: FC<DetailProps> = ({
         </View>
       )}
 
-      {/* Aanbieding */}
-      <View style={styles.iconContainer}>
-        <MaterialCommunityIcons
-          name="spa"
-          size={26}
-          color="#F2B8C6"
-        />
-        <TitleMarkup style={styles.iconText}>
-          {item.offerTitle}
-        </TitleMarkup>
-      </View>
-
       {/* Locatie */}
       <View style={styles.iconContainer}>
         <MaterialCommunityIcons
@@ -174,6 +162,19 @@ export const SpaDetailsView: FC<DetailProps> = ({
 
       {/* Volledige beschrijving */}
       <View style={[styles.fullDescriptionContainer, { backgroundColor: oddColor }]}>
+
+        
+      {/* Aanbieding */}
+      <View style={[styles.iconContainer, { marginLeft: -16, }]}>
+        <MaterialCommunityIcons
+          name="spa"
+          size={32}
+          color="#F2B8C6"
+        />
+        <TitleMarkup style={{fontSize: 26, fontWeight: 'bold', color: '#374151', marginLeft: 0,}}>
+          {item.offerTitle}
+        </TitleMarkup>
+      </View>
         {descriptionParts.map((part: string, index: number) => (
           <TitleMarkup
             key={index}
