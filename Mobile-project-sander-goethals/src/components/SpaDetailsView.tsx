@@ -236,7 +236,6 @@ const styles = StyleSheet.create({
   offerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginLeft: -16
   },
   iconContainer: {
     flexDirection: 'row',
