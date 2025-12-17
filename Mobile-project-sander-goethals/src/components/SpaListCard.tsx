@@ -45,7 +45,7 @@ export const SpaListCard: FC<CardProps> = ({
           )}
 
           <View style={styles.locationRow}>
-            <MaterialCommunityIcons name="map-marker" size={20} color="#6B7280" />
+            <MaterialCommunityIcons name="map-marker" size={22} color="red"/>
               <TitleMarkup style={styles.location}>
                 {item.city}, {item.province}
               </TitleMarkup>
@@ -105,7 +105,6 @@ const styles = StyleSheet.create({
  locationRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
   },
   ratingFloating: {
   position: "absolute",

@@ -47,7 +47,12 @@ export const SpaDetailsView: FC<DetailProps> = ({
     <ScrollView style={{ backgroundColor: evenColor }}>
 
       {/* Naam */}
-      <TitleMarkup>{item.name}</TitleMarkup>
+      <View style={styles.titleContainer}>
+        <TitleMarkup style={styles.titleText}>
+          {item.name}
+        </TitleMarkup>
+      </View>
+
 
       {/* Score (touchable) */}
       <TouchableOpacity
@@ -57,18 +62,25 @@ export const SpaDetailsView: FC<DetailProps> = ({
         <View style={styles.scoreContainer}>
           <RatingStars score={Number(item.score)} size={40} />
           <TitleMarkup style={styles.scoreText}>
-            {item.score}
-            
+            {item.score}            
           </TitleMarkup>
             <Text style={styles.maxScore}>/10</Text>
         </View>
       </TouchableOpacity>
 
-
-      {/* Afbeeldingen */}
+      {/* Afbeeldingen met prijs-overlay */}
       {item.images?.length > 0 && (
-        <ImageCarousel images={item.detailImages} height={250} />
+        <View style={styles.imageWrapper}>
+          <ImageCarousel images={item.detailImages} height={250} />
+
+          <View style={styles.priceOverlay}>
+            <Text style={styles.priceText}>
+              {item.price}
+            </Text>
+          </View>
+        </View>
       )}
+
 
       {/* Aanbiedingstitel */}
       <View style={styles.iconContainer}>
@@ -95,7 +107,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
       </View>
 
       {/* Prijs & categorie */}
-      <View style={styles.groupContainer}>
+      {/* <View style={styles.groupContainer}>
         <View style={[styles.detailsItem, { backgroundColor: oddColor }]}>
           <TitleMarkup style={styles.detailText}>
             {item.price}
@@ -107,7 +119,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
             {item.category}
           </TitleMarkup>
         </View>
-      </View>
+      </View> */}
 
       {/* Socials + favorite */}
       <View style={styles.socialRow}>
@@ -175,19 +187,10 @@ export const SpaDetailsView: FC<DetailProps> = ({
       />
   
       {/* Sliding panel */}
-      <Animated.View
-        style={[
-          styles.ratingSheet,
-          { top: slideAnim },
-        ]}
-      >
+      <Animated.View style={[ styles.ratingSheet, { top: slideAnim }, ]}>
         <View style={styles.sheetHandle} />
   
-        <RatingDetailsView
-          data={item}
-          evenColor={evenColor}
-          oddColor={oddColor}
-        />
+        <RatingDetailsView data={item} evenColor={evenColor} oddColor={oddColor}/>
       </Animated.View>
     </>
   )}
@@ -200,9 +203,19 @@ const styles = StyleSheet.create({
   scoreContainer: {
     flexDirection: 'row',
     alignItems: 'flex-end',
+    justifyContent: 'center',
+    gap: 6,
   },
   scoreText: {
-    fontSize: 24,
+    fontSize: 32,
+    fontWeight: '700',
+    letterSpacing: 0.5,
+  },
+  maxScore: {
+    fontSize: 18,
+    marginBottom: 4,
+    color: '#9CA3AF',
+    fontWeight: '500',
   },
   iconContainer: {
     flexDirection: 'row',
@@ -234,6 +247,10 @@ const styles = StyleSheet.create({
     gap: 20,
     marginTop: 12,
   },
+  favoriteButton: {
+    borderRadius: 999,
+    elevation: 5,
+  },
   descriptionContainer: {
     padding: 16,
     borderRadius: 12,
@@ -244,42 +261,70 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     letterSpacing: 0.3,
   },
-  favoriteButton: {
-    borderRadius: 999,
-    elevation: 5,
-  },
   overlay: {
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: 'rgba(0,0,0,0.35)',
-},
-
-ratingSheet: {
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  height: SCREEN_HEIGHT / 2,
-  backgroundColor: '#FFF',
-  borderTopLeftRadius: 24,
-  borderTopRightRadius: 24,
-  padding: 16,
-  elevation: 20,
-},
-
-sheetHandle: {
-  width: 48,
-  height: 5,
-  borderRadius: 3,
-  backgroundColor: '#D1D5DB',
-  alignSelf: 'center',
-  marginBottom: 12,
-},
-  maxScore: {
-    fontSize: 18,
-    marginLeft: 2,
-    color: '#6B7280',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(15, 23, 42, 0.45)',
   },
+  ratingSheet: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    height: SCREEN_HEIGHT * 0.5,
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    paddingHorizontal: 20,
+    paddingTop: 12,
+
+    shadowColor: '#000',
+    shadowOpacity: 0.25,
+    shadowRadius: 24,
+    shadowOffset: { width: 0, height: -6 },
+    elevation: 30,
+  },
+
+  sheetHandle: {
+    width: 56,
+    height: 6,
+    borderRadius: 4,
+    backgroundColor: '#CBD5E1',
+    alignSelf: 'center',
+    marginBottom: 14,
+  },
+  titleContainer: {
+    alignItems: 'center',
+    marginTop: 16,
+    marginBottom: 12,
+    paddingHorizontal: 24,
+  },
+
+  titleText: {
+    fontSize: 34,
+    fontWeight: '700',
+    textAlign: 'center',
+    letterSpacing: 0.6,
+    lineHeight: 40,
+  },
+imageWrapper: {
+  position: 'relative',
+  marginTop: 16,
+},
+
+priceOverlay: {
+  position: 'absolute',
+  bottom: 14,
+  right: 16,
+},
+
+priceText: {
+  fontSize: 28,
+  fontWeight: '700',
+  color: '#FFFFFF',
+  letterSpacing: 0.5,
+},
+
 });
