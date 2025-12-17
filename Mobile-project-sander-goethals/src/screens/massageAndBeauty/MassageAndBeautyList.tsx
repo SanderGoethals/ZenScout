@@ -5,12 +5,8 @@ import {SpaListCard} from '../../components/SpaListCard';
 import TitleMarkup from '../../components/TitleMarkup';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { useMassageAndBeautyList } from '../../hooks/useMassageAndBeautyList';
-import { RatingDetailsView } from '../../components/RatingDetailsView';
-import { DrawerItem } from '@react-navigation/drawer';
+import { getCategoryColor } from '../../theme/categoryHelpers';
 
-const EVEN_COLOR   = '#F2DDD8'; 
-const ODD_COLOR    = '#E6C7BF'; 
-const LOADER_COLOR = '#B27C76'; 
 
 const MassageAndBeautyListScreen = () => {
   const navigation = useNavigation();
@@ -22,7 +18,7 @@ const MassageAndBeautyListScreen = () => {
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color={LOADER_COLOR} />
+        <ActivityIndicator size="large" color={getCategoryColor('massageAndBeauty', 'loader')} />
       </View>
     );
   }
@@ -49,8 +45,7 @@ const MassageAndBeautyListScreen = () => {
           <SpaListCard
             data={item}
             index={index}
-            evenColor={EVEN_COLOR}
-            oddColor={ODD_COLOR}
+            category='massageAndBeauty'
             isFavorite={favorites.some(f => f.id === item.id)}
             onPress={(spa) =>
               navigation.navigate('massageAndBeautyDetails', { data: spa })

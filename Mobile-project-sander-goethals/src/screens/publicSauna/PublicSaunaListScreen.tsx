@@ -5,10 +5,8 @@ import {SpaListCard} from '../../components/SpaListCard';
 import TitleMarkup from '../../components/TitleMarkup';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { usePublicSaunaList } from '../../hooks/usePublicSaunaList';
+import { getCategoryColor } from '../../theme/categoryHelpers';
 
-const EVEN_COLOR   = '#EEE7F4'; 
-const ODD_COLOR    = '#D8CDE8'; 
-const LOADER_COLOR = '#9B86B8'; 
 
 const PublicSaunaListScreen = () => {
   const navigation = useNavigation();
@@ -20,7 +18,7 @@ const PublicSaunaListScreen = () => {
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color={LOADER_COLOR} />
+        <ActivityIndicator size="large" color={getCategoryColor('publicSauna', 'loader')} />
       </View>
     );
   }
@@ -47,8 +45,7 @@ const PublicSaunaListScreen = () => {
           <SpaListCard
             data={item}
             index={index}
-            evenColor={EVEN_COLOR}
-            oddColor={ODD_COLOR}
+            category='publicSauna'
             isFavorite={favorites.some(f => f.id === item.id)}
             onPress={(spa) =>
               navigation.navigate('publicSaunaDetails', { data: spa })

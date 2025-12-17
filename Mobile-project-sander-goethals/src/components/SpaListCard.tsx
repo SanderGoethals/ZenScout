@@ -6,6 +6,7 @@ import ImageCarousel from './ImageCarousel';
 import RatingStars from './RatingStars';
 import TitleMarkup from './TitleMarkup';
 import { CardProps } from './types';
+import { getCategoryColor } from '../theme/categoryHelpers';
 
 
 export const SpaListCard: FC<CardProps> = ({
@@ -13,11 +14,13 @@ export const SpaListCard: FC<CardProps> = ({
   index,
   isFavorite,
   onPress,
-  evenColor,
-  oddColor,
+  category,
   children,
 }: CardProps) => {
-  const bgColor = index % 2 === 0 ? evenColor : oddColor;
+  const bgColor = getCategoryColor(
+  category,
+  index % 2 === 0 ? 'even' : 'odd'
+);
 
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={() => onPress(item)}>
@@ -28,7 +31,7 @@ export const SpaListCard: FC<CardProps> = ({
 
         {/* Afbeeldingen + favorite */}
         <View style={styles.imageWrapper}>
-          <ImageCarousel
+          <ImageCarousel 
             images={item.detailImages.slice(0, 3)}
             height={200}
           />

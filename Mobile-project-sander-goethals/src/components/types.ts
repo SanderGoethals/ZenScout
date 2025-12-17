@@ -1,4 +1,5 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { CategoryKey } from "../theme/categories";
 
 export interface SocialIconProps {
   name: keyof typeof MaterialCommunityIcons.glyphMap; // icoonnaam
@@ -23,8 +24,7 @@ export interface CardProps {
   index: number;                    
   isFavorite: boolean;              
   onPress: (item: any) => void;     
-  evenColor: string;                
-  oddColor: string;
+  category: CategoryKey;
   children?: React.ReactNode;       
 }
 
