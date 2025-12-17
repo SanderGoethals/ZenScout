@@ -122,7 +122,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
         </TitleMarkup>
       </View>
 
-            {/* Socials + favorite */}
+      {/* Socials + favorite */}
       {item.contact && (
         <View style={styles.socialRow}>
           {item.contact.site ? (
@@ -130,6 +130,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
               name="web"
               color="#555"
               url={item.contact.site}
+              bgColor={evenColor}
             />
           ) : null}
 
@@ -138,6 +139,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
               name="facebook"
               color="#4267B2"
               url={item.contact.socials.facebook}
+              bgColor={evenColor}
             />
           ) : null}
 
@@ -146,6 +148,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
               name="instagram"
               color="#E1306C"
               url={item.contact.socials.instagram}
+              bgColor={evenColor}
             />
           ) : null}
 

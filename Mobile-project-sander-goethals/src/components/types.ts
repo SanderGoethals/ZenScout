@@ -4,6 +4,7 @@ export interface SocialIconProps {
   name: keyof typeof MaterialCommunityIcons.glyphMap; // icoonnaam
   color: string;
   url?: string;
+  bgColor?: string;
 }
 
 export interface RatingStarsProps {

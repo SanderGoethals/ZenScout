@@ -9,7 +9,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { SocialIconProps } from "./types";
 
 
-const SocialIcon: FC<SocialIconProps> = ({ name, color, url }) => {
+const SocialIcon: FC<SocialIconProps> = ({ name, color, url, bgColor }) => {
   const scale = useRef(new Animated.Value(1)).current;
 
   const onPressIn = () => {
@@ -38,7 +38,7 @@ const SocialIcon: FC<SocialIconProps> = ({ name, color, url }) => {
       onPressOut={onPressOut}
       onPress={open}
     >
-      <Animated.View style={[styles.iconShadow, { transform: [{ scale }] }]}>
+      <Animated.View style={[styles.iconShadow, { transform: [{ scale }], backgroundColor: bgColor }]}>
         <MaterialCommunityIcons name={name} size={60} color={color} />
       </Animated.View>
     </TouchableWithoutFeedback>
@@ -51,7 +51,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 5,
-    backgroundColor: '#C8DAD3',
     borderRadius: 999,
   },
 });
