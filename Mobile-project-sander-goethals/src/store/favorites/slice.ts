@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: Wellness[] = [];
+const initialState: SpaBase[] = [];
 
 const favoriteSlice = createSlice({
   name: "favorites",
   initialState,
   reducers: {
-    toggle: (state, action: PayloadAction<Wellness>) => {
+    toggle: (state, action: PayloadAction<SpaBase>) => {
       const exists = state.some(item => item.id === action.payload.id);
       if (exists) {
         return state.filter(item => item.id !== action.payload.id);
