@@ -10,6 +10,8 @@ import { DetailProps } from './types';
 import { RatingDetailsView } from './RatingDetailsView';
 import { StatusBar } from 'expo-status-bar';
 import { useHeaderHeight } from '@react-navigation/elements';
+import FacilitiesView from './FacilitiesView';
+import FacilitiesCollapsible from './FacilitiesCollapsable';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -90,6 +92,9 @@ export const SpaDetailsView: FC<DetailProps> = ({
           </TouchableOpacity>
         </View>
           
+        {/* Faciliteiten */}
+        <FacilitiesCollapsible facilities={item.facilities} collapsedHeight={160} bgColor={oddColor} />
+
           {/* Kleine beschrijving */}
           <View
             style={[
@@ -100,7 +105,9 @@ export const SpaDetailsView: FC<DetailProps> = ({
             <TitleMarkup style={styles.descriptionText} numberOfLines={2} ellipsizeMode="tail" >
               {item.description}
             </TitleMarkup>
+
           </View>
+
 
           {/* Volledige beschrijving */}
           <View style={[styles.fullDescriptionContainer, { backgroundColor: oddColor }]}>            

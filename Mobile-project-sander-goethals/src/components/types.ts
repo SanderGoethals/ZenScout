@@ -43,3 +43,14 @@ export interface RatingDetailsProps {
   evenColor: string;
   oddColor: string;
 }
+
+export interface FacilityItemProps {
+  facilities: string[];
+}
+
+export interface FacilitiesCollapsibleProps {
+  facilities: string[]
+  collapsedHeight?: number
+  title?: string
+  bgColor: string
+}
