@@ -13,7 +13,6 @@ const FacilitiesView: FC<FacilitiesViewProps> = ({ facilities }) => {
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.title}>Faciliteiten</Text> */}
 
       <View style={styles.flexContainer}>
         {facilities.map((facility, index) => (
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
   flexContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    gap: 14,
   },
 
   card: {
