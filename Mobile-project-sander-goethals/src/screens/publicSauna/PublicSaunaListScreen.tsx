@@ -51,17 +51,6 @@ const PublicSaunaListScreen = () => {
               navigation.navigate('publicSaunaDetails', { data: spa })
             }
           >
-            {/* <Text style={styles.offerTitle}>
-              {item.offerTitle}
-            </Text>
-
-            <Text style={styles.offerDuration}>
-              {item.offerDuration}
-            </Text>
-
-            <Text style={styles.price}>
-              {item.price}
-            </Text> */}
           </SpaListCard>
         )}
       />

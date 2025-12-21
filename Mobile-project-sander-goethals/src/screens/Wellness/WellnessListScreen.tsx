@@ -10,7 +10,7 @@ import { getCategoryColor } from '../../theme/categoryHelpers';
 
 const SpaListScreen = () => {
   const navigation = useNavigation();
-   const favorites = useAppSelector(store => store.favorites);
+  const favorites = useAppSelector(store => store.favorites);
 
   const {
     data: spaList, isLoading, isError, refetch, isRefetching, } = useWellnessList();

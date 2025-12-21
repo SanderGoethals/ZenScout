@@ -22,8 +22,7 @@ const MassageAndBeautyDetailsScreen = () => {
       data={data}
       isFavorite={favorites.some(f => f.id === data.id)}
       onToggleFavorite={(item) => dispatch(toggle(item))}
-      evenColor={EVEN_COLOR}
-      oddColor={ODD_COLOR}
+      category="massageAndBeauty"
     />
   );
 };

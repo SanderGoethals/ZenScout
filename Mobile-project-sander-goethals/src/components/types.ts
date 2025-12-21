@@ -33,8 +33,7 @@ export interface DetailProps {
   data: any;                       
   isFavorite: boolean;             
   onToggleFavorite: (item: any) => void; 
-  evenColor: string;               
-  oddColor: string;                
+  category: CategoryKey;          
   ratingDetails?: RatingDetailsProps;                 
 }
 

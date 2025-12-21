@@ -5,10 +5,6 @@ import { RootStackNavProps } from '../../navigators/types';
 import {SpaDetailsView} from '../../components/SpaDetailsView';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { toggle } from '../../store/favorites/slice';
-import Review from '../../components/Review';
-
-const EVEN_COLOR   = '#DCEFE2'; 
-const ODD_COLOR    = '#C6E3D1'; 
 
 const WellnessDetailsScreen = () => {
   const dispatch = useAppDispatch();
@@ -26,8 +22,7 @@ const WellnessDetailsScreen = () => {
       data={data}
       isFavorite={favorites.some(f => f.id === data.id)}
       onToggleFavorite={(item) => dispatch(toggle(item))}
-      evenColor={EVEN_COLOR}
-      oddColor={ODD_COLOR}
+      category="wellness"
     />
   );
 };

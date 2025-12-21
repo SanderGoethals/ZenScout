@@ -10,8 +10,9 @@ import { DetailProps } from './types';
 import { RatingDetailsView } from './RatingDetailsView';
 import { StatusBar } from 'expo-status-bar';
 import { useHeaderHeight } from '@react-navigation/elements';
-import FacilitiesView from './FacilitiesView';
 import FacilitiesCollapsible from './FacilitiesCollapsable';
+import { getCategoryColor } from '../theme/categoryHelpers';
+
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -19,13 +20,13 @@ export const SpaDetailsView: FC<DetailProps> = ({
   data: item,
   isFavorite,
   onToggleFavorite,
-  evenColor,
-  oddColor,
+  category,
 }: DetailProps) => {
+  const backgroundLight = getCategoryColor(category, 'even');
+  const backgroundBase = getCategoryColor(category, 'odd');
 
   const [showRatings, setShowRatings] = useState(false);
   const headerHeight = useHeaderHeight();
-
 
   const slideAnim = useRef(
     new Animated.Value(SCREEN_HEIGHT)
@@ -56,7 +57,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
     <>
       <StatusBar style="light" translucent />
         <ScrollView
-              style={{ backgroundColor: evenColor }}
+              style={{ backgroundColor: backgroundLight }}
               contentContainerStyle={{
                 paddingTop: headerHeight,
               }}
@@ -81,7 +82,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
           <View
             style={[
               styles.facilitiesBackground,
-              { backgroundColor: oddColor },
+              { backgroundColor: backgroundBase },
             ]}
           />
 
@@ -101,16 +102,18 @@ export const SpaDetailsView: FC<DetailProps> = ({
         </View>
           
         {/* Faciliteiten */}
-        <FacilitiesCollapsible facilities={item.facilities} collapsedHeight={160} bgColor={oddColor} />
+        <FacilitiesCollapsible facilities={item.facilities} collapsedHeight={160} bgColor={backgroundBase} />
 
           {/* Kleine beschrijving */}
           <View
             style={[
               styles.descriptionContainer,
-              { backgroundColor: oddColor },
+              { backgroundColor: backgroundBase },
             ]}>
 
-            <TitleMarkup style={styles.descriptionText} numberOfLines={2} ellipsizeMode="tail" >
+            <TitleMarkup style={styles.descriptionText} 
+            // numberOfLines={2} ellipsizeMode="tail" 
+            >
               {item.description}
             </TitleMarkup>
 
@@ -118,7 +121,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
 
 
           {/* Volledige beschrijving */}
-          <View style={[styles.fullDescriptionContainer, { backgroundColor: oddColor }]}>            
+          <View style={[styles.fullDescriptionContainer, { backgroundColor: backgroundBase }]}>            
             {/* Aanbieding */}
             <View style={styles.offerContainer}>
               <MaterialCommunityIcons
@@ -169,7 +172,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
                 name="web"
                 color="#555"
                 url={item.contact.site}
-                bgColor={oddColor}
+                bgColor={backgroundBase}
                 />
               ) : null}
 
@@ -178,7 +181,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
                 name="facebook"
                   color="#4267B2"
                   url={item.contact.socials.facebook}
-                  bgColor={oddColor}
+                  bgColor={backgroundBase}
                 />
               ) : null}
 
@@ -187,7 +190,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
                 name="instagram"
                 color="#E1306C"
                 url={item.contact.socials.instagram}
-                bgColor={oddColor}
+                bgColor={backgroundBase}
                 />
               ) : null}
 
@@ -197,7 +200,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
                 <MaterialCommunityIcons
                   style={[
                     styles.favoriteButton,
-                    { backgroundColor: oddColor },
+                    { backgroundColor: backgroundBase },
                   ]}
                   name={
                     isFavorite
@@ -223,7 +226,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
           <Animated.View style={[ styles.ratingSheet, { top: slideAnim }, ]}>
             <View style={styles.sheetHandle} />
       
-            <RatingDetailsView data={item} evenColor={evenColor} oddColor={oddColor}/>
+            <RatingDetailsView data={item} evenColor={backgroundLight} oddColor={backgroundBase}/>
           </Animated.View>
         </>
       )}
