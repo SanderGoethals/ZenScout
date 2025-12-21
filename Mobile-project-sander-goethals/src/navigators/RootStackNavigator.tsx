@@ -13,8 +13,6 @@ import { TouchableOpacity } from 'react-native'
 
 const RootStack = createStackNavigator<RootStackParamList>()
 const RootStackNavigator = () => {
-  const dispatch = useAppDispatch();
-  const favorites = useAppSelector(state => state.favorites);
 
   return (
     <RootStack.Navigator 
@@ -22,10 +20,6 @@ const RootStackNavigator = () => {
       headerTransparent: true, 
       headerTitle: '', 
       headerTintColor: '#fff',
-      // headerRight: () => <TouchableOpacity onPress={(item) => dispatch(toggle(item))}>
-      //   <MaterialCommunityIcons name="heart" size={24} color="white" />
-
-      // </TouchableOpacity>,
      }}
     >
       <RootStack.Screen name="menu" component={DrawerNavigator} options={{ headerShown: false }}/>
