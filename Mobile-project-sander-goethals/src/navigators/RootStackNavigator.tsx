@@ -20,35 +20,17 @@ const RootStackNavigator = () => {
 
   return (
     <RootStack.Navigator 
-    // screenOptions={
-    //   { headerStyle: {   backgroundColor: 'rgba(253, 236, 200, 0)' }
-    //   }
-    // }
+    screenOptions={{headerTransparent: true, headerTitle: '', headerTintColor: '#fff', }}
     >
       <RootStack.Screen name="menu" component={DrawerNavigator} options={{ headerShown: false }}/>
-
-
+     
+      <RootStack.Screen name="wellnessDetails" component={WellnessDetailsScreen} />
       
-      <RootStack.Screen name="wellnessList" component={WellnessListScreen}   options={{title: "Beschikbkare Wellenssen"}}/>
-      <RootStack.Screen
-                    name="wellnessDetails"
-                    component={WellnessDetailsScreen}
-                    options={{
-                      headerTransparent: true,
-                      headerTitle: '',
-                      headerTintColor: '#fff', // witte back button
-                    }}
-                  />
-
+      <RootStack.Screen name="privateSaunaDetails" component={PrivateSaunaDetailsScreen} />
       
-      <RootStack.Screen name="privateSaunaList" component={PrivateSaunaListScreen} options={{title: "Beschikbare privé sauna's"}}/>
-      <RootStack.Screen name="privateSaunaDetails" component={PrivateSaunaDetailsScreen} options={{title: "Boek een privé sauna"}} />
+      <RootStack.Screen name="massageAndBeautyDetails" component={MassageAndBeautyDetailsScreen} />
       
-      <RootStack.Screen name="massageAndBeautyList" component={MassageAndBeautyListScreen} options={{title: "Beschikbare massage & beauty"}}/>
-      <RootStack.Screen name="massageAndBeautyDetails" component={MassageAndBeautyDetailsScreen} options={{title: "Boek een massage & beauty"}} />
-      
-      <RootStack.Screen name="publicSaunaList" component={PublicSaunaListScreen} options={{title: "Beschikbare publieke sauna's"}}/>
-      <RootStack.Screen name="publicSaunaDetails" component={PublicSaunaDetailsScreen} options={{title: "Boek een publieke sauna"}} />
+      <RootStack.Screen name="publicSaunaDetails" component={PublicSaunaDetailsScreen}/>
 
     </RootStack.Navigator>
   )
