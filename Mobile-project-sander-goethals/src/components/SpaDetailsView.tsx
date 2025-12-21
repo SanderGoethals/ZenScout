@@ -8,6 +8,7 @@ import TitleMarkup from './TitleMarkup';
 import SocialIconProps from './SocialsIcon';
 import { DetailProps } from './types';
 import { RatingDetailsView } from './RatingDetailsView';
+import Review from './Review';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -55,7 +56,9 @@ export const SpaDetailsView: FC<DetailProps> = ({
           {item.name}
         </TitleMarkup>
       </View>
-
+      
+      
+      <Review />
 
       {/* Score (touchable) */}
       <TouchableOpacity
@@ -209,6 +212,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
       </Animated.View>
     </>
   )}
+
     </ScrollView>
     );
 };

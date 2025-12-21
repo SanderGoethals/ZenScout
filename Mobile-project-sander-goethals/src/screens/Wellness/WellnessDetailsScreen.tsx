@@ -5,6 +5,7 @@ import { RootStackNavProps } from '../../navigators/types';
 import {SpaDetailsView} from '../../components/SpaDetailsView';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { toggle } from '../../store/favorites/slice';
+import Review from '../../components/Review';
 
 const EVEN_COLOR   = '#DCEFE2'; 
 const ODD_COLOR    = '#C6E3D1'; 
