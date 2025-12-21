@@ -7,6 +7,7 @@ const BORDER_RADIUS = 12;
 const ImageCarousel: FC<ImageCarouselProps> = ({
   images,
   rounded = false,
+  height,
 }) => {
   const [containerWidth, setContainerWidth] = useState(0);
 
@@ -14,6 +15,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
     <View
       style={[
         styles.container,
+        { height: height },
         rounded && styles.rounded,
       ]}
       onLayout={(e) => {
@@ -34,6 +36,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
               source={{ uri: item.src }}
               style={{
                 width: containerWidth + 1,
+                height: height,
               }}
               resizeMode="cover"
             />
@@ -47,8 +50,6 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 200,
-    overflow: "hidden",
   },
   rounded: {
     borderRadius: BORDER_RADIUS,

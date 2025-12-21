@@ -8,7 +8,7 @@ import TitleMarkup from './TitleMarkup';
 import SocialIconProps from './SocialsIcon';
 import { DetailProps } from './types';
 import { RatingDetailsView } from './RatingDetailsView';
-import Review from './Review';
+import { StatusBar } from 'expo-status-bar';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -48,7 +48,22 @@ export const SpaDetailsView: FC<DetailProps> = ({
   : [];
 
   return (
-    <ScrollView style={{ backgroundColor: evenColor }}>
+    <>
+  <StatusBar style="light" translucent />
+    <ScrollView style={{ backgroundColor: evenColor }} >
+
+            {/* Afbeeldingen met prijs-overlay */}
+      {item.images?.length > 0 && (
+        <View >
+          <ImageCarousel images={item.detailImages} height={300} />
+
+          <View style={styles.priceOverlay}>
+            <Text style={styles.priceText}>
+              {item.price}
+            </Text>
+          </View>
+        </View>
+      )}
 
       {/* Naam */}
       <View style={styles.titleContainer}>
@@ -56,10 +71,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
           {item.name}
         </TitleMarkup>
       </View>
-      
-      
-      <Review />
-
+            
       {/* Score (touchable) */}
       <TouchableOpacity
         activeOpacity={0.8}
@@ -87,18 +99,6 @@ export const SpaDetailsView: FC<DetailProps> = ({
         </TitleMarkup>
       </View>
 
-      {/* Afbeeldingen met prijs-overlay */}
-      {item.images?.length > 0 && (
-        <View style={styles.imageWrapper}>
-          <ImageCarousel images={item.detailImages}/>
-
-          <View style={styles.priceOverlay}>
-            <Text style={styles.priceText}>
-              {item.price}
-            </Text>
-          </View>
-        </View>
-      )}
 
       {/* Locatie */}
       <View style={styles.iconContainer}>
@@ -117,16 +117,16 @@ export const SpaDetailsView: FC<DetailProps> = ({
         <View style={styles.socialRow}>
           {item.contact.site ? (
             <SocialIconProps
-              name="web"
-              color="#555"
-              url={item.contact.site}
-              bgColor={oddColor}
+            name="web"
+            color="#555"
+            url={item.contact.site}
+            bgColor={oddColor}
             />
           ) : null}
 
           {item.contact.socials?.facebook ? (
             <SocialIconProps
-              name="facebook"
+            name="facebook"
               color="#4267B2"
               url={item.contact.socials.facebook}
               bgColor={oddColor}
@@ -135,10 +135,10 @@ export const SpaDetailsView: FC<DetailProps> = ({
 
           {item.contact.socials?.instagram ? (
             <SocialIconProps
-              name="instagram"
-              color="#E1306C"
-              url={item.contact.socials.instagram}
-              bgColor={oddColor}
+            name="instagram"
+            color="#E1306C"
+            url={item.contact.socials.instagram}
+            bgColor={oddColor}
             />
           ) : null}
 
@@ -152,12 +152,12 @@ export const SpaDetailsView: FC<DetailProps> = ({
               ]}
               name={
                 isFavorite
-                  ? 'heart-circle'
-                  : 'heart-circle-outline'
+                ? 'heart-circle'
+                : 'heart-circle-outline'
               }
               color={isFavorite ? '#E0245E' : '#D8A679'}
               size={64}
-            />
+              />
           </TouchableOpacity>
         </View>
       )}
@@ -184,9 +184,9 @@ export const SpaDetailsView: FC<DetailProps> = ({
       </View>
         {descriptionParts.map((part: string, index: number) => (
           <TitleMarkup
-            key={index}
-            style={[
-              index === 0
+          key={index}
+          style={[
+            index === 0
                 ? styles.fullDescriptionIntro
                 : styles.fullDescriptionParagraph,
           ]}
@@ -202,7 +202,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
       <Pressable
         style={styles.overlay}
         onPress={closeRatings}
-      />
+        />
   
       {/* Sliding panel */}
       <Animated.View style={[ styles.ratingSheet, { top: slideAnim }, ]}>
@@ -214,6 +214,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
   )}
 
     </ScrollView>
+</>
     );
 };
 

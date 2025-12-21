@@ -10,6 +10,7 @@ import { RootStackParamList } from './types'
 import DrawerNavigator from './DrawerNavigator'
 import PublicSaunaListScreen from '../screens/publicSauna/PublicSaunaListScreen'
 import PublicSaunaDetailsScreen from '../screens/publicSauna/PublicSaunaDetailsScreen'
+import { opacity } from 'react-native-reanimated/lib/typescript/Colors'
 
 const RootStack = createStackNavigator<RootStackParamList>()
 
@@ -19,15 +20,26 @@ const RootStackNavigator = () => {
 
   return (
     <RootStack.Navigator 
-    screenOptions={
-      { headerStyle: { backgroundColor: ACTIVE_BACKGROUND_COLOR}
-      }
-    }
+    // screenOptions={
+    //   { headerStyle: {   backgroundColor: 'rgba(253, 236, 200, 0)' }
+    //   }
+    // }
     >
       <RootStack.Screen name="menu" component={DrawerNavigator} options={{ headerShown: false }}/>
+
+
       
-      <RootStack.Screen name="wellnessList" component={WellnessListScreen} options={{title: "Beschikbare wellness"}}/>
-      <RootStack.Screen name="wellnessDetails" component={WellnessDetailsScreen} options={{title: "Boek een Wellness"}} />
+      <RootStack.Screen name="wellnessList" component={WellnessListScreen}   options={{title: "Beschikbkare Wellenssen"}}/>
+      <RootStack.Screen
+                    name="wellnessDetails"
+                    component={WellnessDetailsScreen}
+                    options={{
+                      headerTransparent: true,
+                      headerTitle: '',
+                      headerTintColor: '#fff', // witte back button
+                    }}
+                  />
+
       
       <RootStack.Screen name="privateSaunaList" component={PrivateSaunaListScreen} options={{title: "Beschikbare privé sauna's"}}/>
       <RootStack.Screen name="privateSaunaDetails" component={PrivateSaunaDetailsScreen} options={{title: "Boek een privé sauna"}} />
