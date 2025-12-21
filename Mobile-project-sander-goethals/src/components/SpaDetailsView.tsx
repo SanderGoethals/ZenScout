@@ -77,6 +77,14 @@ export const SpaDetailsView: FC<DetailProps> = ({
             </View>
           )}
 
+          {/* GROENE ACHTERGRONDLAAG */}
+          <View
+            style={[
+              styles.facilitiesBackground,
+              { backgroundColor: oddColor },
+            ]}
+          />
+
           {/* Titel + score */}
           <View style={styles.infoCard}>
           <TitleMarkup style={styles.titleText}>
@@ -237,6 +245,15 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.12,
     shadowRadius: 16,
     shadowOffset: { width: 0, height: 6 },
+  },
+  facilitiesBackground: {
+    position: 'absolute',
+    top: 320,
+    left: 0,
+    right: 0,
+    height: 300,
+    borderBottomLeftRadius: 24,
+    borderBottomRightRadius: 24,
   },
   scoreContainer: {
     flexDirection: 'row',
