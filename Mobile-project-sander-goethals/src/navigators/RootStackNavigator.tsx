@@ -6,8 +6,6 @@ import MassageAndBeautyDetailsScreen from '../screens/massageAndBeauty/MassageAn
 import { RootStackParamList } from './types'
 import DrawerNavigator from './DrawerNavigator'
 import PublicSaunaDetailsScreen from '../screens/publicSauna/PublicSaunaDetailsScreen'
-import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks'
-import { toggle } from '../store/favorites/slice';
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native'
 
@@ -15,12 +13,19 @@ const RootStack = createStackNavigator<RootStackParamList>()
 const RootStackNavigator = () => {
 
   return (
-    <RootStack.Navigator 
-    screenOptions={{
-      headerTransparent: true, 
-      headerTitle: '', 
-      headerTintColor: '#fff',
-     }}
+ <RootStack.Navigator
+      screenOptions={({ navigation }) => ({
+        headerTransparent: true,
+        headerTitle: '',
+        headerTintColor: '#fff',
+        // headerRight: () => (
+        //   <TouchableOpacity style={{ marginRight: 15 }}
+        //     onPress={() => {navigation.navigate('addParking')
+        //     }}>
+        //     <MaterialCommunityIcons name="message" size={28} color="white" />
+        //   </TouchableOpacity>
+        // ),
+      })}
     >
       <RootStack.Screen name="menu" component={DrawerNavigator} options={{ headerShown: false }}/>
      

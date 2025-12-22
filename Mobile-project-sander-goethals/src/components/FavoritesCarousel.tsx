@@ -5,27 +5,22 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import TitleMarkup from './TitleMarkup';
 import RatingStars from './RatingStars';
 import { useAppDispatch } from '../hooks/reduxHooks';
 import { toggle } from '../store/favorites/slice';
+import { getCategoryColor } from '../theme/categoryHelpers';
+import { FavoriteCarouselProps } from './types';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.8;
 
-const EVEN_COLOR = '#C8DAD3';
-const ODD_COLOR = '#A3C1AD';
-
-type Props = {
-  favorites: any[];
-};
-
-const FavoritesCarousel = ({ favorites }: Props) => {
+const FavoritesCarousel = ({ favorites }: FavoriteCarouselProps) => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
@@ -39,7 +34,10 @@ const FavoritesCarousel = ({ favorites }: Props) => {
       keyExtractor={(item) => item.id.toString()}
       contentContainerStyle={{ paddingHorizontal: 12 }}
       renderItem={({ item, index }) => {
-        const bgColor = index % 2 === 0 ? EVEN_COLOR : ODD_COLOR;
+        const bgColor = getCategoryColor(
+          "favorites",
+          index % 2 === 0 ? 'even' : 'odd'
+        );
 
         return (
           <TouchableOpacity
@@ -78,7 +76,7 @@ const FavoritesCarousel = ({ favorites }: Props) => {
                   <MaterialCommunityIcons
                     name="heart"
                     color="#E0245E"
-                    size={32}
+                    size={36}
                   />
                 </TouchableOpacity>
               </View>
@@ -103,6 +101,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
+    overflow: 'visible',
   },
 
   headerRow: {
@@ -125,6 +124,7 @@ const styles = StyleSheet.create({
 
   imageWrapper: {
     position: 'relative',
+    marginBottom: 16,
   },
 
   image: {
@@ -132,13 +132,13 @@ const styles = StyleSheet.create({
     height: 180,
     borderRadius: 10,
   },
-
   favoriteFloating: {
     position: 'absolute',
-    top: 10,
-    right: 10,
+    bottom: -24,
+    right: -16,  
+    borderRadius: 18,
+    padding: 6,
   },
-
   ratingFloating: {
     position: 'absolute',
     top: 10,

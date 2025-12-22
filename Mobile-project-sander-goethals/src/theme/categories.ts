@@ -19,6 +19,11 @@ export const categoryColors = {
     odd: '#E6C7BF', 
     loader: '#B27C76', 
   },
+  favorites: {
+    even: '#EEDDBA',
+    odd: '#FFF7E6',
+    loader: '#F79CA1'
+  },
 } as const;
 
 export type CategoryKey = keyof typeof categoryColors;

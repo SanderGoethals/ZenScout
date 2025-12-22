@@ -1,5 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { CategoryKey } from "../theme/categories";
+import { TextInputProps, StyleProp } from 'react-native'
+import { ViewStyle, TextStyle } from 'react-native'
 
 export interface SocialIconProps {
   name: keyof typeof MaterialCommunityIcons.glyphMap; // icoonnaam
@@ -19,6 +21,10 @@ export interface ImageCarouselProps {
   rounded?: boolean;
   height: number;
 }
+
+export interface FavoriteCarouselProps {
+  favorites: SpaBase[];
+};
 
 export interface CardProps {
   data: any;                        
@@ -52,4 +58,9 @@ export interface FacilitiesCollapsibleProps {
   collapsedHeight?: number
   title?: string
   bgColor: string
+}
+
+export interface FormInputProps extends TextInputProps {
+  containerStyle?: StyleProp<ViewStyle>   // styling van wrapper View
+  inputStyle?: StyleProp<TextStyle>       // styling van TextInput
 }

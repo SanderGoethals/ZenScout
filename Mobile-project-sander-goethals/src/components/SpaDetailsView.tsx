@@ -1,7 +1,6 @@
 import React, { FC, useRef, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Dimensions, Pressable, } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
 import ImageCarousel from './ImageCarousel';
 import RatingStars from './RatingStars';
 import TitleMarkup from './TitleMarkup';
@@ -12,7 +11,6 @@ import { StatusBar } from 'expo-status-bar';
 import { useHeaderHeight } from '@react-navigation/elements';
 import FacilitiesCollapsible from './FacilitiesCollapsable';
 import { getCategoryColor } from '../theme/categoryHelpers';
-
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -104,20 +102,20 @@ export const SpaDetailsView: FC<DetailProps> = ({
         {/* Faciliteiten */}
         <FacilitiesCollapsible facilities={item.facilities} collapsedHeight={160} bgColor={backgroundBase} />
 
-          {/* Kleine beschrijving */}
-          <View
-            style={[
-              styles.descriptionContainer,
-              { backgroundColor: backgroundBase },
-            ]}>
+        {/* Kleine beschrijving */}
+        <View
+          style={[
+            styles.descriptionContainer,
+            { backgroundColor: backgroundBase },
+          ]}>
 
-            <TitleMarkup style={styles.descriptionText} 
-            // numberOfLines={2} ellipsizeMode="tail" 
-            >
-              {item.description}
-            </TitleMarkup>
+          <TitleMarkup style={styles.descriptionText} 
+          // numberOfLines={2} ellipsizeMode="tail" 
+          >
+            {item.description}
+          </TitleMarkup>
 
-          </View>
+        </View>
 
 
           {/* Volledige beschrijving */}

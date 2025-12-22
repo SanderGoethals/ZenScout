@@ -8,7 +8,6 @@ import TitleMarkup from './TitleMarkup';
 import { CardProps } from './types';
 import { getCategoryColor } from '../theme/categoryHelpers';
 
-
 export const SpaListCard: FC<CardProps> = ({
   data: item,
   index,
