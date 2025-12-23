@@ -7,6 +7,8 @@ import InputForm from '../../components/InputForm';
 import TitleMarkup from '../../components/TitleMarkup';
 import FavoritesCarousel from '../../components/FavoritesCarousel';
 
+import { getCategoryColor } from '../../theme/categoryHelpers';
+
 const ProfileScreen = () => {
   const favorites = useAppSelector((store) => store.favorites);
   
@@ -16,10 +18,10 @@ const ProfileScreen = () => {
   const [birthday, setBirthday] = useState('')
   const [email, setEmail] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
-
+  const bgColor = getCategoryColor('profile', 'even');
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.profileForm}>
+      <View style={[styles.profileForm, { backgroundColor: bgColor }]}>
           <InputForm
           inputStyle={styles.input}
           placeholder="Nickname"

@@ -8,8 +8,7 @@ import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { toggle } from '../../store/favorites/slice';
 
-const EVEN_COLOR = '#C8DAD3';
-const ODD_COLOR = '#A3C1AD';
+import { getCategoryColor } from '../../theme/categoryHelpers';
 
 const FavoritesScreen = () => {
   const navigation = useNavigation();
@@ -29,7 +28,7 @@ const FavoritesScreen = () => {
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={{ padding: 12 }}
         renderItem={({ item, index }) => {
-          const bgColor = index % 2 === 0 ? EVEN_COLOR : ODD_COLOR;
+          const bgColor = getCategoryColor('favorites', index % 2 === 0 ? 'odd' : 'even');
 
           return (
             <TouchableOpacity

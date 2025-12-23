@@ -8,7 +8,7 @@ import DrawerNavigator from './DrawerNavigator'
 import PublicSaunaDetailsScreen from '../screens/publicSauna/PublicSaunaDetailsScreen'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native'
-import AddWellnessScreen from '../screens/admin/AddWellnessScreen'
+import AddWellnessScreen from '../screens/AddWellnessScreen'
 
 const RootStack = createStackNavigator<RootStackParamList>()
 const RootStackNavigator = () => {

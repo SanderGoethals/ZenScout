@@ -24,6 +24,11 @@ export const categoryColors = {
     odd: '#FFF7E6',
     loader: '#F79CA1'
   },
+  profile: {
+    even: '#C8B89A',
+    odd: '#BFA37A',
+    loader: '#8F7A5A'
+  }
 } as const;
 
 export type CategoryKey = keyof typeof categoryColors;

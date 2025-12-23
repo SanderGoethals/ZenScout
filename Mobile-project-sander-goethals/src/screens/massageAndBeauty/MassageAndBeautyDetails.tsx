@@ -6,9 +6,6 @@ import {SpaDetailsView} from '../../components/SpaDetailsView';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { toggle } from '../../store/favorites/slice';
 
-const EVEN_COLOR   = '#F2DDD8'; 
-const ODD_COLOR    = '#E6C7BF'; 
-
 const MassageAndBeautyDetailsScreen = () => {
   const dispatch = useAppDispatch();
   const favorites = useAppSelector(state => state.favorites);
