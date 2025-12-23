@@ -4,15 +4,11 @@ import { DrawerScreenProps } from "@react-navigation/drawer"
 
 export type RootStackParamList = {
     menu: undefined;
-    wellnessList: undefined;
     wellnessDetails: { data: SpaBase };
-    privateSaunaList: undefined;
     privateSaunaDetails: { data: SpaBase };
-    massageAndBeautyList: undefined;
     massageAndBeautyDetails: { data: SpaBase };
-    publicSaunaList: undefined;
     publicSaunaDetails: { data: SpaBase };
-    spaList: undefined;
+    addWellness: undefined;
 };
 
 export type DrawerParamList = {

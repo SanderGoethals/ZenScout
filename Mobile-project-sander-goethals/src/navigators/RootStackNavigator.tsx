@@ -8,6 +8,7 @@ import DrawerNavigator from './DrawerNavigator'
 import PublicSaunaDetailsScreen from '../screens/publicSauna/PublicSaunaDetailsScreen'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native'
+import AddWellnessScreen from '../screens/admin/AddWellnessScreen'
 
 const RootStack = createStackNavigator<RootStackParamList>()
 const RootStackNavigator = () => {
@@ -18,13 +19,13 @@ const RootStackNavigator = () => {
         headerTransparent: true,
         headerTitle: '',
         headerTintColor: '#fff',
-        // headerRight: () => (
-        //   <TouchableOpacity style={{ marginRight: 15 }}
-        //     onPress={() => {navigation.navigate('addParking')
-        //     }}>
-        //     <MaterialCommunityIcons name="message" size={28} color="white" />
-        //   </TouchableOpacity>
-        // ),
+        headerRight: () => (
+          <TouchableOpacity style={{ marginRight: 15 }}
+            onPress={() => {navigation.navigate('addWellness')
+            }}>
+            <MaterialCommunityIcons name="plus" size={28} color="white" />
+          </TouchableOpacity>
+        ),
       })}
     >
       <RootStack.Screen name="menu" component={DrawerNavigator} options={{ headerShown: false }}/>
@@ -36,6 +37,8 @@ const RootStackNavigator = () => {
       <RootStack.Screen name="massageAndBeautyDetails" component={MassageAndBeautyDetailsScreen} />
       
       <RootStack.Screen name="publicSaunaDetails" component={PublicSaunaDetailsScreen}/>
+
+      <RootStack.Screen name="addWellness" component={AddWellnessScreen} />
 
     </RootStack.Navigator>
   )
