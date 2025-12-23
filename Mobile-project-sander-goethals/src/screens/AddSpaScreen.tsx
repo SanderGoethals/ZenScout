@@ -38,7 +38,7 @@ const AddWellnessScreen = () => {
       style={styles.screen}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <View style={[styles.container, { borderColor: containerColor }]}>
+      <View style={[styles.container, { backgroundColor: containerColor }]}>
         <TitleMarkup>
           Heb jij een Spa voor ons?{'\n'}
           Laat het ons weten en na verificatie krijg jij een korting op jouw volgende bezoek!
@@ -85,7 +85,7 @@ export default AddWellnessScreen
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    // backgroundColor: '#F4F7F6',
+    paddingTop: 80,
   },
   container: {
     flex: 1,

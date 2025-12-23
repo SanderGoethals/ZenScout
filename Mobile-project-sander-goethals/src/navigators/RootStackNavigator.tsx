@@ -7,7 +7,7 @@ import { RootStackParamList } from './types'
 import DrawerNavigator from './DrawerNavigator'
 import PublicSaunaDetailsScreen from '../screens/publicSauna/PublicSaunaDetailsScreen'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, StyleSheet, View } from 'react-native'
 import AddSpaScreen from '../screens/AddSpaScreen'
 
 const RootStack = createStackNavigator<RootStackParamList>()
@@ -19,11 +19,29 @@ const RootStackNavigator = () => {
         headerTransparent: true,
         headerTitle: '',
         headerTintColor: '#fff',
+
+        headerLeft: () => (
+          <TouchableOpacity
+            style={{ marginLeft: 10, marginTop: -25 }}
+            onPress={() => navigation.goBack()}
+          >
+            <View style={styles.iconBackground}>
+              <MaterialCommunityIcons
+                name="arrow-left"
+                size={24}
+                color="#fff"
+              />
+            </View>
+          </TouchableOpacity>
+        ),
+
         headerRight: () => (
-          <TouchableOpacity style={{ marginRight: 15 }}
+          <TouchableOpacity style={{ marginRight: 10, marginTop: -25 }}
             onPress={() => {navigation.navigate('addSpa')
             }}>
-            <MaterialCommunityIcons name="plus" size={28} color="white" />
+            <View style={styles.iconBackground}>
+              <MaterialCommunityIcons name="plus" size={28} color="white" />
+            </View>
           </TouchableOpacity>
         ),
       })}
@@ -38,10 +56,24 @@ const RootStackNavigator = () => {
       
       <RootStack.Screen name="publicSaunaDetails" component={PublicSaunaDetailsScreen}/>
 
-      <RootStack.Screen name="addSpa" component={AddSpaScreen} />
+      <RootStack.Screen name="addSpa" component={AddSpaScreen} options={{
+                          headerStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
+                          headerTintColor: '#FFFFFF',  }}
+      />
 
     </RootStack.Navigator>
   )
 }
 
 export default RootStackNavigator
+
+const styles = StyleSheet.create({
+  iconBackground: {        
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})
