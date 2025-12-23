@@ -8,7 +8,7 @@ export type RootStackParamList = {
     privateSaunaDetails: { data: SpaBase };
     massageAndBeautyDetails: { data: SpaBase };
     publicSaunaDetails: { data: SpaBase };
-    addWellness: undefined;
+    addSpa: undefined;
 };
 
 export type DrawerParamList = {

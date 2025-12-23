@@ -25,9 +25,10 @@ export const categoryColors = {
     loader: '#F79CA1'
   },
   profile: {
-    even: '#C8B89A',
-    odd: '#BFA37A',
-    loader: '#8F7A5A'
+    even: '#E2D6BF',
+    odd: '#EEE6D6',
+    loader: '#F5EFE6'
+
   }
 } as const;
 

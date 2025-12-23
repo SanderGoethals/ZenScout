@@ -8,7 +8,7 @@ import DrawerNavigator from './DrawerNavigator'
 import PublicSaunaDetailsScreen from '../screens/publicSauna/PublicSaunaDetailsScreen'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native'
-import AddWellnessScreen from '../screens/AddWellnessScreen'
+import AddSpaScreen from '../screens/AddSpaScreen'
 
 const RootStack = createStackNavigator<RootStackParamList>()
 const RootStackNavigator = () => {
@@ -21,7 +21,7 @@ const RootStackNavigator = () => {
         headerTintColor: '#fff',
         headerRight: () => (
           <TouchableOpacity style={{ marginRight: 15 }}
-            onPress={() => {navigation.navigate('addWellness')
+            onPress={() => {navigation.navigate('addSpa')
             }}>
             <MaterialCommunityIcons name="plus" size={28} color="white" />
           </TouchableOpacity>
@@ -38,7 +38,7 @@ const RootStackNavigator = () => {
       
       <RootStack.Screen name="publicSaunaDetails" component={PublicSaunaDetailsScreen}/>
 
-      <RootStack.Screen name="addWellness" component={AddWellnessScreen} />
+      <RootStack.Screen name="addSpa" component={AddSpaScreen} />
 
     </RootStack.Navigator>
   )
