@@ -28,7 +28,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
   height,
   rounded = false,
   showThumbnails = false,
-  thumbnailHeight = 64,
+  thumbnailHeight = 52,
 }) => {
   const [containerWidth, setContainerWidth] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
