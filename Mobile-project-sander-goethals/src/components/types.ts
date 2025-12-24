@@ -20,6 +20,8 @@ export interface ImageCarouselProps {
   images: { src: string; alt?: string }[];
   rounded?: boolean;
   height: number;
+  showThumbnails?: boolean;
+  thumbnailHeight?: number;
 }
 
 export interface FavoriteCarouselProps {

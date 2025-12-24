@@ -65,9 +65,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
           {/* Afbeeldingen */}
           {item.images?.length > 0 && (
             <View style={{ marginTop: -headerHeight }}>
-              <ImageCarousel images={item.detailImages} height={320} />
-
-
+              <ImageCarousel images={item.detailImages} height={360} showThumbnails />
               <View style={styles.priceOverlay}>
                 <Text style={styles.priceText}>
                   {item.price}
@@ -249,7 +247,7 @@ const styles = StyleSheet.create({
   },
   facilitiesBackground: {
     position: 'absolute',
-    top: 320,
+    top: 360,
     left: 0,
     right: 0,
     height: 300,
