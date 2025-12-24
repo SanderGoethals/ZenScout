@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { StyleSheet, View } from 'react-native';
+import { getCategoryColor } from '../../theme/categoryHelpers';
 
 import InputForm from '../../components/InputForm';
 import TitleMarkup from '../../components/TitleMarkup';
 import FavoritesCarousel from '../../components/FavoritesCarousel';
 
-import { getCategoryColor } from '../../theme/categoryHelpers';
 
 const ProfileScreen = () => {
   const favorites = useAppSelector((store) => store.favorites);
@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     borderColor: '#E0E0E0',
     backgroundColor: '#FFF7E6',
     borderRadius: 14,
-    // gap: 12,
     elevation: 2,
     shadowColor: '#000',
     shadowOpacity: 0.05,

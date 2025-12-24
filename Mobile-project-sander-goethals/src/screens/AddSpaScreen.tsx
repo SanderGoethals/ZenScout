@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   button: {
-    marginTop: 100,
+    marginTop: 30,
     backgroundColor: '#2E7D6B',
     paddingVertical: 14,
     borderRadius: 10,
