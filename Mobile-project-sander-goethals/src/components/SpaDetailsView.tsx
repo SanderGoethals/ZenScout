@@ -66,11 +66,6 @@ export const SpaDetailsView: FC<DetailProps> = ({
           {item.images?.length > 0 && (
             <View style={{ marginTop: -headerHeight }}>
               <ImageCarousel images={item.detailImages} height={360} showThumbnails />
-              <View style={styles.priceOverlay}>
-                <Text style={styles.priceText}>
-                  {item.price}
-                </Text>
-              </View>
             </View>
           )}
 
@@ -95,6 +90,10 @@ export const SpaDetailsView: FC<DetailProps> = ({
               <Text style={styles.maxScore}>/10</Text>
             </View>
           </TouchableOpacity>
+          
+          <View style={styles.priceOverlay}>
+            <Text style={styles.priceText}>{item.price}</Text>
+          </View>
         </View>
           
         {/* Faciliteiten */}
@@ -244,6 +243,19 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.12,
     shadowRadius: 16,
     shadowOffset: { width: 0, height: 6 },
+    position: 'relative',
+  },
+  priceOverlay: {
+    position: 'absolute',
+    right: -12,
+    bottom: -16,
+    backgroundColor: '#2E7D32',
+    borderRadius: 999,
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    borderWidth: 2,
+    borderColor: '#FFFFFF',
+    elevation: 6,
   },
   facilitiesBackground: {
     position: 'absolute',
@@ -343,11 +355,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     letterSpacing: 0.6,
     lineHeight: 40,
-  },
-  priceOverlay: {
-    position: 'absolute',
-    bottom: 14,
-    right: 16,
   },
   priceText: {
     fontSize: 24,
