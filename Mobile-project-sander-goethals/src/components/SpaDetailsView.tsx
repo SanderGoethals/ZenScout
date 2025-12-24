@@ -97,7 +97,9 @@ export const SpaDetailsView: FC<DetailProps> = ({
         </View>
           
         {/* Faciliteiten */}
-        <FacilitiesCollapsible facilities={item.facilities} collapsedHeight={160} bgColor={backgroundBase} />
+        <View style={{ marginTop: 12, }}>
+          <FacilitiesCollapsible facilities={item.facilities} collapsedHeight={160} bgColor={backgroundBase} />
+        </View>
 
         {/* Kleine beschrijving */}
         <View
@@ -248,7 +250,7 @@ const styles = StyleSheet.create({
   priceOverlay: {
     position: 'absolute',
     right: -12,
-    bottom: -16,
+    bottom: -20,
     backgroundColor: '#2E7D32',
     borderRadius: 999,
     paddingHorizontal: 14,

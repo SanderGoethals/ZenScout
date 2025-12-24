@@ -40,7 +40,7 @@ const AddWellnessScreen = () => {
     >
       <View style={[styles.container, { backgroundColor: containerColor }]}>
         <TitleMarkup>
-          Heb jij een Spa voor ons?{'\n'}
+          Niet de spa gevonden die je zoekt?{'\n'}
           Laat het ons weten en na verificatie krijg jij een korting op jouw volgende bezoek!
         </TitleMarkup>
 
