@@ -3,23 +3,15 @@ import {
   View,
   Image,
   FlatList,
+  Pressable,
   StyleSheet,
   TouchableOpacity,
   NativeScrollEvent,
   NativeSyntheticEvent,
 } from 'react-native';
 
-interface ImageItem {
-  src: string;
-}
-
-export interface ImageCarouselProps {
-  images: ImageItem[];
-  height: number;
-  rounded?: boolean;
-  showThumbnails?: boolean;
-  thumbnailHeight?: number;
-}
+import ImageViewing from 'react-native-image-viewing';
+import { ImageCarouselProps } from './types';
 
 const BORDER_RADIUS = 12;
 
@@ -32,6 +24,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
 }) => {
   const [containerWidth, setContainerWidth] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [viewerVisible, setViewerVisible] = useState(false);
 
   const mainListRef = useRef<FlatList>(null);
   const thumbListRef = useRef<FlatList>(null);
@@ -82,14 +75,17 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
           showsHorizontalScrollIndicator={false}
           onMomentumScrollEnd={onScrollEnd}
           renderItem={({ item }) => (
-            <Image
-              source={{ uri: item.src }}
-              style={{
-                width: containerWidth,
-                height,
-              }}
-              resizeMode="cover"
-            />
+            <Pressable onPress={() => setViewerVisible(true)}>
+              <Image
+                source={{ uri: item.src }}
+                style={{
+                  width: containerWidth,
+                  height,
+                }}
+                resizeMode="cover"
+              />
+            </Pressable>
+
           )}
         />
       )}
@@ -127,6 +123,15 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
           />
         </View>
       )}
+
+      {/* Volledige image viewer */}
+      <ImageViewing
+        images={images.map(img => ({ uri: img.src }))}
+        imageIndex={activeIndex}
+        visible={viewerVisible}
+        onRequestClose={() => setViewerVisible(false)}
+      />
+
     </View>
   );
 };
