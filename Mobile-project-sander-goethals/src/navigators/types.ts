@@ -24,12 +24,18 @@ export type DrawerParamList = {
     spa: undefined;
 };
 
+export type AuthStackParamsList = {
+    login: undefined;
+    register: undefined;
+};
+
 export type RootStackNavProps< T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;
 export type DrawerNavProps< T extends keyof DrawerParamList> = DrawerScreenProps<DrawerParamList, T>;
+export type AuthStackNavProps< T extends keyof AuthStackParamsList> = StackScreenProps<AuthStackParamsList, T>;
 
 
 declare global {
     namespace ReactNavigation {
-        interface RootParamList extends RootStackParamList, DrawerParamList {}
+        interface RootParamList extends RootStackParamList, DrawerParamList, AuthStackParamsList {}
     }
 }

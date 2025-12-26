@@ -131,7 +131,6 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
         visible={viewerVisible}
         onRequestClose={() => setViewerVisible(false)}
       />
-
     </View>
   );
 };
