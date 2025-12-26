@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { persistor, store } from '../store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ActivityIndicator } from 'react-native';
+import AuthStackNavigator from '../navigators/AuthStackNavigator';
 
 const queryClient = new QueryClient();
 const LOADER_COLOR = '#ADD8E6';
@@ -24,7 +25,8 @@ const Root = () => {
             color={LOADER_COLOR} />}>
           <NavigationContainer>
             <QueryClientProvider client={queryClient}>
-              <RootStackNavigator />
+              {/* <RootStackNavigator /> */}
+              <AuthStackNavigator />
             </QueryClientProvider>
           </NavigationContainer>
         </PersistGate>
