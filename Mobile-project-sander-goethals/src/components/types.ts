@@ -65,4 +65,5 @@ export interface FacilitiesCollapsibleProps {
 export interface FormInputProps extends TextInputProps {
   containerStyle?: StyleProp<ViewStyle>   // styling van wrapper View
   inputStyle?: StyleProp<TextStyle>       // styling van TextInput
+  error?: string                      // foutmelding
 }

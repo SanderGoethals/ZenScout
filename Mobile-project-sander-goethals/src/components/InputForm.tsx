@@ -6,6 +6,7 @@ const InputForm: FC<FormInputProps> = ({
   containerStyle,
   inputStyle,
   multiline = false,
+  error,
   ...props
 }) => {
   return (

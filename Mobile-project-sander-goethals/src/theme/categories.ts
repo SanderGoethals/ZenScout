@@ -28,9 +28,12 @@ export const categoryColors = {
     even: '#E2D6BF',
     odd: '#EEE6D6',
     loader: '#F5EFE6'
-
-  }
+  },
+  login: {
+    buttonColor: '#8B6F47',
+    backgroundColor: '#F5F1EB',
+  },
 } as const;
 
 export type CategoryKey = keyof typeof categoryColors;
-export type Variant = 'even' | 'odd' | 'loader';
+export type Variant = 'even' | 'odd' | 'loader' | 'buttonColor' | 'backgroundColor';

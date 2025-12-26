@@ -5,5 +5,5 @@ export const getCategoryColor = (
   category: CategoryKey,
   variant: Variant
 ) => {
-  return categoryColors[category][variant];
+  return categoryColors[category][variant as keyof typeof categoryColors[CategoryKey]];
 };
