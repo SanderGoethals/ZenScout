@@ -1,6 +1,5 @@
 import {
   View,
-  Text,
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
@@ -11,7 +10,7 @@ import { replace, useFormik } from "formik";
 import * as Yup from "yup";
 import InputForm from "../../components/InputForm";
 import { useNavigation } from "@react-navigation/native";
-import { AuthStackNavProps, DrawerNavProps, RootStackNavProps } from "../../navigators/types";
+import { AuthStackNavProps } from "../../navigators/types";
 import { createUserWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../../config/firebase";
 import { getCategoryColor } from "../../theme/categoryHelpers";
@@ -28,7 +27,6 @@ const registerValidationSchema = Yup.object().shape({
     .oneOf([Yup.ref("password")], "Wachtwoorden komen niet overeen")
     .required("Bevestig je wachtwoord"),
 });
-
 
 const RegisterScreen = () => {
   const formik = useFormik({
@@ -50,11 +48,8 @@ const RegisterScreen = () => {
       }
     },
   });
-
   
   const navigate = useNavigation<AuthStackNavProps<"register">["navigation"]>();
-  // const navigateHome = useNavigation<DrawerNavProps<"home">["navigation"]>();
-  // const navigateHomeRoot = useNavigation<RootStackNavProps<"menu">["navigation"]>();
 
   return (
   <KeyboardAvoidingView
@@ -110,7 +105,13 @@ const RegisterScreen = () => {
 
       <TouchableOpacity
         style={[styles.primaryButton, { backgroundColor: getCategoryColor("login", "buttonColor") }]}
-        // onPress={() => { formik.handleSubmit(); navigateHome.navigate("home"); }}
+        onPress={() => {
+          formik.handleSubmit();
+
+          if (!formik.errors.email && !formik.errors.password && !formik.errors.confirmPassword) {
+            navigate.replace("login");
+          }
+        }}
       >
         <TitleMarkup style={styles.primaryButtonText}>Registreren</TitleMarkup>
       </TouchableOpacity>

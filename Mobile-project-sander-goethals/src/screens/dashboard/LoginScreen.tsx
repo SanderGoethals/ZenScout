@@ -81,6 +81,7 @@ const LoginScreen = () => {
           <TitleMarkup>Inloggen</TitleMarkup>
         </TouchableOpacity>
 
+        {/* TODO: Forgot password functionality */}
         <TouchableOpacity style={styles.linkButton}>
           <TitleMarkup>Wachtwoord vergeten?</TitleMarkup>
         </TouchableOpacity>

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useAppSelector } from '../../hooks/reduxHooks';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { getCategoryColor } from '../../theme/categoryHelpers';
 
 import InputForm from '../../components/InputForm';
 import TitleMarkup from '../../components/TitleMarkup';
 import FavoritesCarousel from '../../components/FavoritesCarousel';
+import { auth } from '../../config/firebase';
+import { signOut } from '@firebase/auth';
 
 
 const ProfileScreen = () => {
@@ -77,6 +79,17 @@ const ProfileScreen = () => {
         />
       </View>
 
+      <TouchableOpacity style={[styles.primaryButton, { backgroundColor: getCategoryColor("login", "buttonColor") }]}
+        onPress={async () => {
+          try {
+            await signOut(auth);
+          } catch (error) {
+            console.error("Error signing out: ", error);
+          }
+        }}>
+        <TitleMarkup style={styles.primaryButtonText}>Uitloggen</TitleMarkup>
+      </TouchableOpacity>
+
       <View style={styles.screen}>
         {favorites.length > 0 && (
           <>
@@ -132,5 +145,20 @@ screen: {
     fontWeight: 'bold',
     marginHorizontal: 16,
     marginBottom: 12,
+  },
+    primaryButton: {
+    marginTop: 28,
+    paddingVertical: 16,
+    borderRadius: 14,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  primaryButtonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "500",
   },
 });
