@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import React from "react";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import InputForm from "../../components/InputForm";
 import { useNavigation } from "@react-navigation/native";
 import { AuthStackNavProps } from "../../navigators/types";
@@ -16,15 +15,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
 import TitleMarkup from "../../components/TitleMarkup";
 import { getCategoryColor } from "../../theme/categoryHelpers";
+import { loginValidationSchema } from "../../validation/validation";
 
-const loginValidationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Geef een geldig email adres in")
-    .required("Email is verplicht"),
-  password: Yup.string()
-    .min(6, "Wachtwoord moet minstens 6 karakters bevatten")
-    .required("Wachtwoord is verplicht"),
-});
 
 const LoginScreen = () => {
   const formik = useFormik({
@@ -72,6 +64,7 @@ const LoginScreen = () => {
           onBlur={formik.handleBlur("password")}
           secureTextEntry
           error={formik.touched.password ? formik.errors.password : undefined}
+          isPassword
         />
 
         <TouchableOpacity

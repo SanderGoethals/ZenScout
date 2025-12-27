@@ -32,8 +32,9 @@ export const categoryColors = {
   login: {
     buttonColor: '#8B6F47',
     backgroundColor: '#F5F1EB',
+    disabledButtonColor: '#C3B8A3',
   },
 } as const;
 
 export type CategoryKey = keyof typeof categoryColors;
-export type Variant = 'even' | 'odd' | 'loader' | 'buttonColor' | 'backgroundColor';
+export type Variant = 'even' | 'odd' | 'loader' | 'buttonColor' | 'backgroundColor' | 'disabledButtonColor';

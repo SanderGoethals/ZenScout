@@ -8,12 +8,7 @@ import InputForm from '../../components/InputForm';
 import TitleMarkup from '../../components/TitleMarkup';
 import FavoritesCarousel from '../../components/FavoritesCarousel';
 import { auth, db } from '../../config/firebase';
-import {  signOut,
-          updateEmail,
-          EmailAuthProvider,
-          reauthenticateWithCredential,
-        } from '@firebase/auth'; 
-
+import {  signOut } from '@firebase/auth'; 
 import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 
 
@@ -60,6 +55,20 @@ const ProfileScreen = () => {
   fetchUserProfile();
 }, []);
 
+const updateProfileField = async (updates: Record<string, any>) => {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  try {
+    await updateDoc(doc(db, "users", user.uid), {
+      ...updates,
+      updatedAt: serverTimestamp(),
+    });
+  } catch (error) {
+    console.error("Fout bij opslaan profiel:", error);
+  }
+};
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={[styles.profileForm, { backgroundColor: bgColor }]}>
@@ -68,6 +77,7 @@ const ProfileScreen = () => {
           returnKeyType="done"
           value={nickname}
           onChangeText={(text) => setNickname(text)}
+          onBlur={() => updateProfileField({ nickname })}
         />
 
         <InputForm
@@ -77,6 +87,7 @@ const ProfileScreen = () => {
           returnKeyType="next"
           value={name} 
           onChangeText={(text) => setName(text)}
+          onBlur={() => updateProfileField({ firstName: name })}
         />
 
         <InputForm
@@ -86,14 +97,19 @@ const ProfileScreen = () => {
           returnKeyType="next"
           value={lastName} 
           onChangeText={(text) => setLastName(text)}
+          onBlur={() => updateProfileField({ lastName })}
         />
 
+        {/* TODO: fix reauthication when changing email */}
         <InputForm
           inputStyle={styles.input}
           keyboardType="email-address"
           autoCapitalize="none"
           returnKeyType="next"
           value={email}
+
+          editable={false}
+          
           onChangeText={(text) => setEmail(text)}
           onFocus={() => setShowChangeEmailWarning(true)}
           onBlur={() => setShowChangeEmailWarning(false)}
@@ -112,6 +128,7 @@ const ProfileScreen = () => {
           returnKeyType="next"
           value={phoneNumber}
           onChangeText={(text) => setPhoneNumber(text)}
+          onBlur={() => updateProfileField({ phoneNumber })}
         />
 
         <InputForm 
@@ -121,41 +138,9 @@ const ProfileScreen = () => {
           returnKeyType="done"
           value={birthday}
           onChangeText={(text) => setBirthday(text)}
+          onBlur={() => {updateProfileField({ birthDate: new Date(birthday) })}}
         />
       </View>
-
-      <TouchableOpacity
-          style={[ styles.primaryButton, { backgroundColor: getCategoryColor("login", "buttonColor") }]}
-          onPress={async () => {
-            const user = auth.currentUser;
-            if (!user) return;
-            
-              const emailChanged = email !== user.email;
-
-              if (emailChanged) {
-                await updateEmail(user, email);
-              }
-
-              await updateDoc(doc(db, "users", user.uid), {
-                nickname,
-                firstName: name,
-                lastName,
-                phoneNumber,
-                email,
-                birthDate: birthday ? new Date(birthday) : null,
-                updatedAt: serverTimestamp(),
-              });
-
-              if (emailChanged) {
-                await signOut(auth);
-              }
-          }}
-        >
-          <TitleMarkup style={styles.primaryButtonText}>
-            Wijzigingen opslaan
-          </TitleMarkup>
-        </TouchableOpacity>
-
 
       <TouchableOpacity style={[styles.primaryButton, { backgroundColor: getCategoryColor("login", "buttonColor") }]}
         onPress={async () => {
@@ -202,7 +187,6 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 16,
     paddingBottom: 40,
-    // backgroundColor: '#FFF',
   },
 screen: {
     flex: 1,
@@ -225,7 +209,8 @@ screen: {
     marginBottom: 12,
   },
     primaryButton: {
-    marginTop: 28,
+    marginTop: 18,
+    marginHorizontal: 16,
     paddingVertical: 16,
     borderRadius: 14,
     alignItems: "center",

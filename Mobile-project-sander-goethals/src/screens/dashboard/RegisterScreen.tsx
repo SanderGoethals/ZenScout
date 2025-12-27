@@ -1,5 +1,6 @@
 import {
   View,
+  ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
@@ -7,7 +8,6 @@ import {
 } from "react-native";
 import React from "react";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import InputForm from "../../components/InputForm";
 import { useNavigation } from "@react-navigation/native";
 import { AuthStackNavProps } from "../../navigators/types";
@@ -16,19 +16,8 @@ import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { auth } from "../../config/firebase";
 import { getCategoryColor } from "../../theme/categoryHelpers";
+import { registerValidationSchema } from "../../validation/validation";
 import TitleMarkup from "../../components/TitleMarkup";
-
-const registerValidationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Geef een geldig email adres in")
-    .required("Email is verplicht"),
-  password: Yup.string()
-    .min(6, "Wachtwoord moet minstens 6 karakters bevatten")
-    .required("Wachtwoord is verplicht"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Wachtwoorden komen niet overeen")
-    .required("Bevestig je wachtwoord"),
-});
 
 const RegisterScreen = () => {
   const navigate = useNavigation<AuthStackNavProps<"register">["navigation"]>();
@@ -40,6 +29,7 @@ const RegisterScreen = () => {
       confirmPassword: "",
     },
     validationSchema: registerValidationSchema,
+    validateOnMount: true,
     onSubmit: async (values) => {
       try {
         const userCredential = await createUserWithEmailAndPassword(
@@ -66,13 +56,14 @@ const RegisterScreen = () => {
     },
   });
   
+const isDisabled = !formik.isValid;
 
   return (
   <KeyboardAvoidingView
     style={[styles.container, { backgroundColor: getCategoryColor("login", "backgroundColor") }]}
     behavior={Platform.OS === "ios" ? "padding" : "height"}
   >
-    <View style={styles.innerContainer}>
+    <ScrollView style={styles.innerContainer}>
       <TitleMarkup style={styles.title}>Registreren</TitleMarkup>
       <TitleMarkup style={styles.subtitle}>
         Maak een account aan en begin je wellnesservaring
@@ -90,41 +81,58 @@ const RegisterScreen = () => {
           error={formik.touched.email ? formik.errors.email : undefined}
         />
       </View>
-
-      <View style={styles.field}>
-        <TitleMarkup style={styles.label}>Wachtwoord</TitleMarkup>
         <InputForm
           placeholder="Geef je wachtwoord in"
           value={formik.values.password}
           onChangeText={formik.handleChange("password")}
           onBlur={formik.handleBlur("password")}
-          secureTextEntry
+          isPassword
           error={formik.touched.password ? formik.errors.password : undefined}
         />
-      </View>
 
-      <View style={styles.field}>
-        <TitleMarkup style={styles.label}>Bevestig wachtwoord</TitleMarkup>
         <InputForm
-          placeholder="Bevestig je wachtwoord"
+          placeholder="Bevestig wachtwoord"
           value={formik.values.confirmPassword}
           onChangeText={formik.handleChange("confirmPassword")}
           onBlur={formik.handleBlur("confirmPassword")}
-          secureTextEntry
+          isPassword
           error={
             formik.touched.confirmPassword
               ? formik.errors.confirmPassword
               : undefined
           }
         />
-      </View>
+
+        {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+          <TitleMarkup style={styles.errorText}>
+            {formik.errors.confirmPassword}
+          </TitleMarkup>      
+        )}
+        
 
       <TouchableOpacity
-        style={[styles.primaryButton, { backgroundColor: getCategoryColor("login", "buttonColor") }]}
-        onPress={() => { formik.handleSubmit(); }}
-      >
-        <TitleMarkup style={styles.primaryButtonText}>Registreren</TitleMarkup>
-      </TouchableOpacity>
+          disabled={isDisabled}
+          onPress={ () => formik.handleSubmit()}
+          style={[
+            styles.primaryButton,
+            {
+              backgroundColor: isDisabled
+              ? getCategoryColor("login", "disabledButtonColor")
+                : getCategoryColor("login", "buttonColor"),
+                opacity: isDisabled ? 0.6 : 1,
+              },
+          ]}
+          >
+          <TitleMarkup
+            style={[
+              styles.primaryButtonText,
+              { color: isDisabled ? "#A0A0A0" : "#FFFFFF" },
+            ]}
+          >
+            Registreren
+          </TitleMarkup>
+        </TouchableOpacity>
+
 
       <View style={styles.footer}>
         <TitleMarkup style={styles.footerText}>Heb je al een account?</TitleMarkup>
@@ -132,9 +140,8 @@ const RegisterScreen = () => {
           <TitleMarkup style={styles.footerLink}> Log hier in</TitleMarkup>
         </TouchableOpacity>
       </View>
-    </View>
+    </ScrollView>
   </KeyboardAvoidingView>
-
   );
 };
 
@@ -146,8 +153,8 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
-    justifyContent: "center",
     paddingHorizontal: 28,
+    paddingTop: 80,
   },
   title: {
     fontSize: 30,
@@ -199,5 +206,10 @@ const styles = StyleSheet.create({
     color: "#8B6F47",
     fontSize: 14,
     fontWeight: "500",
+  },
+  errorText: {
+    marginTop: 4,
+    color: "#D9534F",
+    fontSize: 12,
   },
 });
