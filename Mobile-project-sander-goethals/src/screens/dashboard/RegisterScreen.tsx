@@ -60,7 +60,6 @@ const RegisterScreen = () => {
           updatedAt: serverTimestamp(),
         });
         
-        navigate.replace("login");
       } catch (error) {
         console.log("Registratiefout:", error);
       }

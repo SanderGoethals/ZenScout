@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
@@ -14,6 +14,7 @@ import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 
 const ProfileScreen = () => {
   const favorites = useAppSelector((store) => store.favorites);
+  const bgColor = getCategoryColor('profile', 'even');
   
   const [nickname, setNickname] = useState('')
   const [name, setName] = useState('')
@@ -21,13 +22,43 @@ const ProfileScreen = () => {
   const [birthday, setBirthday] = useState('')
   const [email, setEmail] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
-  const bgColor = getCategoryColor('profile', 'even');
+
+  useEffect(() => {
+  const fetchUserProfile = async () => {
+    const uid = auth.currentUser?.uid;
+    if (!uid) return;
+
+    try {
+      const userRef = doc(db, "users", uid);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        const data = userSnap.data();
+
+        setNickname(data.nickname ?? "");
+        setName(data.firstName ?? "");
+        setLastName(data.lastName ?? "");
+        setEmail(data.email ?? "");
+        setPhoneNumber(data.phoneNumber ?? "");
+        setBirthday(
+          data.birthDate
+            ? data.birthDate.toDate().toISOString().split("T")[0]
+            : ""
+        );
+      }
+    } catch (error) {
+      console.error("Fout bij ophalen profiel:", error);
+    }
+  };
+
+  fetchUserProfile();
+}, []);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={[styles.profileForm, { backgroundColor: bgColor }]}>
           <InputForm
           inputStyle={styles.input}
-          placeholder="Nickname"
           returnKeyType="done"
           value={nickname}
           onChangeText={(text) => setNickname(text)}
@@ -53,7 +84,6 @@ const ProfileScreen = () => {
 
         <InputForm
           inputStyle={styles.input}
-          placeholder="E-mail"
           keyboardType="email-address"
           autoCapitalize="none"
           returnKeyType="next"
