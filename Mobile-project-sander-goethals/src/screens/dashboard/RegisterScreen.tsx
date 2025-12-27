@@ -8,19 +8,19 @@ import {
 } from "react-native";
 import React from "react";
 import { useFormik } from "formik";
-import InputForm from "../../components/InputForm";
 import { useNavigation } from "@react-navigation/native";
-import { AuthStackNavProps } from "../../navigators/types";
-import { createUserWithEmailAndPassword } from "@firebase/auth";
-import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../config/firebase";
-import { auth } from "../../config/firebase";
-import { getCategoryColor } from "../../theme/categoryHelpers";
-import { registerValidationSchema } from "../../validation/validation";
+
+import InputForm from "../../components/InputForm";
 import TitleMarkup from "../../components/ui/TitleMarkup";
 
+import { AuthStackNavProps } from "../../navigators/types";
+import { getCategoryColor } from "../../theme/categoryHelpers";
+import { registerValidationSchema } from "../../validation/validation";
+import { registerUser } from "../../services/auth.service";
+
 const RegisterScreen = () => {
-  const navigate = useNavigation<AuthStackNavProps<"register">["navigation"]>();
+  const navigate =
+    useNavigation<AuthStackNavProps<"register">["navigation"]>();
 
   const formik = useFormik({
     initialValues: {
@@ -32,62 +32,66 @@ const RegisterScreen = () => {
     validateOnMount: true,
     onSubmit: async (values) => {
       try {
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          values.email,
-          values.password
-        );
-        const uid = userCredential.user.uid;
-
-        await setDoc(doc(db, "users", uid), {
+        await registerUser({
           email: values.email,
-          nickname: values.email.split("@")[0],
-          firstName: "",
-          lastName: "",
-          phoneNumber: "",
-          birthDate: null,
-          createdAt: serverTimestamp(),
-          updatedAt: serverTimestamp(),
+          password: values.password,
         });
-        
+
       } catch (error) {
         console.log("Registratiefout:", error);
       }
     },
   });
-  
-const isDisabled = !formik.isValid;
+
+  const isDisabled = !formik.isValid;
 
   return (
-  <KeyboardAvoidingView
-    style={[styles.container, { backgroundColor: getCategoryColor("login", "backgroundColor") }]}
-    behavior={Platform.OS === "ios" ? "padding" : "height"}
-  >
-    <ScrollView style={styles.innerContainer}>
-      <TitleMarkup style={styles.title}>Registreren</TitleMarkup>
-      <TitleMarkup style={styles.subtitle}>
-        Maak een account aan en begin je wellnesservaring
-      </TitleMarkup>
+    <KeyboardAvoidingView
+      style={[
+        styles.container,
+        {
+          backgroundColor: getCategoryColor(
+            "login",
+            "backgroundColor"
+          ),
+        },
+      ]}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <ScrollView style={styles.innerContainer}>
+        <TitleMarkup style={styles.title}>Registreren</TitleMarkup>
+        <TitleMarkup style={styles.subtitle}>
+          Maak een account aan en begin je wellnesservaring
+        </TitleMarkup>
 
-      <View style={styles.field}>
-        <TitleMarkup style={styles.label}>E-mailadres</TitleMarkup>
-        <InputForm
-          placeholder="Geef je e-mailadres in"
-          value={formik.values.email}
-          onChangeText={formik.handleChange("email")}
-          onBlur={formik.handleBlur("email")}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          error={formik.touched.email ? formik.errors.email : undefined}
-        />
-      </View>
+        <View style={styles.field}>
+          <TitleMarkup style={styles.label}>E-mailadres</TitleMarkup>
+          <InputForm
+            placeholder="Geef je e-mailadres in"
+            value={formik.values.email}
+            onChangeText={formik.handleChange("email")}
+            onBlur={formik.handleBlur("email")}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            error={
+              formik.touched.email
+                ? formik.errors.email
+                : undefined
+            }
+          />
+        </View>
+
         <InputForm
           placeholder="Geef je wachtwoord in"
           value={formik.values.password}
           onChangeText={formik.handleChange("password")}
           onBlur={formik.handleBlur("password")}
           isPassword
-          error={formik.touched.password ? formik.errors.password : undefined}
+          error={
+            formik.touched.password
+              ? formik.errors.password
+              : undefined
+          }
         />
 
         <InputForm
@@ -103,45 +107,55 @@ const isDisabled = !formik.isValid;
           }
         />
 
-        {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-          <TitleMarkup style={styles.errorText}>
-            {formik.errors.confirmPassword}
-          </TitleMarkup>      
-        )}
-        
+        {formik.touched.confirmPassword &&
+          formik.errors.confirmPassword && (
+            <TitleMarkup style={styles.errorText}>
+              {formik.errors.confirmPassword}
+            </TitleMarkup>
+          )}
 
-      <TouchableOpacity
+        <TouchableOpacity
           disabled={isDisabled}
-          onPress={ () => formik.handleSubmit()}
+          onPress={() => formik.handleSubmit()}
           style={[
             styles.primaryButton,
             {
               backgroundColor: isDisabled
-              ? getCategoryColor("login", "disabledButtonColor")
+                ? getCategoryColor(
+                    "login",
+                    "disabledButtonColor"
+                  )
                 : getCategoryColor("login", "buttonColor"),
-                opacity: isDisabled ? 0.6 : 1,
-              },
+              opacity: isDisabled ? 0.6 : 1,
+            },
           ]}
-          >
+        >
           <TitleMarkup
             style={[
               styles.primaryButtonText,
-              { color: isDisabled ? "#A0A0A0" : "#FFFFFF" },
+              {
+                color: isDisabled ? "#A0A0A0" : "#FFFFFF",
+              },
             ]}
           >
             Registreren
           </TitleMarkup>
         </TouchableOpacity>
 
-
-      <View style={styles.footer}>
-        <TitleMarkup style={styles.footerText}>Heb je al een account?</TitleMarkup>
-        <TouchableOpacity onPress={() => navigate.replace("login")}>
-          <TitleMarkup style={styles.footerLink}> Log hier in</TitleMarkup>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
-  </KeyboardAvoidingView>
+        <View style={styles.footer}>
+          <TitleMarkup style={styles.footerText}>
+            Heb je al een account?
+          </TitleMarkup>
+          <TouchableOpacity
+            onPress={() => navigate.replace("login")}
+          >
+            <TitleMarkup style={styles.footerLink}>
+              Log hier in
+            </TitleMarkup>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
