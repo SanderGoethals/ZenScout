@@ -8,7 +8,12 @@ import InputForm from '../../components/InputForm';
 import TitleMarkup from '../../components/TitleMarkup';
 import FavoritesCarousel from '../../components/FavoritesCarousel';
 import { auth, db } from '../../config/firebase';
-import { signOut } from '@firebase/auth';
+import {  signOut,
+          updateEmail,
+          EmailAuthProvider,
+          reauthenticateWithCredential,
+        } from '@firebase/auth'; 
+
 import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 
 
@@ -21,6 +26,7 @@ const ProfileScreen = () => {
   const [lastName, setLastName] = useState('')
   const [birthday, setBirthday] = useState('')
   const [email, setEmail] = useState('')
+  const [showChangeEmailWarning, setShowChangeEmailWarning] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('')
 
   useEffect(() => {
@@ -89,7 +95,15 @@ const ProfileScreen = () => {
           returnKeyType="next"
           value={email}
           onChangeText={(text) => setEmail(text)}
+          onFocus={() => setShowChangeEmailWarning(true)}
+          onBlur={() => setShowChangeEmailWarning(false)}
         />
+        {showChangeEmailWarning && (
+          <TitleMarkup style={styles.emailWarning}>
+            ⚠️ Als je je e-mailadres wijzigt, moet je opnieuw inloggen.
+          </TitleMarkup>
+        )}
+
 
         <InputForm
           inputStyle={styles.input}
@@ -109,6 +123,39 @@ const ProfileScreen = () => {
           onChangeText={(text) => setBirthday(text)}
         />
       </View>
+
+      <TouchableOpacity
+          style={[ styles.primaryButton, { backgroundColor: getCategoryColor("login", "buttonColor") }]}
+          onPress={async () => {
+            const user = auth.currentUser;
+            if (!user) return;
+            
+              const emailChanged = email !== user.email;
+
+              if (emailChanged) {
+                await updateEmail(user, email);
+              }
+
+              await updateDoc(doc(db, "users", user.uid), {
+                nickname,
+                firstName: name,
+                lastName,
+                phoneNumber,
+                email,
+                birthDate: birthday ? new Date(birthday) : null,
+                updatedAt: serverTimestamp(),
+              });
+
+              if (emailChanged) {
+                await signOut(auth);
+              }
+          }}
+        >
+          <TitleMarkup style={styles.primaryButtonText}>
+            Wijzigingen opslaan
+          </TitleMarkup>
+        </TouchableOpacity>
+
 
       <TouchableOpacity style={[styles.primaryButton, { backgroundColor: getCategoryColor("login", "buttonColor") }]}
         onPress={async () => {
@@ -191,5 +238,10 @@ screen: {
     color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "500",
+  },
+  emailWarning: {
+    marginTop: 6,
+    fontSize: 13,
+    color: "#B45309",
   },
 });
