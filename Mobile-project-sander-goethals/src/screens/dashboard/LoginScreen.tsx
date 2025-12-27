@@ -8,17 +8,20 @@ import {
 } from "react-native";
 import React from "react";
 import { useFormik } from "formik";
-import InputForm from "../../components/InputForm";
 import { useNavigation } from "@react-navigation/native";
-import { AuthStackNavProps } from "../../navigators/types";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../config/firebase";
+
+import InputForm from "../../components/InputForm";
 import TitleMarkup from "../../components/ui/TitleMarkup";
+
+import { AuthStackNavProps } from "../../navigators/types";
 import { getCategoryColor } from "../../theme/categoryHelpers";
 import { loginValidationSchema } from "../../validation/validation";
-
+import { loginUser } from "../../services/auth.service";
 
 const LoginScreen = () => {
+  const navigate =
+    useNavigation<AuthStackNavProps<"login">["navigation"]>();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -27,18 +30,28 @@ const LoginScreen = () => {
     validationSchema: loginValidationSchema,
     onSubmit: async (values) => {
       try {
-        await signInWithEmailAndPassword(auth, values.email, values.password);
+        await loginUser({
+          email: values.email,
+          password: values.password,
+        });
+        
       } catch (error) {
-        console.log(error);
+        console.log("Loginfout:", error);
       }
     },
   });
 
-  const navigate = useNavigation<AuthStackNavProps<"login">["navigation"]>();
-
   return (
     <KeyboardAvoidingView
-      style={[styles.container, { backgroundColor: getCategoryColor("login", "backgroundColor") }]}
+      style={[
+        styles.container,
+        {
+          backgroundColor: getCategoryColor(
+            "login",
+            "backgroundColor"
+          ),
+        },
+      ]}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.innerContainer}>
@@ -54,7 +67,11 @@ const LoginScreen = () => {
           onBlur={formik.handleBlur("email")}
           keyboardType="email-address"
           autoCapitalize="none"
-          error={formik.touched.email ? formik.errors.email : undefined}
+          error={
+            formik.touched.email
+              ? formik.errors.email
+              : undefined
+          }
         />
 
         <InputForm
@@ -62,19 +79,30 @@ const LoginScreen = () => {
           value={formik.values.password}
           onChangeText={formik.handleChange("password")}
           onBlur={formik.handleBlur("password")}
-          secureTextEntry
-          error={formik.touched.password ? formik.errors.password : undefined}
           isPassword
+          error={
+            formik.touched.password
+              ? formik.errors.password
+              : undefined
+          }
         />
 
         <TouchableOpacity
-          style={[styles.primaryButton, { backgroundColor: getCategoryColor("login", "buttonColor") }]}
+          style={[
+            styles.primaryButton,
+            {
+              backgroundColor: getCategoryColor(
+                "login",
+                "buttonColor"
+              ),
+            },
+          ]}
           onPress={() => formik.handleSubmit()}
         >
           <TitleMarkup>Inloggen</TitleMarkup>
         </TouchableOpacity>
 
-        {/* TODO: Forgot password functionality */}
+        {/* TODO: Forgot password */}
         <TouchableOpacity style={styles.linkButton}>
           <TitleMarkup>Wachtwoord vergeten?</TitleMarkup>
         </TouchableOpacity>
@@ -92,8 +120,7 @@ const LoginScreen = () => {
   );
 };
 
-
-export default LoginScreen
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   container: {

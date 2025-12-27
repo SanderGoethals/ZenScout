@@ -1,7 +1,7 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
-import { RegisterUserInput } from "./types";
+import { RegisterUserInput, LoginUserInput } from "./types";
 
 export const registerUser = async ({ email, password }: RegisterUserInput) => {
   const userCredential = await createUserWithEmailAndPassword(
@@ -22,6 +22,19 @@ export const registerUser = async ({ email, password }: RegisterUserInput) => {
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });
+
+  return userCredential.user;
+};
+
+export const loginUser = async ({
+  email,
+ password,
+}: LoginUserInput) => {
+  const userCredential = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
 
   return userCredential.user;
 };
