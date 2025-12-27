@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { RatingStarsProps } from "../types";
+import { RatingStarsProps } from "./types";
 
 const RatingStars: FC<RatingStarsProps> = ({
   score,

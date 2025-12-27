@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import ImageViewing from 'react-native-image-viewing';
-import { ImageCarouselProps } from './../types';
+import { ImageCarouselProps } from './types';
 
 const BORDER_RADIUS = 12;
 

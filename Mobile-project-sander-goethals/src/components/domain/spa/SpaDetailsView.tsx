@@ -5,7 +5,7 @@ import ImageCarousel from '../../ui/ImageCarousel';
 import RatingStars from '../../ui/RatingStars';
 import TitleMarkup from '../../ui/TitleMarkup';
 import SocialIconProps from '../../ui/SocialsIcon';
-import { DetailProps } from '../../types';
+import { DetailProps } from './types';
 import { RatingDetailsView } from './RatingDetailsView';
 import { StatusBar } from 'expo-status-bar';
 import { useHeaderHeight } from '@react-navigation/elements';

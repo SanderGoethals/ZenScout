@@ -1,10 +1,7 @@
 import React, { FC } from 'react'
 import { StyleSheet, View } from 'react-native'
 import TitleMarkup from '../../ui/TitleMarkup'
-
-interface FacilitiesViewProps {
-  facilities: string[]
-}
+import { FacilitiesViewProps } from './types'
 
 const FacilitiesView: FC<FacilitiesViewProps> = ({ facilities }) => {
   if (!facilities || facilities.length === 0) {
