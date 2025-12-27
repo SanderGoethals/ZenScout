@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, ActivityIndicator,} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import {SpaListCard} from '../../components/domain/SpaListCard';
+import {SpaListCard} from '../../components/domain/spa/SpaListCard';
 import TitleMarkup from '../../components/ui/TitleMarkup';
 import { useWellnessList } from '../../hooks/useWellnessList';
 import { useAppSelector } from '../../hooks/reduxHooks';

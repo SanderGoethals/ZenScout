@@ -10,12 +10,12 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import TitleMarkup from './../ui/TitleMarkup';
-import RatingStars from './../ui/RatingStars';
-import { useAppDispatch } from '../../hooks/reduxHooks';
-import { toggle } from '../../store/favorites/slice';
-import { getCategoryColor } from '../../theme/categoryHelpers';
-import { FavoriteCarouselProps } from './../types';
+import TitleMarkup from '../../ui/TitleMarkup';
+import RatingStars from '../../ui/RatingStars';
+import { useAppDispatch } from '../../../hooks/reduxHooks';
+import { toggle } from '../../../store/favorites/slice';
+import { getCategoryColor } from '../../../theme/categoryHelpers';
+import { FavoriteCarouselProps } from '../../types';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.8;

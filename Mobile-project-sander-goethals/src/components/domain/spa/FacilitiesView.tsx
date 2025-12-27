@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { StyleSheet, View } from 'react-native'
-import TitleMarkup from './../ui/TitleMarkup'
+import TitleMarkup from '../../ui/TitleMarkup'
 
 interface FacilitiesViewProps {
   facilities: string[]

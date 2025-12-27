@@ -1,16 +1,16 @@
 import React, { FC, useRef, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Dimensions, Pressable, } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import ImageCarousel from './../ui/ImageCarousel';
-import RatingStars from '../ui/RatingStars';
-import TitleMarkup from '../ui/TitleMarkup';
-import SocialIconProps from './../ui/SocialsIcon';
-import { DetailProps } from '../types';
+import ImageCarousel from '../../ui/ImageCarousel';
+import RatingStars from '../../ui/RatingStars';
+import TitleMarkup from '../../ui/TitleMarkup';
+import SocialIconProps from '../../ui/SocialsIcon';
+import { DetailProps } from '../../types';
 import { RatingDetailsView } from './RatingDetailsView';
 import { StatusBar } from 'expo-status-bar';
 import { useHeaderHeight } from '@react-navigation/elements';
 import FacilitiesCollapsible from './FacilitiesCollapsable';
-import { getCategoryColor } from '../../theme/categoryHelpers';
+import { getCategoryColor } from '../../../theme/categoryHelpers';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 

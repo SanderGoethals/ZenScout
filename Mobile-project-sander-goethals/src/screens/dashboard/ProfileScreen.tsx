@@ -6,7 +6,7 @@ import { getCategoryColor } from '../../theme/categoryHelpers';
 
 import InputForm from '../../components/InputForm';
 import TitleMarkup from '../../components/ui/TitleMarkup';
-import FavoritesCarousel from '../../components/domain/FavoritesCarousel';
+import FavoritesCarousel from '../../components/domain/spa/FavoritesCarousel';
 import { auth, db } from '../../config/firebase';
 import {  signOut } from '@firebase/auth'; 
 import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
@@ -142,17 +142,6 @@ const updateProfileField = async (updates: Record<string, any>) => {
         />
       </View>
 
-      <TouchableOpacity style={[styles.primaryButton, { backgroundColor: getCategoryColor("login", "buttonColor") }]}
-        onPress={async () => {
-          try {
-            await signOut(auth);
-          } catch (error) {
-            console.error("Error signing out: ", error);
-          }
-        }}>
-        <TitleMarkup style={styles.primaryButtonText}>Uitloggen</TitleMarkup>
-      </TouchableOpacity>
-
       <View style={styles.screen}>
         {favorites.length > 0 && (
           <>
@@ -164,6 +153,18 @@ const updateProfileField = async (updates: Record<string, any>) => {
           </>
         )}
       </View>
+
+      <TouchableOpacity style={[styles.primaryButton, { backgroundColor: getCategoryColor("login", "buttonColor") }]}
+        onPress={async () => {
+          try {
+            await signOut(auth);
+          } catch (error) {
+            console.error("Error signing out: ", error);
+          }
+        }}>
+        <TitleMarkup style={styles.primaryButtonText}>Uitloggen</TitleMarkup>
+      </TouchableOpacity>
+
     </ScrollView>
   );
 };
