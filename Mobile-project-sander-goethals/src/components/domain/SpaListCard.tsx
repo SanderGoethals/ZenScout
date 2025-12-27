@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import ImageCarousel from './ImageCarousel';
-import RatingStars from './RatingStars';
-import TitleMarkup from './TitleMarkup';
-import { CardProps } from './types';
-import { getCategoryColor } from '../theme/categoryHelpers';
+import ImageCarousel from '../ui/ImageCarousel';
+import RatingStars from '../ui/RatingStars';
+import TitleMarkup from '../ui/TitleMarkup';
+import { CardProps } from '../types';
+import { getCategoryColor } from '../../theme/categoryHelpers';
 
 export const SpaListCard: FC<CardProps> = ({
   data: item,

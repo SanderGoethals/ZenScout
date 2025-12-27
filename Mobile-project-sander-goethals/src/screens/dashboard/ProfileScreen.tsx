@@ -5,8 +5,8 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { getCategoryColor } from '../../theme/categoryHelpers';
 
 import InputForm from '../../components/InputForm';
-import TitleMarkup from '../../components/TitleMarkup';
-import FavoritesCarousel from '../../components/FavoritesCarousel';
+import TitleMarkup from '../../components/ui/TitleMarkup';
+import FavoritesCarousel from '../../components/domain/FavoritesCarousel';
 import { auth, db } from '../../config/firebase';
 import {  signOut } from '@firebase/auth'; 
 import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";

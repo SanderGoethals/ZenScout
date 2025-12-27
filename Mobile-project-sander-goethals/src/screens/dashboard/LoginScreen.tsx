@@ -13,7 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { AuthStackNavProps } from "../../navigators/types";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase";
-import TitleMarkup from "../../components/TitleMarkup";
+import TitleMarkup from "../../components/ui/TitleMarkup";
 import { getCategoryColor } from "../../theme/categoryHelpers";
 import { loginValidationSchema } from "../../validation/validation";
 

@@ -6,7 +6,7 @@ import {
   StyleSheet
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { SocialIconProps } from "./types";
+import { SocialIconProps } from "./../types";
 
 
 const SocialIcon: FC<SocialIconProps> = ({ name, color, url, bgColor }) => {

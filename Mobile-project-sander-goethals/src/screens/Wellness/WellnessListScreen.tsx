@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, ActivityIndicator,} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import {SpaListCard} from '../../components/SpaListCard';
-import TitleMarkup from '../../components/TitleMarkup';
+import {SpaListCard} from '../../components/domain/SpaListCard';
+import TitleMarkup from '../../components/ui/TitleMarkup';
 import { useWellnessList } from '../../hooks/useWellnessList';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { getCategoryColor } from '../../theme/categoryHelpers';
@@ -54,17 +54,6 @@ const SpaListScreen = () => {
               navigation.navigate('wellnessDetails', { data: spa })
             }
           >
-            {/* <Text style={styles.offerTitle}>
-              {item.offerTitle}
-            </Text>
-
-            <Text style={styles.offerDuration}>
-              {item.offerDuration}
-            </Text>
-
-            <Text style={styles.price}>
-              {item.price}
-            </Text> */}
           </SpaListCard>
         )}
       />

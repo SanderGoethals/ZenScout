@@ -1,8 +1,7 @@
 import React, { FC, useRef, useState } from 'react'
 import { Animated, Pressable, StyleSheet, Text, View } from 'react-native'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
 import FacilitiesView from './FacilitiesView'
-import { FacilitiesCollapsibleProps } from './types'
+import { FacilitiesCollapsibleProps } from '../types'
 
 const FacilitiesCollapsible: FC<FacilitiesCollapsibleProps> = ({
   facilities,

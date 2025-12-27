@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, ActivityIndicator,} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import {SpaListCard} from '../../components/SpaListCard';
-import TitleMarkup from '../../components/TitleMarkup';
+import {SpaListCard} from '../../components/domain/SpaListCard';
+import TitleMarkup from '../../components/ui/TitleMarkup';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { useMassageAndBeautyList } from '../../hooks/useMassageAndBeautyList';
 import { getCategoryColor } from '../../theme/categoryHelpers';

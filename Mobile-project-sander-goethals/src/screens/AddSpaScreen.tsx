@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, Pressable, Alert, KeyboardAvoidingView, Platform } from 'react-native'
 import * as MailComposer from 'expo-mail-composer'
 import InputForm from '../components/InputForm'
-import TitleMarkup from '../components/TitleMarkup'
+import TitleMarkup from '../components/ui/TitleMarkup'
 import { getCategoryColor } from '../theme/categoryHelpers'
 
 const AddWellnessScreen = () => {

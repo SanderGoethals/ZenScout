@@ -17,7 +17,7 @@ import { db } from "../../config/firebase";
 import { auth } from "../../config/firebase";
 import { getCategoryColor } from "../../theme/categoryHelpers";
 import { registerValidationSchema } from "../../validation/validation";
-import TitleMarkup from "../../components/TitleMarkup";
+import TitleMarkup from "../../components/ui/TitleMarkup";
 
 const RegisterScreen = () => {
   const navigate = useNavigation<AuthStackNavProps<"register">["navigation"]>();

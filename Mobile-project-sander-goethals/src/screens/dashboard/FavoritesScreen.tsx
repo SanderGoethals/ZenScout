@@ -1,9 +1,9 @@
 import { FlatList, TouchableOpacity, View, StyleSheet } from 'react-native';
 import React from 'react';
-import ImageCarousel from '../../components/ImageCarousel';
-import TitleMarkup from '../../components/TitleMarkup';
+import ImageCarousel from '../../components/ui/ImageCarousel';
+import TitleMarkup from '../../components/ui/TitleMarkup';
 import { useNavigation } from '@react-navigation/native';
-import RatingStars from '../../components/RatingStars';
+import RatingStars from '../../components/ui/RatingStars';
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { toggle } from '../../store/favorites/slice';
