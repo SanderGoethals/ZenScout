@@ -7,8 +7,9 @@ import { getCategoryColor } from '../../theme/categoryHelpers';
 import InputForm from '../../components/InputForm';
 import TitleMarkup from '../../components/TitleMarkup';
 import FavoritesCarousel from '../../components/FavoritesCarousel';
-import { auth } from '../../config/firebase';
+import { auth, db } from '../../config/firebase';
 import { signOut } from '@firebase/auth';
+import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 
 
 const ProfileScreen = () => {

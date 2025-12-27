@@ -6,12 +6,14 @@ import {
   StyleSheet,
 } from "react-native";
 import React from "react";
-import { replace, useFormik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import InputForm from "../../components/InputForm";
 import { useNavigation } from "@react-navigation/native";
 import { AuthStackNavProps } from "../../navigators/types";
 import { createUserWithEmailAndPassword } from "@firebase/auth";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../config/firebase";
 import { auth } from "../../config/firebase";
 import { getCategoryColor } from "../../theme/categoryHelpers";
 import TitleMarkup from "../../components/TitleMarkup";
@@ -29,6 +31,8 @@ const registerValidationSchema = Yup.object().shape({
 });
 
 const RegisterScreen = () => {
+  const navigate = useNavigation<AuthStackNavProps<"register">["navigation"]>();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -38,18 +42,31 @@ const RegisterScreen = () => {
     validationSchema: registerValidationSchema,
     onSubmit: async (values) => {
       try {
-        await createUserWithEmailAndPassword(
+        const userCredential = await createUserWithEmailAndPassword(
           auth,
           values.email,
           values.password
         );
+        const uid = userCredential.user.uid;
+
+        await setDoc(doc(db, "users", uid), {
+          email: values.email,
+          nickname: values.email.split("@")[0],
+          firstName: "",
+          lastName: "",
+          phoneNumber: "",
+          birthDate: null,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        });
+        
+        navigate.replace("login");
       } catch (error) {
-        console.log(error);
+        console.log("Registratiefout:", error);
       }
     },
   });
   
-  const navigate = useNavigation<AuthStackNavProps<"register">["navigation"]>();
 
   return (
   <KeyboardAvoidingView
@@ -105,13 +122,7 @@ const RegisterScreen = () => {
 
       <TouchableOpacity
         style={[styles.primaryButton, { backgroundColor: getCategoryColor("login", "buttonColor") }]}
-        onPress={() => {
-          formik.handleSubmit();
-
-          if (!formik.errors.email && !formik.errors.password && !formik.errors.confirmPassword) {
-            navigate.replace("login");
-          }
-        }}
+        onPress={() => { formik.handleSubmit(); }}
       >
         <TitleMarkup style={styles.primaryButtonText}>Registreren</TitleMarkup>
       </TouchableOpacity>
