@@ -1,6 +1,7 @@
-import { addDoc, collection, serverTimestamp, getDoc, doc } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, getDoc, getDocs, doc, query, orderBy, where, Timestamp } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
 import { CreateReviewInput } from "./types";
+import { Review } from "../components/domain/reviews/types";
 
 export const createReview = async ({
   spaId,
@@ -31,3 +32,16 @@ export const createReview = async ({
   });
 };
 
+export const getReviewsBySpaId = async (spaId: string) => {
+  const reviewsCollection = collection(db, "reviews");
+  const reviewsSnap = await getDocs(
+    query(reviewsCollection, 
+      where("spaId", "==", spaId), 
+      orderBy("createdAt", "desc")));
+
+  const reviews = reviewsSnap.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  })) as Review[];
+  return reviews;
+};
