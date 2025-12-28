@@ -80,6 +80,11 @@ const RegisterScreen = () => {
             }
           />
         </View>
+        {formik.touched.email && formik.errors.email && (
+          <TitleMarkup style={styles.errorText}>
+            {formik.errors.email}
+          </TitleMarkup>
+        )}
 
         <InputForm
           placeholder="Geef je wachtwoord in"

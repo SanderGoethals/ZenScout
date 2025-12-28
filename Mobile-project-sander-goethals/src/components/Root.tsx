@@ -4,7 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NavigationContainer } from '@react-navigation/native';
 import RootStackNavigator from '../navigators/RootStackNavigator';
-import { Provider, ReactReduxContext } from 'react-redux';
+import { Provider } from 'react-redux';
 import { persistor, store } from '../store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ActivityIndicator } from 'react-native';

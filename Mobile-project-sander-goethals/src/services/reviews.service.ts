@@ -1,38 +1,33 @@
-import {
-  addDoc,
-  collection,
-  getDocs,
-  query,
-  where,
-  serverTimestamp,
-} from "firebase/firestore";
-import { db } from "../config/firebase";
+import { addDoc, collection, serverTimestamp, getDoc, doc } from "firebase/firestore";
+import { auth, db } from "../config/firebase";
 import { CreateReviewInput } from "./types";
 
-export const fetchReviewsBySpa = async (spaId: string) => {
-  const q = query(
-    collection(db, "reviews"),
-    where("spaId", "==", spaId)
-  );
+export const createReview = async ({
+  spaId,
+  comment,
+  rating,
+}: CreateReviewInput) => {
+  const uid = auth.currentUser!.uid;
 
-  const snapshot = await getDocs(q);
+  const userSnap = await getDoc(doc(db, "users", uid));
 
-  return snapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
-};
+  if (!userSnap.exists()) {
+    throw new Error("User profile not found");
+  }
 
-export const createReview = async (
-  input: CreateReviewInput,
-  userId: string
-) => {
-  return addDoc(collection(db, "reviews"), {
-    spaId: input.spaId,
-    userId,
-    rating: input.rating,
-    comment: input.comment,
+  const { nickname } = userSnap.data();
+
+  if (!nickname) {
+    throw new Error("User nickname missing");
+  }
+
+  await addDoc(collection(db, "reviews"), {
+    spaId,
+    uid,
+    nickname,
+    comment,
+    rating,
     createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
   });
 };
+

@@ -13,6 +13,7 @@ import WellnessListScreen from '../screens/wellness/WellnessListScreen';
 import PrivateSaunaListScreen from '../screens/privateSauna/PrivateSaunaListScreen';
 import MassageAndBeautyListScreen from '../screens/massageAndBeauty/MassageAndBeautyList';
 import PublicSaunaListScreen from '../screens/publicSauna/PublicSaunaListScreen';
+import HomeScreen from '../screens/HomeScreen';
 
 const Drawer = createDrawerNavigator<DrawerParamList>();
 
@@ -36,7 +37,7 @@ const DrawerNavigator = () => {
         }}>
             {/* <Drawer.Screen name="Home" component={WellnessListScreen} />  */}
 
-            <Drawer.Screen name="home" component={WellnessListScreen} options={{ title: "Home",   
+            <Drawer.Screen name="home" component={HomeScreen} options={{ title: "Home",   
                 drawerIcon: ({color, size}) => (
                     <MaterialCommunityIcons name="home" color={color} size={size} />
                 )
