@@ -1,6 +1,7 @@
 import {
   Text,
   View,
+  Alert,
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
@@ -33,10 +34,10 @@ const LoginScreen = () => {
         await loginUser({
           email: values.email,
           password: values.password,
-        });
-        
+        });        
       } catch (error) {
-        console.log("Loginfout:", error);
+        Alert.alert("Fout bij inloggen", "Controleer je gegevens en probeer het opnieuw.");
+        console.error("Login error:", "\n", error);
       }
     },
   });
