@@ -35,6 +35,6 @@ interface SpaBase {
     src: string;
     alt: string;
   }[];
-  longitude: number;
   latitude: number;
+  longitude: number;
 }
