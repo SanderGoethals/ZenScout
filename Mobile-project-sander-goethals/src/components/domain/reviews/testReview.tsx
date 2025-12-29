@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, Button, StyleSheet, Alert } from "react-native";
 import { auth } from "../../../config/firebase";
 import { createReview } from "../../../services/reviews.service";
-import InputForm from "../../InputForm";
+import InputForm from "../../ui/InputForm";
 
 const TEST_SPA_ID = "850";
 

@@ -4,7 +4,7 @@ import { useAppSelector } from '../../hooks/reduxHooks';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { getCategoryColor } from '../../theme/categoryHelpers';
 
-import InputForm from '../../components/InputForm';
+import InputForm from '../../components/ui/InputForm';
 import TextMarkup from '../../components/ui/TextMarkup';
 import FavoritesCarousel from '../../components/domain/spa/FavoritesCarousel';
 import { auth, db } from '../../config/firebase';

@@ -1,4 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { TextProps } from "react-native";
+import { TextInputProps, StyleProp } from 'react-native'
+import { ViewStyle, TextStyle } from 'react-native'
 
 export interface SocialIconProps {
   name: keyof typeof MaterialCommunityIcons.glyphMap; // icoonnaam
@@ -19,4 +22,15 @@ export interface ImageCarouselProps {
   height: number;
   showThumbnails?: boolean;
   thumbnailHeight?: number;
+}
+
+export interface TextMarkupProps extends TextProps {
+  variant?:  'semiBold' | 'semiBoldItalic' | 'boldItalic' | 'extraBold' | 'blackItalic'
+}
+
+export interface FormInputProps extends TextInputProps {
+  containerStyle?: StyleProp<ViewStyle>   // styling van wrapper View
+  inputStyle?: StyleProp<TextStyle>       // styling van TextInput
+  error?: string
+  isPassword?: boolean;
 }

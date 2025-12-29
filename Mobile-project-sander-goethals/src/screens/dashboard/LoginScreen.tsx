@@ -11,7 +11,7 @@ import React from "react";
 import { useFormik } from "formik";
 import { useNavigation } from "@react-navigation/native";
 
-import InputForm from "../../components/InputForm";
+import InputForm from "../../components/ui/InputForm";
 import TextMarkup from "../../components/ui/TextMarkup";
 
 import { AuthStackNavProps } from "../../navigators/types";

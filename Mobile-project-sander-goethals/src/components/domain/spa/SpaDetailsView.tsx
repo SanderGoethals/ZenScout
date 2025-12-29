@@ -334,6 +334,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 34,
+    letterSpacing: 1,
     textAlign: 'center',
   },
   priceText: {

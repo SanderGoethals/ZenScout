@@ -1,6 +1,6 @@
 import { StyleSheet, Text } from 'react-native'
 import React from 'react'
-import { TextMarkupProps } from '../types'
+import { TextMarkupProps } from './types'
 
 const TextMarkup = ({
   variant = 'semiBold',
