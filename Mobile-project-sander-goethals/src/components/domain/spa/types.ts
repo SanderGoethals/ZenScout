@@ -9,8 +9,7 @@ export interface CardProps {
   index: number;                    
   isFavorite: boolean;              
   onPress: (item: any) => void;     
-  category: CategoryKey;
-  children?: React.ReactNode;       
+  category: CategoryKey;  
 }
 
 export interface DetailProps {

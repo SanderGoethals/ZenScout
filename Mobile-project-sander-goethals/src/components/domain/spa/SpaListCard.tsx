@@ -14,7 +14,6 @@ export const SpaListCard: FC<CardProps> = ({
   isFavorite,
   onPress,
   category,
-  children,
 }: CardProps) => {
   const bgColor = getCategoryColor(
   category,
@@ -26,7 +25,7 @@ export const SpaListCard: FC<CardProps> = ({
       <View style={[styles.card, { backgroundColor: bgColor }]}>
 
         {/* Titel */}
-        <TextMarkup style={styles.title}>{item.name}</TextMarkup>
+        <TextMarkup variant='boldItalic' style={{fontSize: 20, letterSpacing: 0.3}}>{item.name}</TextMarkup>
 
         {/* Afbeeldingen + favorite */}
         <View style={styles.imageWrapper}>
@@ -49,19 +48,16 @@ export const SpaListCard: FC<CardProps> = ({
 
           <View style={styles.locationRow}>
             <MaterialCommunityIcons name="map-marker" size={22} color="red"/>
-              <TextMarkup style={styles.location}>
+              <TextMarkup style={{ fontSize: 18, letterSpacing: 0.3 }}>
                 {item.city}, {item.province}
               </TextMarkup>
         </View>
 
           </View>
         {/* Beschrijving KORT */}
-          <Text style={ styles.title} numberOfLines={2} ellipsizeMode="tail" >
+          <TextMarkup style={{ fontSize: 16, letterSpacing: 0.3 }} numberOfLines={2} ellipsizeMode="tail" >
             {item.description}
-          </Text>
-
-        {/* Slot voor uitbreidingen */}
-        {children && <View>{children}</View>}
+          </TextMarkup>
 
       </View>
     </TouchableOpacity>
@@ -84,13 +80,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.07,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  location: {
-    fontSize: 18,
   },
   imageWrapper: {
   position: "relative",
