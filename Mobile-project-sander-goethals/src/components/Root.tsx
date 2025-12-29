@@ -15,38 +15,46 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 const queryClient = new QueryClient();
-const LOADER_COLOR = '#ADD8E6';
+const LOADER_COLOR = '#ADD8E6'
 
-SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync()
 
 const Root = () => {
-
-  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
-  const [isAppReady, setIsAppReady] = useState(true);
+  const [loggedInUser, setLoggedInUser] = useState<User | null>(null)
+  const [authChecked, setAuthChecked] = useState(false)
 
   const [fontsLoaded] = useFonts({
-    BBHBartle: require('../../assets/fonts/BBHBartle.ttf'),
-  });
+    'Playfair-Black': require('../../assets/fonts/PlayfairDisplay-Black.ttf'),
+    'Playfair-BlackItalic': require('../../assets/fonts/PlayfairDisplay-BlackItalic.ttf'),
+    'Playfair-Bold': require('../../assets/fonts/PlayfairDisplay-Bold.ttf'),
+    'Playfair-BoldItalic': require('../../assets/fonts/PlayfairDisplay-BoldItalic.ttf'),
+    'Playfair-ExtraBold': require('../../assets/fonts/PlayfairDisplay-ExtraBold.ttf'),
+    'Playfair-ExtraBoldItalic': require('../../assets/fonts/PlayfairDisplay-ExtraBoldItalic.ttf'),
+    'Playfair-Italic': require('../../assets/fonts/PlayfairDisplay-Italic.ttf'),
+    'Playfair-Medium': require('../../assets/fonts/PlayfairDisplay-Medium.ttf'),
+    'Playfair-MediumItalic': require('../../assets/fonts/PlayfairDisplay-MediumItalic.ttf'),
+    'Playfair-Regular': require('../../assets/fonts/PlayfairDisplay-Regular.ttf'),
+    'Playfair-SemiBold': require('../../assets/fonts/PlayfairDisplay-SemiBold.ttf'),
+    'Playfair-SemiBoldItalic': require('../../assets/fonts/PlayfairDisplay-SemiBoldItalic.ttf'),
+  })
 
   useEffect(() => {
-      setIsAppReady(true);
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setLoggedInUser(user);
-      setIsAppReady(false);
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      setLoggedInUser(user)
+      setAuthChecked(true)
     })
 
-    return unsubscribe;
-
-  }, []);
+    return unsubscribe
+  }, [])
 
   useEffect(() => {
-    if (!isAppReady && fontsLoaded) {
-      SplashScreen.hideAsync();
+    if (fontsLoaded && authChecked) {
+      SplashScreen.hideAsync()
     }
-  }, [isAppReady, fontsLoaded]);
+  }, [fontsLoaded, authChecked])
 
-  if (isAppReady || !fontsLoaded) {
-    return null;
+  if (!fontsLoaded || !authChecked) {
+    return null
   }
 
   return (

@@ -1,13 +1,13 @@
 import React, { FC, useState } from 'react'
 import {
   View,
-  Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
   Modal,
   Pressable,
   Dimensions,
+  Text,
 } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { StatusBar } from 'expo-status-bar'
@@ -15,12 +15,12 @@ import { useHeaderHeight } from '@react-navigation/elements'
 
 import ImageCarousel from '../../ui/ImageCarousel'
 import RatingStars from '../../ui/RatingStars'
-import TitleMarkup from '../../ui/TitleMarkup'
 import SocialIconProps from '../../ui/SocialsIcon'
 import FacilitiesCollapsible from './FacilitiesCollapsable'
 import { RatingDetailsView } from './RatingDetailsView'
 import { DetailProps } from './types'
 import { getCategoryColor } from '../../../theme/categoryHelpers'
+import TextMarkup from '../../ui/TextMarkup'
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 
@@ -67,9 +67,9 @@ export const SpaDetailsView: FC<DetailProps> = ({
         />
 
         <View style={styles.infoCard}>
-          <TitleMarkup style={styles.titleText}>
+          <TextMarkup variant='boldItalic' style={styles.titleText}>
             {item.name}
-          </TitleMarkup>
+          </TextMarkup>
 
           <TouchableOpacity
             onPress={() => setShowRatings(true)}
@@ -77,8 +77,8 @@ export const SpaDetailsView: FC<DetailProps> = ({
           >
             <View style={styles.scoreContainer}>
               <RatingStars score={Number(item.score)} size={32} />
-              <Text style={styles.scoreText}>{item.score}</Text>
-              <Text style={styles.maxScore}>/10</Text>
+              <TextMarkup variant='boldItalic' style={styles.scoreText}>{item.score}</TextMarkup>
+              <TextMarkup variant='boldItalic' style={styles.maxScore}>/10</TextMarkup>
             </View>
           </TouchableOpacity>
 
@@ -101,9 +101,9 @@ export const SpaDetailsView: FC<DetailProps> = ({
             { backgroundColor: backgroundBase },
           ]}
         >
-          <TitleMarkup style={styles.descriptionText}>
+          <TextMarkup style={styles.descriptionText}>
             {item.description}
-          </TitleMarkup>
+          </TextMarkup>
         </View>
 
         <View
@@ -114,15 +114,16 @@ export const SpaDetailsView: FC<DetailProps> = ({
         >
           <View style={styles.offerContainer}>
             <MaterialCommunityIcons name="spa" size={32} color="#E89AAE" />
-            <TitleMarkup style={styles.offerTitle}>
+            <TextMarkup variant='extraBold' style={styles.offerTitle}>
               {item.offerTitle}
-            </TitleMarkup>
+            </TextMarkup>
             <MaterialCommunityIcons name="spa" size={32} color="#E89AAE" />
           </View>
 
           {descriptionParts.map((part: string, index: number) => (
-            <TitleMarkup
+            <TextMarkup
               key={index}
+              variant={index === 0 ? 'semiBoldItalic' : 'semiBold'}
               style={
                 index === 0
                   ? styles.fullDescriptionIntro
@@ -130,7 +131,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
               }
             >
               {part.trim()}
-            </TitleMarkup>
+            </TextMarkup>
           ))}
         </View>
 
@@ -140,9 +141,9 @@ export const SpaDetailsView: FC<DetailProps> = ({
             size={30}
             color="red"
           />
-          <TitleMarkup style={{ fontSize: 20 }}>
+          <Text style={{ fontSize: 20, fontWeight: '500'}}>
             {item.address}
-          </TitleMarkup>
+          </Text>
         </View>
 
         {item.contact && (
@@ -261,13 +262,11 @@ const styles = StyleSheet.create({
   },
   scoreText: {
     fontSize: 32,
-    fontWeight: '700',
   },
   maxScore: {
     fontSize: 18,
     marginBottom: 4,
     color: '#9CA3AF',
-    fontWeight: '500',
   },
   offerContainer: {
     flexDirection: 'row',
@@ -275,7 +274,6 @@ const styles = StyleSheet.create({
   },
   offerTitle: {
     fontSize: 26,
-    fontWeight: 'bold',
     color: '#374151',
   },
   iconContainer: {
@@ -336,7 +334,6 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 34,
-    fontWeight: '700',
     textAlign: 'center',
   },
   priceText: {
@@ -351,10 +348,9 @@ const styles = StyleSheet.create({
   },
   fullDescriptionIntro: {
     fontSize: 20,
-    fontWeight: 'bold',
   },
   fullDescriptionParagraph: {
-    fontSize: 17,
+    fontSize: 18,
     lineHeight: 26,
     color: '#374151',
   },

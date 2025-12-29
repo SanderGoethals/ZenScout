@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, Pressable, Alert, KeyboardAvoidingView, Platform } from 'react-native'
 import * as MailComposer from 'expo-mail-composer'
 import InputForm from '../components/InputForm'
-import TitleMarkup from '../components/ui/TitleMarkup'
+import TextMarkup from '../components/ui/TextMarkup'
 import { getCategoryColor } from '../theme/categoryHelpers'
 
 const AddWellnessScreen = () => {
@@ -39,10 +39,10 @@ const AddWellnessScreen = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <View style={[styles.container, { backgroundColor: containerColor }]}>
-        <TitleMarkup>
+        <TextMarkup>
           Niet de spa gevonden die je zoekt?{'\n'}
           Laat het ons weten en na verificatie krijg jij een korting op jouw volgende bezoek!
-        </TitleMarkup>
+        </TextMarkup>
 
         <View style={[styles.formCard, { backgroundColor: cardBgColor, borderColor: cardBorderColor, borderWidth: 2 }]}>
           <InputForm

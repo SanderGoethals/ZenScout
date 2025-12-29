@@ -10,7 +10,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import TitleMarkup from '../../ui/TitleMarkup';
+import TextMarkup from '../../ui/TextMarkup';
 import RatingStars from '../../ui/RatingStars';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
 import { toggle } from '../../../store/favorites/slice';
@@ -50,13 +50,13 @@ const FavoritesCarousel = ({ favorites }: FavoriteCarouselProps) => {
             <View style={[styles.card, { backgroundColor: bgColor }]}>
 
               <View style={styles.headerRow}>
-                <TitleMarkup style={styles.title} numberOfLines={2} ellipsizeMode="tail">
+                <TextMarkup style={styles.title} numberOfLines={2} ellipsizeMode="tail">
                   {item.name}
-                </TitleMarkup>
+                </TextMarkup>
 
-                <TitleMarkup style={styles.category}>
+                <TextMarkup style={styles.category}>
                   {item.category}
-                </TitleMarkup>
+                </TextMarkup>
               </View>
 
               <View style={styles.imageWrapper}>

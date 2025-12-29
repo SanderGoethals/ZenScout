@@ -1,4 +1,4 @@
-import { TextInputProps, StyleProp } from 'react-native'
+import { TextInputProps, StyleProp, TextProps } from 'react-native'
 import { ViewStyle, TextStyle } from 'react-native'
 
 export interface FormInputProps extends TextInputProps {
@@ -6,4 +6,8 @@ export interface FormInputProps extends TextInputProps {
   inputStyle?: StyleProp<TextStyle>       // styling van TextInput
   error?: string
   isPassword?: boolean;
+}
+
+export interface TextMarkupProps extends TextProps {
+  variant?:  'semiBold' | 'semiBoldItalic' | 'boldItalic' | 'extraBold' | 'blackItalic'
 }

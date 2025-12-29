@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, FlatList, ActivityIndicator,} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {SpaListCard} from '../../components/domain/spa/SpaListCard';
-import TitleMarkup from '../../components/ui/TitleMarkup';
+import TextMarkup from '../../components/ui/TextMarkup';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { useMassageAndBeautyList } from '../../hooks/useMassageAndBeautyList';
 import { getCategoryColor } from '../../theme/categoryHelpers';
@@ -26,9 +26,9 @@ const MassageAndBeautyListScreen = () => {
   if (isError) {
     return (
       <View style={styles.center}>
-        <TitleMarkup>
+        <TextMarkup>
           Massage & Beauty lijst kon niet geladen worden.
-        </TitleMarkup>
+        </TextMarkup>
       </View>
     );
   }

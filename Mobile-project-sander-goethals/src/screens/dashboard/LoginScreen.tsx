@@ -12,7 +12,7 @@ import { useFormik } from "formik";
 import { useNavigation } from "@react-navigation/native";
 
 import InputForm from "../../components/InputForm";
-import TitleMarkup from "../../components/ui/TitleMarkup";
+import TextMarkup from "../../components/ui/TextMarkup";
 
 import { AuthStackNavProps } from "../../navigators/types";
 import { getCategoryColor } from "../../theme/categoryHelpers";
@@ -100,20 +100,20 @@ const LoginScreen = () => {
           ]}
           onPress={() => formik.handleSubmit()}
         >
-          <TitleMarkup>Inloggen</TitleMarkup>
+          <TextMarkup>Inloggen</TextMarkup>
         </TouchableOpacity>
 
         {/* TODO: Forgot password */}
         <TouchableOpacity style={styles.linkButton}>
-          <TitleMarkup>Wachtwoord vergeten?</TitleMarkup>
+          <TextMarkup>Wachtwoord vergeten?</TextMarkup>
         </TouchableOpacity>
 
         <View style={styles.registerContainer}>
-          <TitleMarkup>Nog geen account?</TitleMarkup>
+          <TextMarkup>Nog geen account?</TextMarkup>
           <TouchableOpacity
             onPress={() => navigate.replace("register")}
           >
-            <TitleMarkup> Registreer hier</TitleMarkup>
+            <TextMarkup> Registreer hier</TextMarkup>
           </TouchableOpacity>
         </View>
       </View>

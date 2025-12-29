@@ -11,7 +11,7 @@ import { useFormik } from "formik";
 import { useNavigation } from "@react-navigation/native";
 
 import InputForm from "../../components/InputForm";
-import TitleMarkup from "../../components/ui/TitleMarkup";
+import TextMarkup from "../../components/ui/TextMarkup";
 
 import { AuthStackNavProps } from "../../navigators/types";
 import { getCategoryColor } from "../../theme/categoryHelpers";
@@ -59,13 +59,13 @@ const RegisterScreen = () => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView style={styles.innerContainer}>
-        <TitleMarkup style={styles.title}>Registreren</TitleMarkup>
-        <TitleMarkup style={styles.subtitle}>
+        <TextMarkup style={styles.title}>Registreren</TextMarkup>
+        <TextMarkup style={styles.subtitle}>
           Maak een account aan en begin je wellnesservaring
-        </TitleMarkup>
+        </TextMarkup>
 
         <View style={styles.field}>
-          <TitleMarkup style={styles.label}>E-mailadres</TitleMarkup>
+          <TextMarkup style={styles.label}>E-mailadres</TextMarkup>
           <InputForm
             placeholder="Geef je e-mailadres in"
             value={formik.values.email}
@@ -81,9 +81,9 @@ const RegisterScreen = () => {
           />
         </View>
         {formik.touched.email && formik.errors.email && (
-          <TitleMarkup style={styles.errorText}>
+          <TextMarkup style={styles.errorText}>
             {formik.errors.email}
-          </TitleMarkup>
+          </TextMarkup>
         )}
 
         <InputForm
@@ -114,9 +114,9 @@ const RegisterScreen = () => {
 
         {formik.touched.confirmPassword &&
           formik.errors.confirmPassword && (
-            <TitleMarkup style={styles.errorText}>
+            <TextMarkup style={styles.errorText}>
               {formik.errors.confirmPassword}
-            </TitleMarkup>
+            </TextMarkup>
           )}
 
         <TouchableOpacity
@@ -135,7 +135,7 @@ const RegisterScreen = () => {
             },
           ]}
         >
-          <TitleMarkup
+          <TextMarkup
             style={[
               styles.primaryButtonText,
               {
@@ -144,19 +144,19 @@ const RegisterScreen = () => {
             ]}
           >
             Registreren
-          </TitleMarkup>
+          </TextMarkup>
         </TouchableOpacity>
 
         <View style={styles.footer}>
-          <TitleMarkup style={styles.footerText}>
+          <TextMarkup style={styles.footerText}>
             Heb je al een account?
-          </TitleMarkup>
+          </TextMarkup>
           <TouchableOpacity
             onPress={() => navigate.replace("login")}
           >
-            <TitleMarkup style={styles.footerLink}>
+            <TextMarkup style={styles.footerLink}>
               Log hier in
-            </TitleMarkup>
+            </TextMarkup>
           </TouchableOpacity>
         </View>
       </ScrollView>

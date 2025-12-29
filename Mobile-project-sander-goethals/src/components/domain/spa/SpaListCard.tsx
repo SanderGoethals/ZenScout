@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import ImageCarousel from '../../ui/ImageCarousel';
 import RatingStars from '../../ui/RatingStars';
-import TitleMarkup from '../../ui/TitleMarkup';
+import TextMarkup from '../../ui/TextMarkup';
 import { CardProps } from './types';
 import { getCategoryColor } from '../../../theme/categoryHelpers';
 
@@ -26,7 +26,7 @@ export const SpaListCard: FC<CardProps> = ({
       <View style={[styles.card, { backgroundColor: bgColor }]}>
 
         {/* Titel */}
-        <TitleMarkup style={styles.title}>{item.name}</TitleMarkup>
+        <TextMarkup style={styles.title}>{item.name}</TextMarkup>
 
         {/* Afbeeldingen + favorite */}
         <View style={styles.imageWrapper}>
@@ -49,9 +49,9 @@ export const SpaListCard: FC<CardProps> = ({
 
           <View style={styles.locationRow}>
             <MaterialCommunityIcons name="map-marker" size={22} color="red"/>
-              <TitleMarkup style={styles.location}>
+              <TextMarkup style={styles.location}>
                 {item.city}, {item.province}
-              </TitleMarkup>
+              </TextMarkup>
         </View>
 
           </View>

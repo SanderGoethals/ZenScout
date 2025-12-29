@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { StyleSheet, View } from 'react-native'
-import TitleMarkup from '../../ui/TitleMarkup'
+import TextMarkup from '../../ui/TextMarkup'
 import { FacilitiesViewProps } from './types'
 
 const FacilitiesView: FC<FacilitiesViewProps> = ({ facilities }) => {
@@ -14,7 +14,7 @@ const FacilitiesView: FC<FacilitiesViewProps> = ({ facilities }) => {
       <View style={styles.flexContainer}>
         {facilities.map((facility, index) => (
           <View key={`${facility}-${index}`} style={styles.card}>
-            <TitleMarkup style={styles.cardText}>{facility}</TitleMarkup>
+            <TextMarkup style={styles.cardText}>{facility}</TextMarkup>
           </View>
         ))}
       </View>

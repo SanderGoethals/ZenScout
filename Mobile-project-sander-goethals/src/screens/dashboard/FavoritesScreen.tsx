@@ -1,7 +1,7 @@
 import { FlatList, TouchableOpacity, View, StyleSheet } from 'react-native';
 import React from 'react';
 import ImageCarousel from '../../components/ui/ImageCarousel';
-import TitleMarkup from '../../components/ui/TitleMarkup';
+import TextMarkup from '../../components/ui/TextMarkup';
 import { useNavigation } from '@react-navigation/native';
 import RatingStars from '../../components/ui/RatingStars';
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
@@ -17,9 +17,9 @@ const FavoritesScreen = () => {
 
   return favorites.length === 0 ? (
     <View style={[styles.screen, { alignItems: 'center' }]}>
-      <TitleMarkup style={{ fontSize: 24 }}>
+      <TextMarkup style={{ fontSize: 24 }}>
         Er staan nog geen favorieten klaar. Ontdek de mooiste wellnessplekken en bewaar jouw aanraders!
-      </TitleMarkup>
+      </TextMarkup>
     </View>
   ) : (
     <View style={styles.screen}>
@@ -40,13 +40,13 @@ const FavoritesScreen = () => {
               <View style={[styles.card, { backgroundColor: bgColor }]}>
 
                 <View style={styles.headerRow}>
-                  <TitleMarkup style={styles.title} numberOfLines={2} ellipsizeMode='tail'>
+                  <TextMarkup style={styles.title} numberOfLines={2} ellipsizeMode='tail'>
                     {item.name}
-                  </TitleMarkup>
+                  </TextMarkup>
 
-                  <TitleMarkup style={styles.category}>
+                  <TextMarkup style={styles.category}>
                     {item.category}
-                  </TitleMarkup>
+                  </TextMarkup>
                 </View>
 
                 <View style={styles.imageWrapper}>

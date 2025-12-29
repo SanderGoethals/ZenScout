@@ -5,7 +5,7 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { getCategoryColor } from '../../theme/categoryHelpers';
 
 import InputForm from '../../components/InputForm';
-import TitleMarkup from '../../components/ui/TitleMarkup';
+import TextMarkup from '../../components/ui/TextMarkup';
 import FavoritesCarousel from '../../components/domain/spa/FavoritesCarousel';
 import { auth, db } from '../../config/firebase';
 import {  signOut } from '@firebase/auth'; 
@@ -115,9 +115,9 @@ const updateProfileField = async (updates: Record<string, any>) => {
           onBlur={() => setShowChangeEmailWarning(false)}
         />
         {showChangeEmailWarning && (
-          <TitleMarkup style={styles.emailWarning}>
+          <TextMarkup style={styles.emailWarning}>
             ⚠️ Als je je e-mailadres wijzigt, moet je opnieuw inloggen.
-          </TitleMarkup>
+          </TextMarkup>
         )}
 
 
@@ -145,9 +145,9 @@ const updateProfileField = async (updates: Record<string, any>) => {
       <View style={styles.screen}>
         {favorites.length > 0 && (
           <>
-            <TitleMarkup style={styles.sectionTitle}>
+            <TextMarkup style={styles.sectionTitle}>
               Jouw favorieten
-            </TitleMarkup>
+            </TextMarkup>
 
             <FavoritesCarousel favorites={favorites} />
           </>
@@ -162,7 +162,7 @@ const updateProfileField = async (updates: Record<string, any>) => {
             console.error("Error signing out: ", error);
           }
         }}>
-        <TitleMarkup style={styles.primaryButtonText}>Uitloggen</TitleMarkup>
+        <TextMarkup style={styles.primaryButtonText}>Uitloggen</TextMarkup>
       </TouchableOpacity>
 
     </ScrollView>
