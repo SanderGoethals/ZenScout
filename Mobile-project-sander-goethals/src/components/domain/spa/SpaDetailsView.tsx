@@ -1,236 +1,222 @@
-import React, { FC, useRef, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Dimensions, Pressable, } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import ImageCarousel from '../../ui/ImageCarousel';
-import RatingStars from '../../ui/RatingStars';
-import TitleMarkup from '../../ui/TitleMarkup';
-import SocialIconProps from '../../ui/SocialsIcon';
-import { DetailProps } from './types';
-import { RatingDetailsView } from './RatingDetailsView';
-import { StatusBar } from 'expo-status-bar';
-import { useHeaderHeight } from '@react-navigation/elements';
-import FacilitiesCollapsible from './FacilitiesCollapsable';
-import { getCategoryColor } from '../../../theme/categoryHelpers';
+import React, { FC, useState } from 'react'
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Modal,
+  Pressable,
+  Dimensions,
+} from 'react-native'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { StatusBar } from 'expo-status-bar'
+import { useHeaderHeight } from '@react-navigation/elements'
 
-const { height: SCREEN_HEIGHT } = Dimensions.get('window');
+import ImageCarousel from '../../ui/ImageCarousel'
+import RatingStars from '../../ui/RatingStars'
+import TitleMarkup from '../../ui/TitleMarkup'
+import SocialIconProps from '../../ui/SocialsIcon'
+import FacilitiesCollapsible from './FacilitiesCollapsable'
+import { RatingDetailsView } from './RatingDetailsView'
+import { DetailProps } from './types'
+import { getCategoryColor } from '../../../theme/categoryHelpers'
+
+const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 
 export const SpaDetailsView: FC<DetailProps> = ({
   data: item,
   isFavorite,
   onToggleFavorite,
   category,
-}: DetailProps) => {
-  const backgroundLight = getCategoryColor(category, 'even');
-  const backgroundBase = getCategoryColor(category, 'odd');
+}) => {
+  const backgroundLight = getCategoryColor(category, 'even')
+  const backgroundBase = getCategoryColor(category, 'odd')
 
-  const [showRatings, setShowRatings] = useState(false);
-  const headerHeight = useHeaderHeight();
-
-  const slideAnim = useRef(
-    new Animated.Value(SCREEN_HEIGHT)
-  ).current;
-
-    const openRatings = () => {
-    setShowRatings(true);
-    Animated.timing(slideAnim, {
-      toValue: SCREEN_HEIGHT / 2,
-      duration: 300,
-      useNativeDriver: false,
-    }).start();
-  };
-
-  const closeRatings = () => {
-    Animated.timing(slideAnim, {
-      toValue: SCREEN_HEIGHT,
-      duration: 250,
-      useNativeDriver: false,
-    }).start(() => setShowRatings(false));
-  };
+  const [showRatings, setShowRatings] = useState(false)
+  const headerHeight = useHeaderHeight()
 
   const descriptionParts = item.fullDescription
-  ? item.fullDescription.split(/\n\s*\n/)
-  : [];
+    ? item.fullDescription.split(/\n\s*\n/)
+    : []
 
   return (
     <>
       <StatusBar style="light" translucent />
-        <ScrollView
-              style={{ backgroundColor: backgroundLight }}
-              contentContainerStyle={{
-                paddingTop: headerHeight,
-              }}
-              showsVerticalScrollIndicator={false}
-            >
 
-          {/* Afbeeldingen */}
-          {item.images?.length > 0 && (
-            <View style={{ marginTop: -headerHeight }}>
-              <ImageCarousel images={item.detailImages} height={360} showThumbnails />
-            </View>
-          )}
+      <ScrollView
+        style={{ backgroundColor: backgroundLight }}
+        contentContainerStyle={{ paddingTop: headerHeight }}
+        showsVerticalScrollIndicator={false}
+      >
+        {item.images?.length > 0 && (
+          <View style={{ marginTop: -headerHeight }}>
+            <ImageCarousel
+              images={item.detailImages}
+              height={360}
+              showThumbnails
+            />
+          </View>
+        )}
 
-          {/* GROENE ACHTERGRONDLAAG */}
-          <View
-            style={[
-              styles.facilitiesBackground,
-              { backgroundColor: backgroundBase },
-            ]}
-          />
+        <View
+          style={[
+            styles.facilitiesBackground,
+            { backgroundColor: backgroundBase },
+          ]}
+        />
 
-          {/* Titel + score */}
-          <View style={styles.infoCard}>
+        <View style={styles.infoCard}>
           <TitleMarkup style={styles.titleText}>
             {item.name}
           </TitleMarkup>
 
-          <TouchableOpacity onPress={openRatings} activeOpacity={0.8}>
+          <TouchableOpacity
+            onPress={() => setShowRatings(true)}
+            activeOpacity={0.8}
+          >
             <View style={styles.scoreContainer}>
               <RatingStars score={Number(item.score)} size={32} />
               <Text style={styles.scoreText}>{item.score}</Text>
               <Text style={styles.maxScore}>/10</Text>
             </View>
           </TouchableOpacity>
-          
+
           <View style={styles.priceOverlay}>
             <Text style={styles.priceText}>{item.price}</Text>
           </View>
         </View>
-          
-        {/* Faciliteiten */}
-        <View style={{ marginTop: 12, }}>
-          <FacilitiesCollapsible facilities={item.facilities} collapsedHeight={160} bgColor={backgroundBase} />
+
+        <View style={{ marginTop: 12 }}>
+          <FacilitiesCollapsible
+            facilities={item.facilities}
+            collapsedHeight={160}
+            bgColor={backgroundBase}
+          />
         </View>
 
-        {/* Kleine beschrijving */}
         <View
           style={[
             styles.descriptionContainer,
             { backgroundColor: backgroundBase },
-          ]}>
-
-          <TitleMarkup style={styles.descriptionText} 
-          // numberOfLines={2} ellipsizeMode="tail" 
-          >
+          ]}
+        >
+          <TitleMarkup style={styles.descriptionText}>
             {item.description}
           </TitleMarkup>
-
         </View>
 
-
-          {/* Volledige beschrijving */}
-          <View style={[styles.fullDescriptionContainer, { backgroundColor: backgroundBase }]}>            
-            {/* Aanbieding */}
-            <View style={styles.offerContainer}>
-              <MaterialCommunityIcons
-                name="spa"
-                size={32}
-                color="#E89AAE"
-              />
-              <TitleMarkup style={{fontSize: 26, fontWeight: 'bold', color: '#374151', marginLeft: 0,}}>
-                {item.offerTitle}
-              </TitleMarkup>
-                      <MaterialCommunityIcons
-                name="spa"
-                size={32}
-                color="#E89AAE"
-              />
-          </View>
-            {descriptionParts.map((part: string, index: number) => (
-              <TitleMarkup
-              key={index}
-              style={[
-                index === 0
-                    ? styles.fullDescriptionIntro
-                    : styles.fullDescriptionParagraph,
-              ]}
-              >
-                {part.trim()}
-              </TitleMarkup>
-            ))}
-          </View>      
-
-          {/* Locatie */}
-          <View style={styles.iconContainer}>
-            <MaterialCommunityIcons
-              name="map-marker"
-              size={30}
-              color="red"
-            />
-            <TitleMarkup style={{ fontSize: 20 }}>
-              {item.address}
+        <View
+          style={[
+            styles.fullDescriptionContainer,
+            { backgroundColor: backgroundBase },
+          ]}
+        >
+          <View style={styles.offerContainer}>
+            <MaterialCommunityIcons name="spa" size={32} color="#E89AAE" />
+            <TitleMarkup style={styles.offerTitle}>
+              {item.offerTitle}
             </TitleMarkup>
-          </View>    
+            <MaterialCommunityIcons name="spa" size={32} color="#E89AAE" />
+          </View>
 
-          {/* Socials + favorite */}
-          {item.contact && (
-            <View style={styles.socialRow}>
-              {item.contact.site ? (
-                <SocialIconProps
+          {descriptionParts.map((part: string, index: number) => (
+            <TitleMarkup
+              key={index}
+              style={
+                index === 0
+                  ? styles.fullDescriptionIntro
+                  : styles.fullDescriptionParagraph
+              }
+            >
+              {part.trim()}
+            </TitleMarkup>
+          ))}
+        </View>
+
+        <View style={styles.iconContainer}>
+          <MaterialCommunityIcons
+            name="map-marker"
+            size={30}
+            color="red"
+          />
+          <TitleMarkup style={{ fontSize: 20 }}>
+            {item.address}
+          </TitleMarkup>
+        </View>
+
+        {item.contact && (
+          <View style={styles.socialRow}>
+            {item.contact.site && (
+              <SocialIconProps
                 name="web"
                 color="#555"
                 url={item.contact.site}
                 bgColor={backgroundBase}
-                />
-              ) : null}
+              />
+            )}
 
-              {item.contact.socials?.facebook ? (
-                <SocialIconProps
+            {item.contact.socials?.facebook && (
+              <SocialIconProps
                 name="facebook"
-                  color="#4267B2"
-                  url={item.contact.socials.facebook}
-                  bgColor={backgroundBase}
-                />
-              ) : null}
+                color="#4267B2"
+                url={item.contact.socials.facebook}
+                bgColor={backgroundBase}
+              />
+            )}
 
-              {item.contact.socials?.instagram ? (
-                <SocialIconProps
+            {item.contact.socials?.instagram && (
+              <SocialIconProps
                 name="instagram"
                 color="#E1306C"
                 url={item.contact.socials.instagram}
                 bgColor={backgroundBase}
-                />
-              ) : null}
+              />
+            )}
 
-              <TouchableOpacity
-                onPress={() => onToggleFavorite(item)}
-              >
-                <MaterialCommunityIcons
-                  style={[
-                    styles.favoriteButton,
-                    { backgroundColor: backgroundBase },
-                  ]}
-                  name={
-                    isFavorite
+            <TouchableOpacity onPress={() => onToggleFavorite(item)}>
+              <MaterialCommunityIcons
+                style={[
+                  styles.favoriteButton,
+                  { backgroundColor: backgroundBase },
+                ]}
+                name={
+                  isFavorite
                     ? 'heart-circle'
                     : 'heart-circle-outline'
-                  }
-                  color={isFavorite ? '#E0245E' : '#D8A679'}
-                  size={64}
-                  />
-              </TouchableOpacity>
-            </View>
-          )}
+                }
+                color={isFavorite ? '#E0245E' : '#D8A679'}
+                size={64}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
+      </ScrollView>
 
-        {showRatings && (
-        <>
-          {/* Overlay */}
-          <Pressable
-            style={styles.overlay}
-            onPress={closeRatings}
-            />
-      
-          {/* Sliding panel */}
-          <Animated.View style={[ styles.ratingSheet, { top: slideAnim }, ]}>
-            <View style={styles.sheetHandle} />
-      
-            <RatingDetailsView data={item} evenColor={backgroundLight} oddColor={backgroundBase}/>
-          </Animated.View>
-        </>
-      )}
-    </ScrollView>
-</>
-    );
-};
+      <Modal
+        visible={showRatings}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setShowRatings(false)}
+      >
+        <Pressable
+          style={styles.overlay}
+          onPress={() => setShowRatings(false)}
+        />
+
+        <View style={styles.modalContainer}>
+          <View style={styles.sheetHandle} />
+
+          <RatingDetailsView
+            data={item}
+            evenColor={backgroundLight}
+            oddColor={backgroundBase}
+          />
+        </View>
+      </Modal>
+    </>
+  )
+}
 
 const styles = StyleSheet.create({
   infoCard: {
@@ -245,7 +231,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.12,
     shadowRadius: 16,
     shadowOffset: { width: 0, height: 6 },
-    position: 'relative',
   },
   priceOverlay: {
     position: 'absolute',
@@ -277,7 +262,6 @@ const styles = StyleSheet.create({
   scoreText: {
     fontSize: 32,
     fontWeight: '700',
-    letterSpacing: 0.5,
   },
   maxScore: {
     fontSize: 18,
@@ -288,6 +272,11 @@ const styles = StyleSheet.create({
   offerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+  },
+  offerTitle: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#374151',
   },
   iconContainer: {
     flexDirection: 'row',
@@ -311,12 +300,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     padding: 16,
     borderRadius: 12,
-    backgroundColor: '#F8FAFC',
   },
   descriptionText: {
     fontSize: 18,
     lineHeight: 24,
-    letterSpacing: 0.3,
   },
   overlay: {
     position: 'absolute',
@@ -326,8 +313,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: 'rgba(15, 23, 42, 0.45)',
   },
-  ratingSheet: {
+  modalContainer: {
     position: 'absolute',
+    bottom: 0,
     left: 0,
     right: 0,
     height: SCREEN_HEIGHT * 0.5,
@@ -336,11 +324,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 28,
     paddingHorizontal: 20,
     paddingTop: 12,
-
-    shadowColor: '#000',
-    shadowOpacity: 0.25,
-    shadowRadius: 24,
-    shadowOffset: { width: 0, height: -6 },
     elevation: 30,
   },
   sheetHandle: {
@@ -355,17 +338,11 @@ const styles = StyleSheet.create({
     fontSize: 34,
     fontWeight: '700',
     textAlign: 'center',
-    letterSpacing: 0.6,
-    lineHeight: 40,
   },
   priceText: {
     fontSize: 24,
     fontWeight: '700',
     color: '#FFFFFF',
-    letterSpacing: 0.5,
-    textShadowColor: 'rgba(0, 0, 0, 0.8)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 2,
   },
   fullDescriptionContainer: {
     paddingHorizontal: 20,
@@ -375,13 +352,10 @@ const styles = StyleSheet.create({
   fullDescriptionIntro: {
     fontSize: 20,
     fontWeight: 'bold',
-    lineHeight: 28,
-    letterSpacing: 0.4,
-},
+  },
   fullDescriptionParagraph: {
     fontSize: 17,
     lineHeight: 26,
-    letterSpacing: 0.3,
     color: '#374151',
   },
-});
+})

@@ -1,4 +1,4 @@
-import { addDoc, collection, serverTimestamp, getDoc, getDocs, doc, query, orderBy, where, Timestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, getDoc, getDocs, doc, query, orderBy, where } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
 import { CreateReviewInput } from "./types";
 import { Review } from "../components/domain/reviews/types";

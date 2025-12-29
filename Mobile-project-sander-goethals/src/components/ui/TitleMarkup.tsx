@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 30,
     fontWeight: 'bold',
-    fontFamily: 'sans-serif',
+    fontFamily: 'BBHBartle',
   },
 });
 

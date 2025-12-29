@@ -11,6 +11,7 @@ import { ActivityIndicator } from 'react-native';
 import AuthStackNavigator from '../navigators/AuthStackNavigator';
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth } from '../config/firebase';
+import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 const queryClient = new QueryClient();
@@ -22,6 +23,10 @@ const Root = () => {
 
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
   const [isAppReady, setIsAppReady] = useState(true);
+
+  const [fontsLoaded] = useFonts({
+    BBHBartle: require('../../assets/fonts/BBHBartle.ttf'),
+  });
 
   useEffect(() => {
       setIsAppReady(true);
@@ -35,12 +40,12 @@ const Root = () => {
   }, []);
 
   useEffect(() => {
-    if (!isAppReady) {
+    if (!isAppReady && fontsLoaded) {
       SplashScreen.hideAsync();
     }
-  }, [isAppReady]);
+  }, [isAppReady, fontsLoaded]);
 
-  if (isAppReady) {
+  if (isAppReady || !fontsLoaded) {
     return null;
   }
 
