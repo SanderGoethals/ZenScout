@@ -1,8 +1,8 @@
 export const categoryColors = {
   wellness: {
-    even: '#C8DAD3',
-    odd: '#A3C1AD',
-    loader: '#7FC3A0'
+    even: "#DFF3F5",
+    odd: "#C6E7EB",
+    loader: "#7FCAD3",
   },
   publicSauna: {
     even: '#EEE7F4',
@@ -19,10 +19,10 @@ export const categoryColors = {
     odd: '#E6C7BF', 
     loader: '#B27C76', 
   },
-  favorites: {
-    even: '#EEDDBA',
-    odd: '#FFF7E6',
-    loader: '#F79CA1'
+  main: {
+    first: '#C8DAD3',
+    second: '#A3C1AD',
+    third: '#DFF3F5'
   },
   profile: {
     even: '#E2D6BF',
@@ -37,4 +37,4 @@ export const categoryColors = {
 } as const;
 
 export type CategoryKey = keyof typeof categoryColors;
-export type Variant = 'even' | 'odd' | 'loader' | 'buttonColor' | 'backgroundColor' | 'disabledButtonColor';
+export type Variant = 'even' | 'odd' | 'loader' | 'buttonColor' | 'backgroundColor' | 'disabledButtonColor' | 'first' | 'second' | 'third';

@@ -15,10 +15,9 @@ import MassageAndBeautyListScreen from '../screens/massageAndBeauty/MassageAndBe
 import PublicSaunaListScreen from '../screens/publicSauna/PublicSaunaListScreen';
 import HomeScreen from '../screens/HomeScreen';
 
-const Drawer = createDrawerNavigator<DrawerParamList>();
+import { getCategoryColor } from '../theme/categoryHelpers';
 
-const ACTIVE_BACKGROUND_COLOR = '#EEDDBA';
-const BASE_BACKGROUND_COLOR = '#FFF7E6';
+const Drawer = createDrawerNavigator<DrawerParamList>();
 
 const DrawerNavigator = () => {
     const favorites = useAppSelector(state => state.favorites.length);
@@ -26,63 +25,62 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       screenOptions={{
-        drawerActiveBackgroundColor: ACTIVE_BACKGROUND_COLOR,
+        drawerActiveBackgroundColor: getCategoryColor('main', 'third'),
         drawerActiveTintColor: '#FF0000',
-        drawerLabelStyle: {fontSize: 19},
-        drawerStyle: { width: "70%", backgroundColor: BASE_BACKGROUND_COLOR},
+        drawerLabelStyle: {fontSize: 20},
+        drawerStyle: { width: "70%", backgroundColor: getCategoryColor('main', 'first')},
       }}
     >
-        <Drawer.Group screenOptions={{
-            headerStyle: { backgroundColor: ACTIVE_BACKGROUND_COLOR }
-        }}>
-            {/* <Drawer.Screen name="Home" component={WellnessListScreen} />  */}
-
-            <Drawer.Screen name="home" component={HomeScreen} options={{ title: "Home",   
-                drawerIcon: ({color, size}) => (
-                    <MaterialCommunityIcons name="home" color={color} size={size} />
-                )
-            }} />
-            <Drawer.Screen name="wellness" component={WellnessListScreen} options={{ title: "Wellness",    
-                drawerIcon: ({color, size}) => (
-                    <MaterialCommunityIcons name="spa" color={color} size={size} />
-                )
-            }} />
-            <Drawer.Screen name="beautyAndMassage" component={MassageAndBeautyListScreen} options={{ title: "Massage & Beauty", 
-                drawerIcon: ({color, size}) => (
-                    <MaterialCommunityIcons name="leaf" color={color} size={size} />
-                )
-            }} />
-            <Drawer.Screen name="privateSauna" component={PrivateSaunaListScreen} options={{ title: "Privé Sauna", 
-                drawerIcon: ({color, size}) => (
-                    <MaterialCommunityIcons name="hot-tub" color={color} size={size} />
-                )
-            }} />
-            <Drawer.Screen name="publicSauna" component={PublicSaunaListScreen} options={{ title: "Publieke Sauna",
-                drawerIcon: ({color, size}) => (
-                    <MaterialCommunityIcons name="account-group" color={color} size={size} />
-                )
-            }} />            
-            <Drawer.Screen name="profile" component={ProfileScreen} options={{ title: "Profiel" ,
-                drawerIcon: ({color, size}) => (
-                    <MaterialCommunityIcons name="account-circle" color={color} size={size} />
-                )
-            }} />
-            <Drawer.Screen name="favorites" component={FavoritesScreen} options={{  title: `Favorieten (${favorites})`,
-                drawerIcon: ({color, size}) => (
-                    <MaterialCommunityIcons name="heart" color={color} size={size} />
-                )
-            }} />
-            <Drawer.Screen name="settings" component={SettingsScreen} options={{ title: "Instellingen" ,
-                drawerIcon: ({color, size}) => (
-                    <MaterialCommunityIcons name="cog" color={color} size={size} />
-                )
-            }} />
-            <Drawer.Screen name="about" component={AboutScreen} options={{ title: "About" ,
-                drawerIcon: ({color, size}) => (
-                    <MaterialCommunityIcons name="information" color={color} size={size} />
-                )
-            }} />
-        </Drawer.Group>
+        <Drawer.Screen name="home" component={HomeScreen} options={{ title: "Home",  
+        headerStyle: { backgroundColor: getCategoryColor('main', 'first') },
+            drawerIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="home" color={color} size={size} />
+            )
+        }} />
+        <Drawer.Screen name="wellness" component={WellnessListScreen} options={{ title: "Wellness", 
+        headerStyle: { backgroundColor: '#C8DAD3' },
+            drawerIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="spa" color={color} size={size} />
+            )
+        }} />
+        <Drawer.Screen name="beautyAndMassage" component={MassageAndBeautyListScreen} options={{ title: "Massage & Beauty", 
+        headerStyle: { backgroundColor: '#D7B2AE' },
+            drawerIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="leaf" color={color} size={size} />
+            )
+        }} />
+        <Drawer.Screen name="privateSauna" component={PrivateSaunaListScreen} options={{ title: "Privé Sauna", 
+        headerStyle: { backgroundColor: '#7FA9C9' },
+            drawerIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="hot-tub" color={color} size={size} />
+            )
+        }} />
+        <Drawer.Screen name="publicSauna" component={PublicSaunaListScreen} options={{ title: "Publieke Sauna", 
+        headerStyle: { backgroundColor: '#9B86B8' },
+            drawerIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="account-group" color={color} size={size} />
+            )
+        }} />            
+        <Drawer.Screen name="profile" component={ProfileScreen} options={{ title: "Profiel" ,
+            drawerIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="account-circle" color={color} size={size} />
+            )
+        }} />
+        <Drawer.Screen name="favorites" component={FavoritesScreen} options={{  title: `Favorieten (${favorites})`,
+            drawerIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="heart" color={color} size={size} />
+            )
+        }} />
+        <Drawer.Screen name="settings" component={SettingsScreen} options={{ title: "Instellingen" ,
+            drawerIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="cog" color={color} size={size} />
+            )
+        }} />
+        <Drawer.Screen name="about" component={AboutScreen} options={{ title: "About" ,
+            drawerIcon: ({color, size}) => (
+                <MaterialCommunityIcons name="information" color={color} size={size} />
+            )
+        }} />
     </Drawer.Navigator>
   )
 }

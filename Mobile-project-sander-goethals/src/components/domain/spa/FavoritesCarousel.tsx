@@ -35,7 +35,7 @@ const FavoritesCarousel = ({ favorites }: FavoriteCarouselProps) => {
       contentContainerStyle={{ paddingHorizontal: 12 }}
       renderItem={({ item, index }) => {
         const bgColor = getCategoryColor(
-          "favorites",
+          "main",
           index % 2 === 0 ? 'even' : 'odd'
         );
 
