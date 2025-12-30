@@ -1,233 +1,250 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
-import { useAppSelector } from '../../hooks/reduxHooks';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { getCategoryColor } from '../../theme/categoryHelpers';
+import React, { useState, useEffect } from "react";
+import { ScrollView } from "react-native-gesture-handler";
+import {
+  StyleSheet,
+  View,
+  ImageBackground,
+} from "react-native";
+import { useAppSelector } from "../../hooks/reduxHooks";
 
-import InputForm from '../../components/ui/InputForm';
-import TextMarkup from '../../components/ui/TextMarkup';
-import FavoritesCarousel from '../../components/domain/spa/FavoritesCarousel';
-import { auth, db } from '../../config/firebase';
-import {  signOut } from '@firebase/auth'; 
-import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
+import InputForm from "../../components/ui/InputForm";
+import TextMarkup from "../../components/ui/TextMarkup";
+import FavoritesCarousel from "../../components/domain/spa/FavoritesCarousel";
+import GlassButton from "../../components/ui/GlassButton";
 
+import { auth, db } from "../../config/firebase";
+import { signOut } from "@firebase/auth";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 
 const ProfileScreen = () => {
   const favorites = useAppSelector((store) => store.favorites);
-  const bgColor = getCategoryColor('profile', 'even');
-  
-  const [nickname, setNickname] = useState('')
-  const [name, setName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [birthday, setBirthday] = useState('')
-  const [email, setEmail] = useState('')
-  const [showChangeEmailWarning, setShowChangeEmailWarning] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState('')
+
+  const [nickname, setNickname] = useState("");
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [birthday, setBirthday] = useState("");
+  const [email, setEmail] = useState("");
+  const [showChangeEmailWarning, setShowChangeEmailWarning] =
+    useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   useEffect(() => {
-  const fetchUserProfile = async () => {
-    const uid = auth.currentUser?.uid;
-    if (!uid) return;
+    const fetchUserProfile = async () => {
+      const uid = auth.currentUser?.uid;
+      if (!uid) return;
+
+      try {
+        const userRef = doc(db, "users", uid);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          const data = userSnap.data();
+          setNickname(data.nickname ?? "");
+          setName(data.firstName ?? "");
+          setLastName(data.lastName ?? "");
+          setEmail(data.email ?? "");
+          setPhoneNumber(data.phoneNumber ?? "");
+          setBirthday(
+            data.birthDate
+              ? data.birthDate
+                  .toDate()
+                  .toISOString()
+                  .split("T")[0]
+              : ""
+          );
+        }
+      } catch (error) {
+        console.error("Fout bij ophalen profiel:", error);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+
+  const updateProfileField = async (
+    updates: Record<string, any>
+  ) => {
+    const user = auth.currentUser;
+    if (!user) return;
 
     try {
-      const userRef = doc(db, "users", uid);
-      const userSnap = await getDoc(userRef);
-
-      if (userSnap.exists()) {
-        const data = userSnap.data();
-
-        setNickname(data.nickname ?? "");
-        setName(data.firstName ?? "");
-        setLastName(data.lastName ?? "");
-        setEmail(data.email ?? "");
-        setPhoneNumber(data.phoneNumber ?? "");
-        setBirthday(
-          data.birthDate
-            ? data.birthDate.toDate().toISOString().split("T")[0]
-            : ""
-        );
-      }
+      await updateDoc(doc(db, "users", user.uid), {
+        ...updates,
+        updatedAt: serverTimestamp(),
+      });
     } catch (error) {
-      console.error("Fout bij ophalen profiel:", error);
+      console.error("Fout bij opslaan profiel:", error);
     }
   };
 
-  fetchUserProfile();
-}, []);
-
-const updateProfileField = async (updates: Record<string, any>) => {
-  const user = auth.currentUser;
-  if (!user) return;
-
-  try {
-    await updateDoc(doc(db, "users", user.uid), {
-      ...updates,
-      updatedAt: serverTimestamp(),
-    });
-  } catch (error) {
-    console.error("Fout bij opslaan profiel:", error);
-  }
-};
-
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={[styles.profileForm, { backgroundColor: bgColor }]}>
+    <ImageBackground
+      source={require("../../../assets/ZenScout_SplashPage.png")}
+      style={styles.background}
+      resizeMode="cover"
+    >
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* 🌊 Glass profile card */}
+        <View style={styles.profileCard}>
           <InputForm
-          inputStyle={styles.input}
-          returnKeyType="done"
-          value={nickname}
-          onChangeText={(text) => setNickname(text)}
-          onBlur={() => updateProfileField({ nickname })}
-        />
+            value={nickname}
+            onChangeText={setNickname}
+            onBlur={() => updateProfileField({ nickname })}
+            placeholder="Nickname"
+          />
 
-        <InputForm
-          inputStyle={styles.input}
-          placeholder="Naam"
-          autoCapitalize="words"
-          returnKeyType="next"
-          value={name} 
-          onChangeText={(text) => setName(text)}
-          onBlur={() => updateProfileField({ firstName: name })}
-        />
+          <InputForm
+            placeholder="Naam"
+            autoCapitalize="words"
+            value={name}
+            onChangeText={setName}
+            onBlur={() =>
+              updateProfileField({ firstName: name })
+            }
+          />
 
-        <InputForm
-          inputStyle={styles.input}
-          placeholder="Achternaam"
-          autoCapitalize="words"
-          returnKeyType="next"
-          value={lastName} 
-          onChangeText={(text) => setLastName(text)}
-          onBlur={() => updateProfileField({ lastName })}
-        />
+          <InputForm
+            placeholder="Achternaam"
+            autoCapitalize="words"
+            value={lastName}
+            onChangeText={setLastName}
+            onBlur={() =>
+              updateProfileField({ lastName })
+            }
+          />
 
-        {/* TODO: fix reauthication when changing email */}
-        <InputForm
-          inputStyle={styles.input}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          returnKeyType="next"
-          value={email}
+          <InputForm
+            keyboardType="email-address"
+            autoCapitalize="none"
+            value={email}
+            editable={false}
+            onFocus={() =>
+              setShowChangeEmailWarning(true)
+            }
+            onBlur={() =>
+              setShowChangeEmailWarning(false)
+            }
+          />
 
-          editable={false}
-          
-          onChangeText={(text) => setEmail(text)}
-          onFocus={() => setShowChangeEmailWarning(true)}
-          onBlur={() => setShowChangeEmailWarning(false)}
-        />
-        {showChangeEmailWarning && (
-          <TextMarkup style={styles.emailWarning}>
-            ⚠️ Als je je e-mailadres wijzigt, moet je opnieuw inloggen.
-          </TextMarkup>
-        )}
+          {showChangeEmailWarning && (
+            <TextMarkup style={styles.emailWarning}>
+              ⚠️ Bij wijzigen van e-mail moet je
+              opnieuw inloggen.
+            </TextMarkup>
+          )}
 
+          <InputForm
+            placeholder="Telefoonnummer"
+            keyboardType="phone-pad"
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
+            onBlur={() =>
+              updateProfileField({ phoneNumber })
+            }
+          />
 
-        <InputForm
-          inputStyle={styles.input}
-          placeholder="Telefoonnummer"
-          keyboardType="phone-pad"
-          returnKeyType="next"
-          value={phoneNumber}
-          onChangeText={(text) => setPhoneNumber(text)}
-          onBlur={() => updateProfileField({ phoneNumber })}
-        />
+          <InputForm
+            placeholder="Geboortedatum (YYYY-MM-DD)"
+            keyboardType="numeric"
+            value={birthday}
+            onChangeText={setBirthday}
+            onBlur={() =>
+              updateProfileField({
+                birthDate: new Date(birthday),
+              })
+            }
+          />
+        </View>
 
-        <InputForm 
-          inputStyle={styles.input}
-          placeholder="Geboortedatum"
-          keyboardType="numeric"
-          returnKeyType="done"
-          value={birthday}
-          onChangeText={(text) => setBirthday(text)}
-          onBlur={() => {updateProfileField({ birthDate: new Date(birthday) })}}
-        />
-      </View>
-
-      <View style={styles.screen}>
+        {/* ⭐ Favorieten */}
         {favorites.length > 0 && (
-          <>
+          <View style={styles.section}>
             <TextMarkup style={styles.sectionTitle}>
               Jouw favorieten
             </TextMarkup>
-
             <FavoritesCarousel favorites={favorites} />
-          </>
+          </View>
         )}
-      </View>
 
-      <TouchableOpacity style={[styles.primaryButton, { backgroundColor: getCategoryColor("login", "buttonColor") }]}
-        onPress={async () => {
-          try {
-            await signOut(auth);
-          } catch (error) {
-            console.error("Error signing out: ", error);
-          }
-        }}>
-        <TextMarkup variant='extraBold' style={styles.primaryButtonText}>Uitloggen</TextMarkup>
-      </TouchableOpacity>
-
-    </ScrollView>
+        {/* 🚪 Logout */}
+        <GlassButton
+          title="Uitloggen"
+          onPress={async () => {
+            try {
+              await signOut(auth);
+            } catch (error) {
+              console.error(
+                "Error signing out:",
+                error
+              );
+            }
+          }}
+          style={styles.logoutButton}
+        />
+      </ScrollView>
+    </ImageBackground>
   );
 };
 
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
-  profileForm: {
-    marginHorizontal: 16,
-    marginBottom: 24,
-    padding: 16,
-    borderColor: '#E0E0E0',
-    backgroundColor: '#FFF7E6',
-    borderRadius: 14,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-  },
-  container: {
-    paddingVertical: 16,
-    paddingBottom: 40,
-  },
-screen: {
+  background: {
     flex: 1,
-    paddingTop: 16,
   },
-  input: {
-    height: 48,
+
+  container: {
+    paddingTop: 32,
+    paddingBottom: 48,
+  },
+
+  profileCard: {
+    marginHorizontal: 16,
+    marginBottom: 32,
+    padding: 20,
+
+    backgroundColor: "rgba(255, 255, 255, 0.35)",
+    borderRadius: 24,
+
     borderWidth: 1,
-    borderColor: '#C8C8C8',
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    fontSize: 16,
-    backgroundColor: '#F0F0F0',
-    color: '#111111',
+    borderColor: "rgba(255, 255, 255, 0.45)",
+
+    shadowColor: "#6BA8A9",
+    shadowOpacity: 0.25,
+    shadowRadius: 20,
+    shadowOffset: { width: 0, height: 8 },
+
+    elevation: 4,
   },
+
+  section: {
+    marginBottom: 32,
+  },
+
   sectionTitle: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: "600",
     marginHorizontal: 16,
-    marginBottom: 12,
+    marginBottom: 14,
+    color: "#2F3E3E",
   },
-    primaryButton: {
-    marginTop: 18,
-    marginHorizontal: 16,
-    paddingVertical: 16,
-    borderRadius: 14,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 3,
-  },
-  primaryButtonText: {
-    color: "#FFFFFF",
-    fontSize: 24,
-    letterSpacing: 1.5,
-  },
+
   emailWarning: {
     marginTop: 6,
     fontSize: 13,
     color: "#B45309",
+    opacity: 0.9,
+  },
+
+  logoutButton: {
+    marginHorizontal: 16,
   },
 });
