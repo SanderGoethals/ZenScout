@@ -162,7 +162,7 @@ const updateProfileField = async (updates: Record<string, any>) => {
             console.error("Error signing out: ", error);
           }
         }}>
-        <TextMarkup style={styles.primaryButtonText}>Uitloggen</TextMarkup>
+        <TextMarkup variant='extraBold' style={styles.primaryButtonText}>Uitloggen</TextMarkup>
       </TouchableOpacity>
 
     </ScrollView>
@@ -222,8 +222,8 @@ screen: {
   },
   primaryButtonText: {
     color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "500",
+    fontSize: 24,
+    letterSpacing: 1.5,
   },
   emailWarning: {
     marginTop: 6,

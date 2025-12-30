@@ -58,7 +58,7 @@ const LoginScreen = () => {
       <View style={styles.innerContainer}>
         <Text style={styles.title}>Welkom terug</Text>
         <Text style={styles.subtitle}>
-          Ontspan en geniet van jouw wellnessmoment
+          Ontspan en vind jouw wellnessmoment
         </Text>
 
         <InputForm
