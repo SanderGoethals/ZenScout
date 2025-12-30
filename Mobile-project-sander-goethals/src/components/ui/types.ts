@@ -34,3 +34,13 @@ export interface FormInputProps extends TextInputProps {
   error?: string
   isPassword?: boolean;
 }
+
+export interface GlassButtonProps {
+  title: string;
+  onPress: () => void;
+  loading?: boolean;
+  disabled?: boolean;
+  useBlur?: boolean;
+  style?: ViewStyle;
+  textStyle?: TextStyle;
+};

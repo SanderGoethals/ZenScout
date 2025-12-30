@@ -9,6 +9,7 @@ import {
   ImageBackground,
 } from "react-native";
 import React from "react";
+import { BlurView } from "expo-blur";
 import { useFormik } from "formik";
 import { useNavigation } from "@react-navigation/native";
 
@@ -18,6 +19,7 @@ import TextMarkup from "../../components/ui/TextMarkup";
 import { AuthStackNavProps } from "../../navigators/types";
 import { loginValidationSchema } from "../../validation/validation";
 import { loginUser } from "../../services/auth.service";
+import GlassButton from "../../components/ui/GlassButton";
 
 const LoginScreen = () => {
   const navigate =
@@ -88,12 +90,11 @@ const LoginScreen = () => {
             }
           />
 
-          <TouchableOpacity
-            style={styles.primaryButton}
+          <GlassButton
+            title="Inloggen"
             onPress={() => formik.handleSubmit()}
-          >
-            <TextMarkup variant="boldItalic" style={{fontSize: 30, letterSpacing: 1}}>Inloggen</TextMarkup>
-          </TouchableOpacity>
+            loading={formik.isSubmitting}
+          />
 
           <TouchableOpacity style={styles.linkButton}>
             <TextMarkup>Wachtwoord vergeten?</TextMarkup>

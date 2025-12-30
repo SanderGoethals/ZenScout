@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
 import { FormInputProps } from "./types";
 
 const InputForm: FC<FormInputProps> = ({
@@ -17,12 +18,22 @@ const InputForm: FC<FormInputProps> = ({
   ...props
 }) => {
   const [visible, setVisible] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const secure = isPassword && !visible;
+  const showError = Boolean(error);
 
   return (
     <View style={[styles.container, containerStyle]}>
-      <View style={styles.inputWrapper}>
+      <BlurView
+        intensity={60}
+        tint="light"
+        style={[
+          styles.inputWrapper,
+          isFocused && styles.focused,
+          showError && styles.error,
+        ]}
+      >
         <TextInput
           {...props}
           style={[
@@ -35,6 +46,8 @@ const InputForm: FC<FormInputProps> = ({
           multiline={multiline}
           secureTextEntry={secure}
           textAlignVertical={multiline ? "top" : "center"}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
         />
 
         {isPassword && (
@@ -46,36 +59,58 @@ const InputForm: FC<FormInputProps> = ({
             <MaterialCommunityIcons
               name={visible ? "eye-off-outline" : "eye-outline"}
               size={22}
-              color="#4F8F91"
+              color={
+                showError
+                  ? "#C46A6A"
+                  : isFocused
+                  ? "#4FA6A8"
+                  : "#4F8F91"
+              }
             />
           </TouchableOpacity>
         )}
-      </View>
+      </BlurView>
     </View>
   );
 };
 
 export default InputForm;
 
+
 const styles = StyleSheet.create({
   container: {
     marginBottom: 18,
   },
+
   inputWrapper: {
     position: "relative",
     justifyContent: "center",
 
-    backgroundColor: "rgba(180, 225, 230, 0.35)",
+    backgroundColor: "rgba(180, 225, 230, 0.28)",
     borderRadius: 18,
 
     borderWidth: 1,
-    borderColor: "rgba(140, 200, 205, 0.45)",
+    borderColor: "rgba(140, 200, 205, 0.35)",
+
     shadowColor: "#6BA8A9",
-    shadowOpacity: 0.15,
+    shadowOpacity: 0.18,
     shadowRadius: 14,
     shadowOffset: { width: 0, height: 6 },
 
     elevation: 4,
+    overflow: "hidden",
+  },
+
+  focused: {
+    backgroundColor: "rgba(200, 235, 240, 0.4)",
+    borderColor: "rgba(90, 170, 175, 0.8)",
+    shadowOpacity: 0.28,
+  },
+
+  error: {
+    backgroundColor: "rgba(255, 220, 220, 0.35)",
+    borderColor: "rgba(200, 100, 100, 0.7)",
+    shadowColor: "#C46A6A",
   },
 
   input: {
