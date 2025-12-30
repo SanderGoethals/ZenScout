@@ -67,6 +67,7 @@ const DrawerNavigator = () => {
             )
         }} />
         <Drawer.Screen name="favorites" component={FavoritesScreen} options={{  title: `Favorieten (${favorites})`,
+        headerStyle: { backgroundColor: getCategoryColor('main', 'third') },
             drawerIcon: ({color, size}) => (
                 <MaterialCommunityIcons name="heart" color={color} size={size} />
             )

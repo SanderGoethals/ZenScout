@@ -28,7 +28,7 @@ const FavoritesScreen = () => {
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={{ padding: 12 }}
         renderItem={({ item, index }) => {
-          const bgColor = getCategoryColor('main', index % 2 === 0 ? 'odd' : 'even');
+          const bgColor = getCategoryColor('main', index % 2 === 0 ? 'first' : 'second');
 
           return (
             <TouchableOpacity

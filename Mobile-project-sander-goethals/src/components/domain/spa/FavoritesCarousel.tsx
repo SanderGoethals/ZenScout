@@ -36,7 +36,7 @@ const FavoritesCarousel = ({ favorites }: FavoriteCarouselProps) => {
       renderItem={({ item, index }) => {
         const bgColor = getCategoryColor(
           "main",
-          index % 2 === 0 ? 'even' : 'odd'
+          index % 2 === 0 ? 'first' : 'second'
         );
 
         return (
