@@ -1,10 +1,10 @@
 import {
   View,
-  ScrollView,
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
+  ImageBackground,
 } from "react-native";
 import React from "react";
 import { useFormik } from "formik";
@@ -12,9 +12,9 @@ import { useNavigation } from "@react-navigation/native";
 
 import InputForm from "../../components/ui/InputForm";
 import TextMarkup from "../../components/ui/TextMarkup";
+import GlassButton from "../../components/ui/GlassButton";
 
 import { AuthStackNavProps } from "../../navigators/types";
-import { getCategoryColor } from "../../theme/categoryHelpers";
 import { registerValidationSchema } from "../../validation/validation";
 import { registerUser } from "../../services/auth.service";
 
@@ -36,38 +36,33 @@ const RegisterScreen = () => {
           email: values.email,
           password: values.password,
         });
-
       } catch (error) {
-        console.log("Registratiefout:", error);
+        console.error("Registratiefout:", error);
       }
     },
   });
 
-  const isDisabled = !formik.isValid;
-
   return (
     <KeyboardAvoidingView
-      style={[
-        styles.container,
-        {
-          backgroundColor: getCategoryColor(
-            "login",
-            "backgroundColor"
-          ),
-        },
-      ]}
+      style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <ScrollView style={styles.innerContainer}>
-        <TextMarkup style={styles.title}>Registreren</TextMarkup>
-        <TextMarkup style={styles.subtitle}>
-          Maak een account aan en begin je wellnesservaring
-        </TextMarkup>
+      <ImageBackground
+        source={require("../../../assets/ZenScout_SplashPage.png")}
+        style={styles.background}
+        resizeMode="cover"
+      >
+        <View style={styles.innerContainer}>
+          <TextMarkup style={styles.title}>
+            Registreren
+          </TextMarkup>
 
-        <View style={styles.field}>
-          <TextMarkup style={styles.label}>E-mailadres</TextMarkup>
+          <TextMarkup style={styles.subtitle}>
+            Maak een account aan en begin je wellnesservaring
+          </TextMarkup>
+
           <InputForm
-            placeholder="Geef je e-mailadres in"
+            placeholder="E-mailadres"
             value={formik.values.email}
             onChangeText={formik.handleChange("email")}
             onBlur={formik.handleBlur("email")}
@@ -79,87 +74,57 @@ const RegisterScreen = () => {
                 : undefined
             }
           />
-        </View>
-        {formik.touched.email && formik.errors.email && (
-          <TextMarkup style={styles.errorText}>
-            {formik.errors.email}
-          </TextMarkup>
-        )}
 
-        <InputForm
-          placeholder="Geef je wachtwoord in"
-          value={formik.values.password}
-          onChangeText={formik.handleChange("password")}
-          onBlur={formik.handleBlur("password")}
-          isPassword
-          error={
-            formik.touched.password
-              ? formik.errors.password
-              : undefined
-          }
-        />
+          <InputForm
+            placeholder="Wachtwoord"
+            value={formik.values.password}
+            onChangeText={formik.handleChange("password")}
+            onBlur={formik.handleBlur("password")}
+            isPassword
+            error={
+              formik.touched.password
+                ? formik.errors.password
+                : undefined
+            }
+          />
 
-        <InputForm
-          placeholder="Bevestig wachtwoord"
-          value={formik.values.confirmPassword}
-          onChangeText={formik.handleChange("confirmPassword")}
-          onBlur={formik.handleBlur("confirmPassword")}
-          isPassword
-          error={
-            formik.touched.confirmPassword
-              ? formik.errors.confirmPassword
-              : undefined
-          }
-        />
+          <InputForm
+            placeholder="Bevestig wachtwoord"
+            value={formik.values.confirmPassword}
+            onChangeText={formik.handleChange("confirmPassword")}
+            onBlur={formik.handleBlur("confirmPassword")}
+            isPassword
+            error={
+              formik.touched.confirmPassword
+                ? formik.errors.confirmPassword
+                : undefined
+            }
+          />
 
-        {formik.touched.confirmPassword &&
-          formik.errors.confirmPassword && (
-            <TextMarkup style={styles.errorText}>
-              {formik.errors.confirmPassword}
+          <GlassButton
+            title="Registreren"
+            onPress={() => formik.handleSubmit()}
+            loading={formik.isSubmitting}
+            disabled={!formik.isValid}
+          />
+
+          <View style={styles.footer}>
+            <TextMarkup style={styles.footerText}>
+              Heb je al een account?
             </TextMarkup>
-          )}
-
-        <TouchableOpacity
-          disabled={isDisabled}
-          onPress={() => formik.handleSubmit()}
-          style={[
-            styles.primaryButton,
-            {
-              backgroundColor: isDisabled
-                ? getCategoryColor(
-                    "login",
-                    "disabledButtonColor"
-                  )
-                : getCategoryColor("login", "buttonColor"),
-              opacity: isDisabled ? 0.6 : 1,
-            },
-          ]}
-        >
-          <TextMarkup
-            style={[
-              styles.primaryButtonText,
-              {
-                color: isDisabled ? "#A0A0A0" : "#FFFFFF",
-              },
-            ]}
-          >
-            Registreren
-          </TextMarkup>
-        </TouchableOpacity>
-
-        <View style={styles.footer}>
-          <TextMarkup style={styles.footerText}>
-            Heb je al een account?
-          </TextMarkup>
-          <TouchableOpacity
-            onPress={() => navigate.replace("login")}
-          >
-            <TextMarkup style={styles.footerLink}>
-              Log hier in
-            </TextMarkup>
-          </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigate.replace("login")}
+            >
+              <TextMarkup
+                variant="boldItalic"
+                style={styles.footerLink}
+              >
+                {" "}Log hier in
+              </TextMarkup>
+            </TouchableOpacity>
+          </View>
         </View>
-      </ScrollView>
+      </ImageBackground>
     </KeyboardAvoidingView>
   );
 };
@@ -170,17 +135,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  background: {
+    flex: 1,
+  },
   innerContainer: {
     flex: 1,
+    justifyContent: "center",
     paddingHorizontal: 28,
-    paddingTop: 80,
   },
   title: {
     fontSize: 30,
     fontWeight: "500",
     textAlign: "center",
     color: "#3A2F28",
-    marginBottom: 6,
+    marginBottom: 8,
   },
   subtitle: {
     fontSize: 15,
@@ -188,47 +156,18 @@ const styles = StyleSheet.create({
     color: "#7A6E66",
     marginBottom: 36,
   },
-  field: {
-    marginBottom: 18,
-  },
-  label: {
-    fontSize: 14,
-    color: "#5E534A",
-    marginBottom: 6,
-  },
-  primaryButton: {
-    marginTop: 28,
-    paddingVertical: 16,
-    borderRadius: 14,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 3,
-  },
-  primaryButtonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "500",
-  },
   footer: {
-    marginTop: 36,
+    marginTop: 40,
     flexDirection: "row",
     justifyContent: "center",
     flexWrap: "wrap",
   },
   footerText: {
-    color: "#6F655D",
-    fontSize: 14,
+    fontSize: 18,
+    color: "#3A2F28",
   },
   footerLink: {
-    color: "#8B6F47",
-    fontSize: 14,
-    fontWeight: "500",
-  },
-  errorText: {
-    marginTop: 4,
-    color: "#D9534F",
-    fontSize: 12,
+    fontSize: 20,
+    color: "#6BA8A9",
   },
 });
