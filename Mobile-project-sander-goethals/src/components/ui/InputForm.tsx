@@ -31,6 +31,7 @@ const InputForm: FC<FormInputProps> = ({
             isPassword && styles.passwordPadding,
             inputStyle,
           ]}
+          placeholderTextColor="rgba(47, 94, 96, 0.6)"
           multiline={multiline}
           secureTextEntry={secure}
           textAlignVertical={multiline ? "top" : "center"}
@@ -45,7 +46,7 @@ const InputForm: FC<FormInputProps> = ({
             <MaterialCommunityIcons
               name={visible ? "eye-off-outline" : "eye-outline"}
               size={22}
-              color="#7A6E66"
+              color="#4F8F91"
             />
           </TouchableOpacity>
         )}
@@ -58,31 +59,45 @@ export default InputForm;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    marginBottom: 18,
   },
   inputWrapper: {
     position: "relative",
     justifyContent: "center",
-  },
-  input: {
-    height: 48,
+
+    backgroundColor: "rgba(180, 225, 230, 0.35)",
+    borderRadius: 18,
+
     borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    fontSize: 16,
-    backgroundColor: "#fafafa",
+    borderColor: "rgba(140, 200, 205, 0.45)",
+    shadowColor: "#6BA8A9",
+    shadowOpacity: 0.15,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 6 },
+
+    elevation: 4,
   },
+
+  input: {
+    height: 54,
+    paddingHorizontal: 18,
+    fontSize: 15,
+    color: "#2F3E3E",
+    backgroundColor: "transparent",
+  },
+
   passwordPadding: {
-    paddingRight: 44,
+    paddingRight: 52,
   },
+
   multiline: {
     minHeight: 120,
-    paddingVertical: 12,
+    paddingVertical: 14,
   },
+
   iconWrapper: {
     position: "absolute",
-    right: 12,
+    right: 16,
     height: "100%",
     justifyContent: "center",
     alignItems: "center",

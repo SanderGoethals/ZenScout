@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
+  ImageBackground,
 } from "react-native";
 import React from "react";
 import { useFormik } from "formik";
@@ -15,7 +16,6 @@ import InputForm from "../../components/ui/InputForm";
 import TextMarkup from "../../components/ui/TextMarkup";
 
 import { AuthStackNavProps } from "../../navigators/types";
-import { getCategoryColor } from "../../theme/categoryHelpers";
 import { loginValidationSchema } from "../../validation/validation";
 import { loginUser } from "../../services/auth.service";
 
@@ -34,89 +34,81 @@ const LoginScreen = () => {
         await loginUser({
           email: values.email,
           password: values.password,
-        });        
+        });
       } catch (error) {
-        Alert.alert("Fout bij inloggen", "Controleer je gegevens en probeer het opnieuw.");
-        console.error("Login error:", "\n", error);
+        Alert.alert(
+          "Fout bij inloggen",
+          "Controleer je gegevens en probeer het opnieuw."
+        );
+        console.error("Login error:", error);
       }
     },
   });
 
   return (
     <KeyboardAvoidingView
-      style={[
-        styles.container,
-        {
-          backgroundColor: getCategoryColor(
-            "login",
-            "backgroundColor"
-          ),
-        },
-      ]}
+      style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
-      <View style={styles.innerContainer}>
-        <Text style={styles.title}>Welkom terug</Text>
-        <Text style={styles.subtitle}>
-          Ontspan en vind jouw wellnessmoment
-        </Text>
+      <ImageBackground
+        source={require("../../../assets/ZenScout_SplashPage.png")}
+        style={styles.background}
+        resizeMode="cover"
+      >
+        <View style={styles.innerContainer}>
+          <Text style={styles.title}>Welkom terug</Text>
+          <Text style={styles.subtitle}>
+            Ontspan en vind jouw wellnessmoment
+          </Text>
 
-        <InputForm
-          placeholder="E-mailadres"
-          value={formik.values.email}
-          onChangeText={formik.handleChange("email")}
-          onBlur={formik.handleBlur("email")}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          error={
-            formik.touched.email
-              ? formik.errors.email
-              : undefined
-          }
-        />
+          <InputForm
+            placeholder="E-mailadres"
+            value={formik.values.email}
+            onChangeText={formik.handleChange("email")}
+            onBlur={formik.handleBlur("email")}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            error={
+              formik.touched.email
+                ? formik.errors.email
+                : undefined
+            }
+          />
 
-        <InputForm
-          placeholder="Wachtwoord"
-          value={formik.values.password}
-          onChangeText={formik.handleChange("password")}
-          onBlur={formik.handleBlur("password")}
-          isPassword
-          error={
-            formik.touched.password
-              ? formik.errors.password
-              : undefined
-          }
-        />
+          <InputForm
+            placeholder="Wachtwoord"
+            value={formik.values.password}
+            onChangeText={formik.handleChange("password")}
+            onBlur={formik.handleBlur("password")}
+            isPassword
+            error={
+              formik.touched.password
+                ? formik.errors.password
+                : undefined
+            }
+          />
 
-        <TouchableOpacity
-          style={[
-            styles.primaryButton,
-            {
-              backgroundColor: getCategoryColor(
-                "login",
-                "buttonColor"
-              ),
-            },
-          ]}
-          onPress={() => formik.handleSubmit()}
-        >
-          <TextMarkup>Inloggen</TextMarkup>
-        </TouchableOpacity>
-
-        {/* TODO: Forgot password */}
-        <TouchableOpacity style={styles.linkButton}>
-          <TextMarkup>Wachtwoord vergeten?</TextMarkup>
-        </TouchableOpacity>
-
-        <View style={styles.registerContainer}>
-          <TextMarkup>Nog geen account?</TextMarkup>
           <TouchableOpacity
-            onPress={() => navigate.replace("register")}
+            style={styles.primaryButton}
+            onPress={() => formik.handleSubmit()}
           >
-            <TextMarkup> Registreer hier</TextMarkup>
+            <TextMarkup variant="boldItalic" style={{fontSize: 30, letterSpacing: 1}}>Inloggen</TextMarkup>
           </TouchableOpacity>
+
+          <TouchableOpacity style={styles.linkButton}>
+            <TextMarkup>Wachtwoord vergeten?</TextMarkup>
+          </TouchableOpacity>
+
+          <View style={styles.registerContainer}>
+            <TextMarkup style={{fontSize: 18}}>Nog geen account?</TextMarkup>
+            <TouchableOpacity
+              onPress={() => navigate.replace("register")}
+            >
+              <TextMarkup variant="boldItalic" style={{color: "#6BA8A9", fontSize: 20}}> Registreer hier</TextMarkup>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </ImageBackground>
     </KeyboardAvoidingView>
   );
 };
@@ -126,7 +118,10 @@ export default LoginScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    },
+  },
+  background: {
+    flex: 1,
+  },
   innerContainer: {
     flex: 1,
     justifyContent: "center",
@@ -147,9 +142,10 @@ const styles = StyleSheet.create({
   },
   primaryButton: {
     marginTop: 28,
-    paddingVertical: 16,
+    paddingVertical: 10,
     borderRadius: 14,
     alignItems: "center",
+    backgroundColor: "#6BA8A9",
     shadowColor: "#000",
     shadowOpacity: 0.08,
     shadowRadius: 6,
