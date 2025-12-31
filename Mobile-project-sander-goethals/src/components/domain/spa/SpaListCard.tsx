@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import ImageCarousel from '../../ui/ImageCarousel';
 import RatingStars from '../../ui/RatingStars';
 import TextMarkup from '../../ui/TextMarkup';
-import { CardProps } from './types';
+import { CardProps } from './spa.types';
 import { getCategoryColor } from '../../../theme/categoryHelpers';
 
 export const SpaListCard: FC<CardProps> = ({

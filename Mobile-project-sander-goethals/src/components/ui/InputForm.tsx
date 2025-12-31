@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
-import { FormInputProps } from "./types";
+import { FormInputProps } from "./ui.types";
 
 const InputForm: FC<FormInputProps> = ({
   containerStyle,

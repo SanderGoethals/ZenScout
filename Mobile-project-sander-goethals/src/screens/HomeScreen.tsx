@@ -1,11 +1,14 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import TestReview from '../components/domain/reviews/testReview'
+import SpaMapScreen from './SpaFinderScreen'
 
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <TestReview />
+      {/* <TestReview /> */}
+
+      <SpaMapScreen />
     </View>
   )
 }

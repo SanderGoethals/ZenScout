@@ -6,7 +6,7 @@ import {
 } from "react-native";
 import { BlurView } from "expo-blur";
 import TextMarkup from "../ui/TextMarkup";
-import { GlassButtonProps } from "./types";
+import { GlassButtonProps } from "./ui.types";
 
 
 const GlassButton: FC<GlassButtonProps> = ({

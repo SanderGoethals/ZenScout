@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { StyleSheet, View } from 'react-native'
 import TextMarkup from '../../ui/TextMarkup'
-import { FacilitiesViewProps } from './types'
+import { FacilitiesViewProps } from './spa.types'
 
 const FacilitiesView: FC<FacilitiesViewProps> = ({ facilities }) => {
   if (!facilities || facilities.length === 0) {

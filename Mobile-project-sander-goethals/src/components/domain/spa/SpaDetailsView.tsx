@@ -18,7 +18,7 @@ import RatingStars from '../../ui/RatingStars'
 import SocialIconProps from '../../ui/SocialsIcon'
 import FacilitiesCollapsible from './FacilitiesCollapsable'
 import { RatingDetailsView } from './RatingDetailsView'
-import { DetailProps } from './types'
+import { DetailProps } from './spa.types'
 import { getCategoryColor } from '../../../theme/categoryHelpers'
 import TextMarkup from '../../ui/TextMarkup'
 

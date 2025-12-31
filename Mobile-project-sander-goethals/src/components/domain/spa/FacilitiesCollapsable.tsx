@@ -1,7 +1,7 @@
 import React, { FC, useRef, useState } from 'react'
 import { Animated, Pressable, StyleSheet, Text, View } from 'react-native'
 import FacilitiesView from './../spa/FacilitiesView'
-import { FacilitiesCollapsibleProps } from './types'
+import { FacilitiesCollapsibleProps } from './spa.types'
 
 const FacilitiesCollapsible: FC<FacilitiesCollapsibleProps> = ({
   facilities,

@@ -92,7 +92,6 @@ const ProfileScreen = () => {
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-        {/* 🌊 Glass profile card */}
         <View style={styles.profileCard}>
           <InputForm
             value={nickname}
@@ -164,17 +163,17 @@ const ProfileScreen = () => {
           />
         </View>
 
-        {/* ⭐ Favorieten */}
+        {/* Favorieten */}
         {favorites.length > 0 && (
           <View style={styles.section}>
-            <TextMarkup style={styles.sectionTitle}>
+            <TextMarkup variant="blackItalic" style={styles.sectionTitle}>
               Jouw favorieten
             </TextMarkup>
             <FavoritesCarousel favorites={favorites} />
           </View>
         )}
 
-        {/* 🚪 Logout */}
+        {/* Logout */}
         <GlassButton
           title="Uitloggen"
           onPress={async () => {
@@ -230,8 +229,7 @@ const styles = StyleSheet.create({
   },
 
   sectionTitle: {
-    fontSize: 22,
-    fontWeight: "600",
+    fontSize: 26,
     marginHorizontal: 16,
     marginBottom: 14,
     color: "#2F3E3E",

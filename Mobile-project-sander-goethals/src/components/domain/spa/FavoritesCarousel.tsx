@@ -15,7 +15,7 @@ import RatingStars from '../../ui/RatingStars';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
 import { toggle } from '../../../store/favorites/slice';
 import { getCategoryColor } from '../../../theme/categoryHelpers';
-import { FavoriteCarouselProps } from './types';
+import { FavoriteCarouselProps } from './spa.types';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = width * 0.8;
