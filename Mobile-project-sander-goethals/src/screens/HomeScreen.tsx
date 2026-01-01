@@ -1,35 +1,52 @@
-import { Modal, StyleSheet, View } from 'react-native'
-import React from 'react'
-import TestReview from '../components/domain/reviews/testReview'
-import SpaMapScreen from './SpaFinderScreen'
+import React, { useState } from 'react';
+import {
+  Modal,
+  StyleSheet,
+  View,
+  Pressable,
+  Button,
+} from 'react-native';
+import SpaMapScreen from './SpaFinderScreen';
+import GlassButton from '../components/ui/GlassButton';
 
 const HomeScreen = () => {
+  const [mapVisible, setMapVisible] = useState(false);
+
   return (
     <View style={styles.container}>
-      
-      
-      <Modal      
+      <GlassButton
+        title="Toon spa's op de kaart"
+        onPress={() => setMapVisible(true)}
+      />
+
+      <Modal
         animationType="fade"
-        transparent={true}
-        visible={true}
+        transparent
+        visible={mapVisible}
+        onRequestClose={() => setMapVisible(false)}
+      >
+        <Pressable
+          style={styles.overlay}
+          onPress={() => setMapVisible(false)}
         >
-          <View style={styles.overlay}>
-            <View style={styles.modalContent}>
-              <SpaMapScreen />
-            </View>
-          </View> 
-        </Modal>
-
+          <Pressable
+            style={styles.modalContent}
+            onPress={() => {}}
+          >
+            <SpaMapScreen />
+          </Pressable>
+        </Pressable>
+      </Modal>
     </View>
-  )
-}
+  );
+};
 
-export default HomeScreen
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
     flex: 1,
+    padding: 16,
   },
   overlay: {
     flex: 1,
@@ -37,7 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalContent: {
-    height: '100%',
+    height: '70%',
     backgroundColor: '#fff',
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
