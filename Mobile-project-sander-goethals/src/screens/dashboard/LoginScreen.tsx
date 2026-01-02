@@ -1,15 +1,13 @@
 import {
   Text,
   View,
-  Alert,
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
   ImageBackground,
 } from "react-native";
-import React from "react";
-import { BlurView } from "expo-blur";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import { useNavigation } from "@react-navigation/native";
 
@@ -25,6 +23,8 @@ const LoginScreen = () => {
   const navigate =
     useNavigation<AuthStackNavProps<"login">["navigation"]>();
 
+  const [authError, setAuthError] = useState<string | null>(null);
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -32,15 +32,15 @@ const LoginScreen = () => {
     },
     validationSchema: loginValidationSchema,
     onSubmit: async (values) => {
+      setAuthError(null);
       try {
         await loginUser({
           email: values.email,
           password: values.password,
         });
       } catch (error) {
-        Alert.alert(
-          "Fout bij inloggen",
-          "Controleer je gegevens en probeer het opnieuw."
+        setAuthError(
+          "Ongeldige inloggegevens. Controleer je e-mailadres en wachtwoord."
         );
         console.error("Login error:", error);
       }
@@ -63,6 +63,17 @@ const LoginScreen = () => {
             Ontspan en vind jouw wellnessmoment
           </Text>
 
+          {authError && (
+            <TextMarkup style={styles.error}>
+              {authError}
+            </TextMarkup>
+          )}
+
+          {formik.touched.email && formik.errors.email && (
+            <TextMarkup style={styles.error}>
+              {formik.errors.email}
+            </TextMarkup>
+          )}
           <InputForm
             placeholder="E-mailadres"
             value={formik.values.email}
@@ -77,6 +88,11 @@ const LoginScreen = () => {
             }
           />
 
+          {formik.touched.password && formik.errors.password && (
+            <TextMarkup style={styles.error}>
+              {formik.errors.password}
+            </TextMarkup>
+          )}
           <InputForm
             placeholder="Wachtwoord"
             value={formik.values.password}
@@ -101,11 +117,19 @@ const LoginScreen = () => {
           </TouchableOpacity>
 
           <View style={styles.registerContainer}>
-            <TextMarkup style={{fontSize: 18}}>Nog geen account?</TextMarkup>
+            <TextMarkup style={{ fontSize: 18 }}>
+              Nog geen account?
+            </TextMarkup>
             <TouchableOpacity
               onPress={() => navigate.replace("register")}
             >
-              <TextMarkup variant="boldItalic" style={{color: "#6BA8A9", fontSize: 20}}> Registreer hier</TextMarkup>
+              <TextMarkup
+                variant="boldItalic"
+                style={{ color: "#6BA8A9", fontSize: 20 }}
+              >
+                {" "}
+                Registreer hier
+              </TextMarkup>
             </TouchableOpacity>
           </View>
         </View>
@@ -141,17 +165,6 @@ const styles = StyleSheet.create({
     color: "#7A6E66",
     marginBottom: 36,
   },
-  primaryButton: {
-    marginTop: 28,
-    paddingVertical: 10,
-    borderRadius: 14,
-    alignItems: "center",
-    backgroundColor: "#6BA8A9",
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 3,
-  },
   linkButton: {
     marginTop: 20,
     alignItems: "center",
@@ -161,5 +174,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     flexWrap: "wrap",
+  },
+  error: {
+    marginTop: 4,
+    marginBottom: 8,
+    fontSize: 13,
+    color: "#B45309",
   },
 });

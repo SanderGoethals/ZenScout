@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     marginBottom: 32,
     padding: 20,
 
-    backgroundColor: "rgba(255, 255, 255, 0.35)",
+    backgroundColor: "rgba(140, 200, 225, 0.35)",
     borderRadius: 24,
 
     borderWidth: 1,

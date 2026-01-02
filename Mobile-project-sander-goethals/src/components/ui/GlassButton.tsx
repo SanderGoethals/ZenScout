@@ -72,12 +72,12 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(120, 190, 195, 0.45)",
 
     borderWidth: 1,
-    borderColor: "rgba(160, 220, 225, 0.7)",
+    borderColor: "rgba(120, 190, 225, 0.6)",
 
     alignItems: "center",
     justifyContent: "center",
 
-    shadowColor: "#6BA8A9",
+    shadowColor: "rgba(120, 190, 225, 0.6)",
     shadowOpacity: 0.35,
     shadowRadius: 16,
     shadowOffset: { width: 0, height: 8 },

@@ -21,6 +21,8 @@ import { RatingDetailsView } from './RatingDetailsView'
 import { DetailProps } from './spa.types'
 import { getCategoryColor } from '../../../theme/categoryHelpers'
 import TextMarkup from '../../ui/TextMarkup'
+import GlassButton from '../../ui/GlassButton'
+import AddReview from '../reviews/AddReview'
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 
@@ -34,6 +36,8 @@ export const SpaDetailsView: FC<DetailProps> = ({
   const backgroundBase = getCategoryColor(category, 'second')
 
   const [showRatings, setShowRatings] = useState(false)
+  const [showWriteReview, setShowWriteReview] = useState(false);
+
   const headerHeight = useHeaderHeight()
 
   const descriptionParts = item.fullDescription
@@ -194,27 +198,49 @@ export const SpaDetailsView: FC<DetailProps> = ({
         )}
       </ScrollView>
 
-      <Modal
-        visible={showRatings}
-        transparent
-        animationType="slide"
-        onRequestClose={() => setShowRatings(false)}
-      >
-        <Pressable
-          style={styles.overlay}
-          onPress={() => setShowRatings(false)}
+    <Modal
+      visible={showRatings}
+      transparent
+      animationType="slide"
+      onRequestClose={() => setShowRatings(false)}
+    >
+      <Pressable
+        style={styles.overlay}
+        onPress={() => setShowRatings(false)}
+      />
+
+      <View style={[styles.modalContainer, {height: SCREEN_HEIGHT * 0.7}]}>
+        <View style={styles.sheetHandle} />
+
+        <RatingDetailsView
+          data={item}
+          evenColor={backgroundLight}
+          oddColor={backgroundBase}
         />
 
-        <View style={styles.modalContainer}>
-          <View style={styles.sheetHandle} />
+        <GlassButton
+          title="Reactie schrijven"
+          onPress={() => setShowWriteReview(true)}
+          style={{ marginTop: 50, marginBottom: 50 }}
+        />
+      </View>
+    </Modal>
 
-          <RatingDetailsView
-            data={item}
-            evenColor={backgroundLight}
-            oddColor={backgroundBase}
-          />
-        </View>
-      </Modal>
+    <Modal
+      visible={showWriteReview}
+      transparent
+      animationType="slide"
+      onRequestClose={() => setShowWriteReview(false)}
+    >
+      
+              <Pressable
+        style={styles.overlay}
+        onPress={() => setShowWriteReview(false)}
+      />
+      <View style={[styles.modalContainer, {height: SCREEN_HEIGHT * 0.5}]}>
+        <AddReview onClose={() => setShowWriteReview(false)} />
+      </View>
+    </Modal>
     </>
   )
 }
@@ -316,7 +342,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: SCREEN_HEIGHT * 0.5,
     backgroundColor: '#FFFFFF',
     borderTopLeftRadius: 28,
     borderTopRightRadius: 28,

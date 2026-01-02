@@ -20,9 +20,10 @@ export const categoryColors = {
     third: '#B27C76', 
   },
   spaBasic: {
-    first: '#BEE6A8',
-    second: '#B2E08A',
-    third: '#4E9F3D',
+    first:  "rgb(190, 225,  255, 0.8)",
+    second: "rgb(178, 225,  255, 0.8)",
+    third:  "rgb(78, 225, 255, 0.8)"
+
   },
   main: {
     first: '#C8DAD3',

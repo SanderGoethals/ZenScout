@@ -23,7 +23,7 @@ const RootStackNavigator = () => {
 
         headerLeft: () => (
           <TouchableOpacity
-            style={styles.iconPosition}
+            style={{marginLeft: 10, marginTop: -20}}
             onPress={() => navigation.goBack()}
           >
             <View style={styles.iconBackground}>
@@ -37,7 +37,7 @@ const RootStackNavigator = () => {
         ),
 
         headerRight: () => (
-          <TouchableOpacity style={styles.iconPosition}
+          <TouchableOpacity style={{marginRight: 10, marginTop: -20}}
             onPress={() => {navigation.navigate('addSpa')
             }}>
             <View style={styles.iconBackground}>
@@ -78,9 +78,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.2)',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  iconPosition: {
-    marginLeft: 10,
-    marginTop: -25,
   },
 })

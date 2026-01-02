@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(140, 200, 205, 0.35)",
 
-    shadowColor: "#6BA8A9",
+    shadowColor: "rgba(180, 225, 230, 0.5)",
     shadowOpacity: 0.18,
     shadowRadius: 14,
     shadowOffset: { width: 0, height: 6 },
@@ -108,9 +108,9 @@ const styles = StyleSheet.create({
   },
 
   error: {
-    backgroundColor: "rgba(255, 220, 220, 0.35)",
+    backgroundColor: "rgba(255, 220, 220, 0.7)",
     borderColor: "rgba(200, 100, 100, 0.7)",
-    shadowColor: "#C46A6A",
+    shadowColor: "rgba(255, 150, 150, 0.7)",
   },
 
   input: {
@@ -126,10 +126,9 @@ const styles = StyleSheet.create({
   },
 
   multiline: {
-    minHeight: 120,
     paddingVertical: 14,
+    height: 140,
   },
-
   iconWrapper: {
     position: "absolute",
     right: 16,

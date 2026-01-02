@@ -28,3 +28,22 @@ export const loginValidationSchema = Yup.object().shape({
   password: Yup.string()
     .required("Wachtwoord is verplicht"),
 });
+
+export const reviewValidationSchema = Yup.object({
+  comment: Yup.string()
+    .trim()
+    .required("Comment is verplicht"),
+  score: Yup.number()
+    .typeError("Score moet een getal zijn")
+    .min(0, "Score moet minstens 0 zijn")
+    .max(10, "Score mag maximaal 10 zijn")
+    .required("Score is verplicht"),
+});
+
+export const addSpaValidationSchema = Yup.object().shape({
+  name: Yup.string().required("Naam is verplicht"),
+  location: Yup.string().required("Locatie is verplicht"),
+  description: Yup.string()
+    .min(10, "Beschrijving moet minstens 10 tekens bevatten")
+    .required("Beschrijving is verplicht"),
+});
