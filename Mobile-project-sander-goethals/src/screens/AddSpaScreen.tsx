@@ -139,9 +139,9 @@ return (
                     handleSubmit();
                   }}
                 >
-                  <Text style={styles.buttonText}>
+                  <TextMarkup style={styles.buttonText}>
                     Verstuur voorstel
-                  </Text>
+                  </TextMarkup>
                 </Pressable>
               </View>
             )}
@@ -202,8 +202,8 @@ const styles = StyleSheet.create({
 
   buttonText: {
     color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "600",
+    fontSize: 26,
+    letterSpacing: 0.5,
   },
   error: {
     marginTop: 4,
