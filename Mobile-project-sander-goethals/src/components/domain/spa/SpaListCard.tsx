@@ -17,7 +17,7 @@ export const SpaListCard: FC<CardProps> = ({
 }: CardProps) => {
   const bgColor = getCategoryColor(
   category,
-  index % 2 === 0 ? 'even' : 'odd'
+  index % 2 === 0 ? 'first' : 'second'
 );
 
   return (

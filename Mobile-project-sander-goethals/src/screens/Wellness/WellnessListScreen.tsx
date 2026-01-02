@@ -18,7 +18,7 @@ const SpaListScreen = () => {
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color={getCategoryColor('wellness', 'loader')} />
+        <ActivityIndicator size="large" color={getCategoryColor('wellness', 'third')} />
       </View>
     );
   }

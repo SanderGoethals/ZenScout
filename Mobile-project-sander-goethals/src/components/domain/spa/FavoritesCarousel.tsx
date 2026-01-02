@@ -35,14 +35,14 @@ const FavoritesCarousel = ({ favorites }: FavoriteCarouselProps) => {
       contentContainerStyle={{ paddingHorizontal: 12 }}
       renderItem={({ item, index }) => {
         const bgColor = getCategoryColor(
-          "main",
+          "spaBasic",
           index % 2 === 0 ? 'first' : 'second'
         );
 
         return (
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate('wellnessDetails', { data: item })
+              navigation.navigate('spaDetails', { data: item })
             }
             style={{ marginRight: 16 }}
             activeOpacity={0.85}

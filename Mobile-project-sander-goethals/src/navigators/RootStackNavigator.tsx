@@ -3,12 +3,13 @@ import { createStackNavigator } from '@react-navigation/stack'
 import WellnessDetailsScreen from '../screens/wellness/WellnessDetailsScreen'
 import PrivateSaunaDetailsScreen from '../screens/privateSauna/PrivateSaunaDetailsScreen'
 import MassageAndBeautyDetailsScreen from '../screens/massageAndBeauty/MassageAndBeautyDetails'
-import { RootStackParamList } from './types'
+import { RootStackParamList } from './navigation.types'
 import DrawerNavigator from './DrawerNavigator'
 import PublicSaunaDetailsScreen from '../screens/publicSauna/PublicSaunaDetailsScreen'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { TouchableOpacity, StyleSheet, View } from 'react-native'
 import AddSpaScreen from '../screens/AddSpaScreen'
+import SpaDetailsScreen from '../screens/SpaDetailsScreen'
 
 const RootStack = createStackNavigator<RootStackParamList>()
 const RootStackNavigator = () => {
@@ -56,11 +57,13 @@ const RootStackNavigator = () => {
       
       <RootStack.Screen name="publicSaunaDetails" component={PublicSaunaDetailsScreen}/>
 
+      <RootStack.Screen name="spaDetails" component={SpaDetailsScreen} />
+
       <RootStack.Screen name="addSpa" component={AddSpaScreen} options={{
                           headerStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
                           headerTintColor: '#FFFFFF',  }}
       />
-
+      
     </RootStack.Navigator>
   )
 }

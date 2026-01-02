@@ -30,8 +30,8 @@ export const SpaDetailsView: FC<DetailProps> = ({
   onToggleFavorite,
   category,
 }) => {
-  const backgroundLight = getCategoryColor(category, 'even')
-  const backgroundBase = getCategoryColor(category, 'odd')
+  const backgroundLight = getCategoryColor(category, 'first')
+  const backgroundBase = getCategoryColor(category, 'second')
 
   const [showRatings, setShowRatings] = useState(false)
   const headerHeight = useHeaderHeight()

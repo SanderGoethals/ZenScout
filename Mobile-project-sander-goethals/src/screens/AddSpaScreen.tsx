@@ -10,9 +10,9 @@ const AddWellnessScreen = () => {
   const [location, setLocation] = useState('')
   const [description, setDescription] = useState('')
 
-  const cardBgColor = getCategoryColor('profile', 'odd');
-  const cardBorderColor = getCategoryColor('profile', 'even');
-  const containerColor = getCategoryColor('profile', 'loader');
+  const cardBgColor = getCategoryColor('profile', 'second');
+  const cardBorderColor = getCategoryColor('profile', 'first');
+  const containerColor = getCategoryColor('profile', 'third');
 
   const handleSubmit = async () => {
     if (!name || !location || !description) {

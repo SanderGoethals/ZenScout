@@ -16,7 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import InputForm from "../../components/ui/InputForm";
 import TextMarkup from "../../components/ui/TextMarkup";
 
-import { AuthStackNavProps } from "../../navigators/types";
+import { AuthStackNavProps } from "../../navigators/navigation.types";
 import { loginValidationSchema } from "../../validation/validation";
 import { loginUser } from "../../services/auth.service";
 import GlassButton from "../../components/ui/GlassButton";

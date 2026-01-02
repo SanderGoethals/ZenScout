@@ -46,6 +46,12 @@ const HomeScreen = () => {
     RADIUS_KM
   );
 
+  if (spasLoading || locationLoading) {
+    return (
+        <ActivityIndicator size="large"/>
+    );
+  }
+
   if (isError || locationError || !location) {
     return (
       <View>
@@ -84,10 +90,10 @@ const HomeScreen = () => {
             <SpaListCard
               data={item}
               index={index}
-              category="wellness"
+              category="spaBasic"
               isFavorite={favorites.some(f => f.id === item.id)}
               onPress={(spa) =>
-                navigation.navigate('wellnessDetails', { data: spa })
+                navigation.navigate('spaDetails', { data: spa })
               }
             />
           )}

@@ -14,7 +14,7 @@ import InputForm from "../../components/ui/InputForm";
 import TextMarkup from "../../components/ui/TextMarkup";
 import GlassButton from "../../components/ui/GlassButton";
 
-import { AuthStackNavProps } from "../../navigators/types";
+import { AuthStackNavProps } from "../../navigators/navigation.types";
 import { registerValidationSchema } from "../../validation/validation";
 import { registerUser } from "../../services/auth.service";
 

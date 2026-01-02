@@ -1,6 +1,6 @@
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import { DrawerParamList } from './types';
+import { DrawerParamList } from './navigation.types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAppSelector } from '../hooks/reduxHooks';
 

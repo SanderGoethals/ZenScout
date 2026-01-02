@@ -9,6 +9,7 @@ export type RootStackParamList = {
     massageAndBeautyDetails: { data: SpaBase };
     publicSaunaDetails: { data: SpaBase };
     addSpa: undefined;
+    spaDetails: { data: SpaBase };
 };
 
 export type DrawerParamList = {
