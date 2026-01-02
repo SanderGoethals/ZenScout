@@ -219,7 +219,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
         />
 
         <GlassButton
-          title="Reactie schrijven"
+          title="Beoordeling schrijven"
           onPress={() => setShowWriteReview(true)}
           style={{ marginTop: 50, marginBottom: 50 }}
         />
@@ -238,7 +238,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
         onPress={() => setShowWriteReview(false)}
       />
       <View style={[styles.modalContainer, {height: SCREEN_HEIGHT * 0.5}]}>
-        <AddReview onClose={() => setShowWriteReview(false)} />
+        <AddReview spaId={item.id} onClose={() => setShowWriteReview(false)} />
       </View>
     </Modal>
     </>

@@ -7,10 +7,10 @@ import InputForm from "../../ui/InputForm";
 import GlassButton from "../../ui/GlassButton";
 import { Formik } from "formik";
 import { reviewValidationSchema} from "../../../validation/validation";
+import { AddReviewProps } from "./review.types";
 
-const TEST_SPA_ID = "850";
 
-const AddReview = ({ onClose }: { onClose?: () => void }) => {
+const AddReview = ({ onClose, spaId }: AddReviewProps) => {
   const [loading, setLoading] = useState(false);
 
   return (
@@ -22,16 +22,20 @@ const AddReview = ({ onClose }: { onClose?: () => void }) => {
           setLoading(true);
 
           await createReview({
-            spaId: TEST_SPA_ID,
+            spaId: spaId,
             comment: values.comment,
             rating: Number(values.score),
           });
 
-          Alert.alert("Success", "Review created successfully");
+          Alert.alert("Success", "Beoordeling succesvol aangemaakt", [
+            { text: "OK", onPress: () => {} },
+          ]);
           resetForm();
           onClose?.();
         } catch (error) {
-          Alert.alert("Error", "Failed to create review");
+          Alert.alert("Error", "Beoordeling aanmaken mislukt", [
+            { text: "OK", onPress: () => {} },
+          ]);
         } finally {
           setLoading(false);
         }
@@ -46,14 +50,14 @@ const AddReview = ({ onClose }: { onClose?: () => void }) => {
         isSubmitting,
       }) => (
         <View style={styles.container}>
-          <Text style={styles.title}>Review schrijven</Text>
+          <Text style={styles.title}>Beoordeling schrijven</Text>
 
           {touched.comment && errors.comment && (
             <Text style={styles.error}>{errors.comment}</Text>
           )} 
           <InputForm
             autoCapitalize="sentences"
-            placeholder="Comment"
+            placeholder="Opmerking"
             multiline
             value={values.comment}
             onChangeText={handleChange("comment")}

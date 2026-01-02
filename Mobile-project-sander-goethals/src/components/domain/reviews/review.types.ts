@@ -8,3 +8,8 @@ export interface Review {
   comment: string;
   createdAt: Timestamp;
 }
+
+export interface AddReviewProps {
+  spaId: string;
+  onClose?: () => void;
+};
