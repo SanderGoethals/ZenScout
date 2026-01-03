@@ -1,9 +1,13 @@
-import { categoryColors, CategoryKey, Variant } from './categories';
+import { categoryColors } from "./categories";
 
+type CategoryKey = keyof typeof categoryColors;
 
-export const getCategoryColor = (
-  category: CategoryKey,
-  variant: Variant
-) => {
-  return categoryColors[category][variant as keyof typeof categoryColors[CategoryKey]];
+export const getCategoryColor = <
+  C extends CategoryKey,
+  K extends keyof (typeof categoryColors)[C]
+>(
+  category: C,
+  colorKey: K
+): (typeof categoryColors)[C][K] => {
+  return categoryColors[category][colorKey];
 };
