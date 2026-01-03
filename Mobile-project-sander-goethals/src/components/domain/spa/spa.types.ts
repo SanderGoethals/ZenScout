@@ -40,3 +40,11 @@ export interface FacilitiesCollapsibleProps {
   title?: string
   bgColor: string
 }
+
+export interface SpaCarouselProps {
+  data: SpaBase[];
+  getItemColor?: (index: number) => string;
+  onActionPress?: (item: SpaBase) => void;
+  actionIcon?: string;
+  actionColor?: string;
+}

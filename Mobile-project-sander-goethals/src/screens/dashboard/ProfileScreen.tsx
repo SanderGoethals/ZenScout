@@ -21,6 +21,7 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import ReviewsCarousel from "../../components/domain/reviews/ReviewsCarousel";
+import RecentlyViewedCarousel from "../../components/domain/spa/RecentlyViewedCarousel";
 
 const ProfileScreen = () => {
   const favorites = useAppSelector((store) => store.favorites);
@@ -180,6 +181,14 @@ const ProfileScreen = () => {
             Jouw reviews
           </TextMarkup>
             <ReviewsCarousel userId={auth.currentUser?.uid} />
+        </View>
+
+        {/* Onlangs bekeken */}
+        <View style={styles.section}>
+          <TextMarkup variant="blackItalic" style={styles.sectionTitle}>
+            Onlangs bekeken
+          </TextMarkup>
+            <RecentlyViewedCarousel />
         </View>
 
         {/* Logout */}

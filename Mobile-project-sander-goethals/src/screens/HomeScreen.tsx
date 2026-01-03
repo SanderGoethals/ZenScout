@@ -16,7 +16,7 @@ import { useLocation } from '../hooks/location-hooks/useLocation';
 import { useNearbySpas } from '../hooks/location-hooks/useNearbySpas';
 import { useAppSelector } from '../hooks/reduxHooks';
 
-import { getCategoryColor } from '../theme/categoryHelpers';
+import RecentlyViewedCarousel from '../components/domain/spa/RecentlyViewedCarousel';
 
 const RADIUS_KM = 10;
 
@@ -46,15 +46,9 @@ const HomeScreen = () => {
     RADIUS_KM
   );
 
-  if (spasLoading || locationLoading) {
-    return (
-        <ActivityIndicator size="large"/>
-    );
-  }
-
   if (isError || locationError || !location) {
     return (
-      <View>
+      <View style={styles.container}>
         <TextMarkup>
           Wellneslijst kon niet geladen worden.
         </TextMarkup>
@@ -63,43 +57,48 @@ const HomeScreen = () => {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ padding: 12 }}>
-        <Button
-          title="Toon spa’s binnen 10 km"
-          onPress={() => setShowList(true)}
+    <FlatList
+      style={styles.container}
+      data={showList ? nearbySpas : []}
+      keyExtractor={(item) => item.id}
+      refreshing={isRefetching}
+      onRefresh={refetch}
+      renderItem={({ item, index }) => (
+        <SpaListCard
+          data={item}
+          index={index}
+          category="spaBasic"
+          isFavorite={favorites.some(f => f.id === item.id)}
+          onPress={(spa) =>
+            navigation.navigate('spaDetails', { data: spa })
+          }
         />
-      </View>
-
-      {showList && nearbySpas.length === 0 && (
-        <View>
-          <TextMarkup>
-            Geen spa’s gevonden binnen {RADIUS_KM} km.
-          </TextMarkup>
-        </View>
       )}
+      ListHeaderComponent={
+        <>
+          <Button
+            title="Toon spa’s binnen 10 km"
+            onPress={() => setShowList(true)}
+          />
 
-      {showList && nearbySpas.length > 0 && (
-        <FlatList
-          data={nearbySpas}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={{ padding: 12 }}
-          refreshing={isRefetching}
-          onRefresh={refetch}
-          renderItem={({ item, index }) => (
-            <SpaListCard
-              data={item}
-              index={index}
-              category="spaBasic"
-              isFavorite={favorites.some(f => f.id === item.id)}
-              onPress={(spa) =>
-                navigation.navigate('spaDetails', { data: spa })
-              }
-            />
+          {showList && nearbySpas.length === 0 && (
+            <View style={styles.emptyState}>
+              <TextMarkup>
+                Geen spa’s gevonden binnen {RADIUS_KM} km.
+              </TextMarkup>
+            </View>
           )}
-        />
-      )}
-    </View>
+        </>
+      }
+      ListFooterComponent={
+        <View style={styles.recentSection}>
+          <TextMarkup variant="boldItalic" style={styles.recentTitle}>
+            Onlangs bekeken
+          </TextMarkup>
+          <RecentlyViewedCarousel />
+        </View>
+      }
+    />
   );
 };
 
@@ -108,18 +107,21 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: 12,
   },
-  overlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.4)',
-    justifyContent: 'flex-end',
+  emptyState: {
+    marginVertical: 16,
   },
-  modalContent: {
-    height: '70%',
-    backgroundColor: '#fff',
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    padding: 16,
+  recentSection: {
+    marginTop: 32,
+    paddingBottom: 32,
+    marginBottom: 16,
+  },
+  recentTitle: {
+    fontSize: 24,
+    marginHorizontal: 16,
+    marginBottom: 12,
+    letterSpacing: 0.6,
+    color: '#2F3E3E',
   },
 });

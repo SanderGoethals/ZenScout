@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import favoriteReducer from './favorites/slice';
+import recentlyViewedReducer from './recentlyViewed/slice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import {
@@ -15,10 +16,12 @@ import {
 const persistConfig = {
   key: 'favorites',
   storage: AsyncStorage,
+  whitelist: ['favorites', 'recentlyViewed'],
 };
 
 const rootReducer = combineReducers({
   favorites: favoriteReducer,
+  recentlyViewed: recentlyViewedReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

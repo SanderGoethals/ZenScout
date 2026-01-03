@@ -1,3 +1,5 @@
+import RecentlyViewedCarousel from "../components/domain/spa/RecentlyViewedCarousel";
+
 export const categoryColors = {
   wellness: {
     first: "rgb(223, 243, 245, 0.9)",
@@ -25,7 +27,7 @@ export const categoryColors = {
     third: "rgb(78, 225, 255, 0.9)",
   },
   main: {
-    first: "rgb(200, 218, 211, 0.9)",
+    first: "rgb(200, 218, 211)",
     second: "rgb(163, 193, 173, 0.9)",
     third: "rgb(223, 243, 245, 0.9)",
   },
@@ -34,4 +36,8 @@ export const categoryColors = {
     second: "rgb(238, 230, 214, 0.9)",
     third: "rgb(245, 239, 230, 0.9)",
   },
+  recentlyViewed: {
+    first: "rgb(255, 248, 220, 0.9)",
+    second: "rgb(255, 243, 186, 0.9)",
+  }
 } as const;

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import {
   View,
   StyleSheet,
@@ -25,6 +25,9 @@ import GlassButton from '../../ui/GlassButton'
 import AddReview from '../reviews/AddReview'
 import ShowReviews from '../reviews/ReviewsCarousel'
 
+import { useDispatch } from "react-redux";
+import { addRecentlyViewed } from "../../../store/recentlyViewed/slice";
+
 const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 
 export const SpaDetailsView: FC<DetailProps> = ({
@@ -33,6 +36,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
   onToggleFavorite,
   category,
 }) => {
+  const dispatch = useDispatch();
   const backgroundLight = getCategoryColor(category, 'first')
   const backgroundBase = getCategoryColor(category, 'second')
 
@@ -41,6 +45,12 @@ export const SpaDetailsView: FC<DetailProps> = ({
   const [hasReviews, setHasReviews] = useState(false);
 
   const headerHeight = useHeaderHeight()
+
+  useEffect(() => {
+    if (item) {
+      dispatch(addRecentlyViewed(item));
+    }
+  }, [item, dispatch]);
 
   const descriptionParts = item.fullDescription
     ? item.fullDescription.split(/\n\s*\n/)
