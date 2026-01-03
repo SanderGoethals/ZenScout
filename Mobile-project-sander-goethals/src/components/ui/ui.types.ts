@@ -41,6 +41,15 @@ export interface GlassButtonProps {
   loading?: boolean;
   disabled?: boolean;
   useBlur?: boolean;
-  style?: ViewStyle;
-  textStyle?: TextStyle;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 };
+
+export interface GlassDisplayProps {
+  title?: string;
+  subtitle?: string;
+  content?: string;
+  containerStyle?: StyleProp<ViewStyle>;
+  children?: React.ReactNode;
+}
+

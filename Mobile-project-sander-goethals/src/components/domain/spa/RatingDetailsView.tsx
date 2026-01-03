@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { FC } from 'react'
 import { RatingDetailsProps } from './spa.types'
+import TextMarkup from '../../ui/TextMarkup'
 
 export const RatingDetailsView: FC<RatingDetailsProps> = ({
   data,
@@ -25,8 +26,8 @@ export const RatingDetailsView: FC<RatingDetailsProps> = ({
             <Text style={styles.label}>{data.label}</Text>
 
             <View style={styles.scoreContainer}>
-              <Text style={styles.score}>{data.score}</Text>
-              <Text style={styles.maxScore}>/10</Text>
+              <TextMarkup style={styles.score}>{data.score}</TextMarkup>
+              <TextMarkup style={styles.maxScore}>/10</TextMarkup>
             </View>
           </View>
         )

@@ -23,6 +23,7 @@ import { getCategoryColor } from '../../../theme/categoryHelpers'
 import TextMarkup from '../../ui/TextMarkup'
 import GlassButton from '../../ui/GlassButton'
 import AddReview from '../reviews/AddReview'
+import ShowReviews from '../reviews/ReviewsCarousel'
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window')
 
@@ -99,6 +100,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
           />
         </View>
 
+
         <View
           style={[
             styles.descriptionContainer,
@@ -109,6 +111,8 @@ export const SpaDetailsView: FC<DetailProps> = ({
             {item.description}
           </TextMarkup>
         </View>
+
+        <ShowReviews spaId={item.id} />
 
         <View
           style={[
@@ -209,7 +213,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
         onPress={() => setShowRatings(false)}
       />
 
-      <View style={[styles.modalContainer, {height: SCREEN_HEIGHT * 0.7}]}>
+      <View style={[styles.modalContainer, {height: SCREEN_HEIGHT * 0.5}]}>
         <View style={styles.sheetHandle} />
 
         <RatingDetailsView
@@ -231,9 +235,8 @@ export const SpaDetailsView: FC<DetailProps> = ({
       transparent
       animationType="slide"
       onRequestClose={() => setShowWriteReview(false)}
-    >
-      
-              <Pressable
+    >      
+      <Pressable
         style={styles.overlay}
         onPress={() => setShowWriteReview(false)}
       />

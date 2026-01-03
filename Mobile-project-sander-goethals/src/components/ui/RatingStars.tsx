@@ -8,17 +8,18 @@ const RatingStars: FC<RatingStarsProps> = ({
   size = 30,
   color = "#FFD700",
 }) => {
-
-  // Score 0–10 omzetten naar 0–5
-  const stars = score / 2;
-
-  const fullStars = Math.floor(stars);       // volledige sterren
-  const halfStar = stars % 1 >= 0.5;         // boolean
-  const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+  // Sanitize input
+  const safeScore = Number.isFinite(score) ? score : 0;
+  
+  const stars = safeScore / 2;
+  
+  // Derive star counts safely
+  const fullStars = Math.floor(stars);
+  const halfStar = stars - fullStars >= 0.5 ? 1 : 0;
+  const emptyStars = Math.max(0, 5 - fullStars - halfStar);
 
   return (
     <View style={{ flexDirection: "row" }}>
-      {/* Volledige sterren */}
       {[...Array(fullStars)].map((_, i) => (
         <MaterialCommunityIcons
           key={`full-${i}`}
@@ -28,8 +29,7 @@ const RatingStars: FC<RatingStarsProps> = ({
         />
       ))}
 
-      {/* Halve ster */}
-      {halfStar && (
+      {halfStar === 1 && (
         <MaterialCommunityIcons
           name="star-half-full"
           size={size}
@@ -37,7 +37,6 @@ const RatingStars: FC<RatingStarsProps> = ({
         />
       )}
 
-      {/* Lege sterren */}
       {[...Array(emptyStars)].map((_, i) => (
         <MaterialCommunityIcons
           key={`empty-${i}`}
