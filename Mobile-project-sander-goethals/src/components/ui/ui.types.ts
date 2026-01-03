@@ -13,7 +13,8 @@ export interface SocialIconProps {
 export interface RatingStarsProps {
   score: number;      
   size?: number;      
-  color?: string;     
+  color?: string;    
+  withBackground?: boolean; 
 }
 
 export interface ImageCarouselProps {
@@ -51,5 +52,7 @@ export interface GlassDisplayProps {
   content?: string;
   containerStyle?: StyleProp<ViewStyle>;
   children?: React.ReactNode;
+  scrollable?: boolean;
+  scrollHeight?: number;
 }
 

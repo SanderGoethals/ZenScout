@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import {
   View,
-  Text,
   FlatList,
   StyleSheet,
   Dimensions,
@@ -17,12 +16,14 @@ import { ShowReviewsProps } from "./review.types";
 
 const { width } = Dimensions.get("window");
 
-const COMMENT_HEIGHT = 120;
+const CONTAINER_HEIGHT = 200;
+const NICKNAME_SIZE = 26;
+const COMMENT_SIZE = 18;
+const STAR_SIZE = 30;
 
 const ShowReviews: FC<ShowReviewsProps> = ({ spaId, userId }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [error, setError] = useState<string | null>(null);
 
   const onViewableItemsChanged = useRef(({ viewableItems }: any) => {
     if (viewableItems?.length > 0) {
@@ -44,7 +45,6 @@ const ShowReviews: FC<ShowReviewsProps> = ({ spaId, userId }) => {
         setReviews(data);
       } catch (error) {
         console.log(error);
-        setError("Reviews konden niet geladen worden.");
       }
     };
 
@@ -69,22 +69,25 @@ const ShowReviews: FC<ShowReviewsProps> = ({ spaId, userId }) => {
         onViewableItemsChanged={onViewableItemsChanged}
         renderItem={({ item }) => (
           <View style={styles.slide}>
-            <GlassDisplay title={item.nickname}>
+            <GlassDisplay containerStyle={{ borderRadius: 16 }}>
+              <TextMarkup variant="boldItalic" style={{ fontSize: NICKNAME_SIZE }}>
+                {item.nickname}
+              </TextMarkup>
               <View style={styles.ratingRow}>
-                <RatingStars score={Number(item.rating)} size={22} />
+                <RatingStars score={Number(item.rating)} size={STAR_SIZE} withBackground />
               </View>
 
-              <GlassDisplay containerStyle={{backgroundColor: "rgba(255, 255, 255, 0.7)", borderRadius: 16}}>
-                <View style={styles.commentFixedHeight}>
-                  <ScrollView
-                    showsVerticalScrollIndicator
-                    nestedScrollEnabled
-                  >
-                    <TextMarkup style={styles.commentText}>
-                      {item.comment}
-                    </TextMarkup>
-                  </ScrollView>
-                </View>
+              <GlassDisplay
+                containerStyle={{
+                  backgroundColor: "rgba(255, 255, 255, 0.8)",
+                  borderRadius: 16,
+                }}
+                scrollable
+                scrollHeight={CONTAINER_HEIGHT}
+              >
+                <TextMarkup style={styles.commentText}>
+                  {item.comment}
+                </TextMarkup>
               </GlassDisplay>
             </GlassDisplay>
           </View>
@@ -123,16 +126,15 @@ const styles = StyleSheet.create({
   ratingRow: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: -20,
     marginBottom: 8,
   },
   commentFixedHeight: {
-    height: COMMENT_HEIGHT,
+    height: CONTAINER_HEIGHT,
   },
   commentText: {
-    fontSize: 14,
-    lineHeight: 20,
-    color: "#2F3E3E",
+    fontSize: COMMENT_SIZE,
+    lineHeight: 24,
+    letterSpacing: 0.5,
   },
   dotsContainer: {
     flexDirection: "row",

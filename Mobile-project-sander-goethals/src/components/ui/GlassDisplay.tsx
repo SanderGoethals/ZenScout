@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { StyleSheet, View, } from "react-native";
+import { StyleSheet, View, ScrollView, ViewStyle } from "react-native";
 import { BlurView } from "expo-blur";
 import { GlassDisplayProps } from "../ui/ui.types";
 import TextMarkup from "./TextMarkup";
@@ -10,18 +10,23 @@ const GlassDisplay: FC<GlassDisplayProps> = ({
   content,
   containerStyle,
   children,
+  scrollable = false,
+  scrollHeight,
 }) => {
+  const ContentWrapper = scrollable ? ScrollView : View;
+
   return (
     <View style={[styles.container, containerStyle]}>
-      <BlurView
-        intensity={60}
-        tint="prominent"
-        style={styles.wrapper}
-      >
-        {title && <TextMarkup variant="boldItalic" style={styles.title}>{title}</TextMarkup>}
-        {subtitle && <TextMarkup style={styles.subtitle}>{subtitle}</TextMarkup>}
-        <TextMarkup style={styles.content}>{content}</TextMarkup>
-        {children}
+      <BlurView intensity={60} tint="prominent" style={styles.wrapper}>
+        {children && (
+          <ContentWrapper
+            style={scrollHeight ? { height: scrollHeight } : undefined}
+            showsVerticalScrollIndicator={scrollable}
+            nestedScrollEnabled={scrollable}
+          >
+            {children}
+          </ContentWrapper>
+        )}
       </BlurView>
     </View>
   );
@@ -39,31 +44,12 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     borderWidth: 1,
     borderColor: "rgba(140, 200, 205)",
-
     padding: 18,
-
     shadowColor: "rgba(180, 225, 230, 0.5)",
     shadowOpacity: 0.18,
     shadowRadius: 14,
     shadowOffset: { width: 0, height: 6 },
-
     elevation: 4,
     overflow: "hidden",
-  },
-
-  title: {
-    fontSize: 20,
-    letterSpacing: 1,
-  },
-
-  subtitle: {
-    fontSize: 14,
-    marginBottom: 10,
-  },
-
-  content: {
-    fontSize: 18,
-    lineHeight: 24,
-    letterSpacing: 0.5,
   },
 });
