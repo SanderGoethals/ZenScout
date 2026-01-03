@@ -17,4 +17,5 @@ export interface AddReviewProps {
 export interface ShowReviewsProps {
   spaId?: string;
   userId?: string;
+  onHasReviews?: (hasReviews: boolean) => void;
 }

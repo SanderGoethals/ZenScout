@@ -2,6 +2,7 @@ import React, { FC, useRef, useState } from 'react'
 import { Animated, Pressable, StyleSheet, Text, View } from 'react-native'
 import FacilitiesView from './../spa/FacilitiesView'
 import { FacilitiesCollapsibleProps } from './spa.types'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const FacilitiesCollapsible: FC<FacilitiesCollapsibleProps> = ({
   facilities,
@@ -25,30 +26,45 @@ const FacilitiesCollapsible: FC<FacilitiesCollapsibleProps> = ({
     }).start()
   }
 
-  return (
-    <Pressable onPress={toggle} style={[styles.outer, { backgroundColor: bgColor }]}>
+return (
+  <Pressable
+    onPress={toggle}
+    style={[styles.outer, { backgroundColor: bgColor }]}
+  >
+    <Animated.View
+      style={[
+        styles.viewport,
+        { height: anim, overflow: 'hidden' },
+      ]}
+    >
+      <View
+        onLayout={(e) => {
+          const h = e.nativeEvent.layout.height
+          if (h !== contentHeight) {
+            setContentHeight(h)
+            anim.setValue(collapsedHeight)
+          }
+        }}
+      >
+        <FacilitiesView facilities={facilities} />
+      </View>
+    </Animated.View>
 
-      {/* Collapsible viewport */}
-      <Animated.View style={[styles.viewport,{height: anim, overflow: 'hidden',},]}>
-        <View onLayout={(e) => {
-            const h = e.nativeEvent.layout.height
-            if (h !== contentHeight) {
-              setContentHeight(h)
-              anim.setValue(collapsedHeight)}
-          }}>
-          <FacilitiesView facilities={facilities} />
-        </View>
-      </Animated.View>
-    </Pressable>
-  )
-}
+    <MaterialCommunityIcons
+      name={expanded ? 'chevron-up' : 'chevron-down'}
+      size={24}
+      color="#9CA3AF"
+      style={styles.chevron}
+      />
+  </Pressable>
+)}
 
-export default FacilitiesCollapsible
+export default FacilitiesCollapsible;
 
 const styles = StyleSheet.create({
   outer: {
     marginTop: 18,
-    paddingBottom: 14,
+    paddingBottom: 8,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     backgroundColor: '#FFFFFF',
@@ -69,4 +85,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingBottom: 14,
   },
+  chevron: {
+  alignSelf: 'center',
+  marginTop: 6,
+}
 })

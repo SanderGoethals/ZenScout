@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 14,
+    paddingBottom: 10,
   },
 
   card: {

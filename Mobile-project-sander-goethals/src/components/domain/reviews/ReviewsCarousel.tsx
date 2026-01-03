@@ -21,7 +21,7 @@ const NICKNAME_SIZE = 26;
 const COMMENT_SIZE = 18;
 const STAR_SIZE = 30;
 
-const ShowReviews: FC<ShowReviewsProps> = ({ spaId, userId }) => {
+const ShowReviews: FC<ShowReviewsProps> = ({ spaId, userId, onHasReviews }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -43,7 +43,9 @@ const ShowReviews: FC<ShowReviewsProps> = ({ spaId, userId }) => {
         }
 
         setReviews(data);
+        onHasReviews?.(data.length > 0);
       } catch (error) {
+        onHasReviews?.(false);
         console.log(error);
       }
     };

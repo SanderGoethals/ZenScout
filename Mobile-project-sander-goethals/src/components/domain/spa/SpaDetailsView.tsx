@@ -38,6 +38,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
 
   const [showRatings, setShowRatings] = useState(false)
   const [showWriteReview, setShowWriteReview] = useState(false);
+  const [hasReviews, setHasReviews] = useState(false);
 
   const headerHeight = useHeaderHeight()
 
@@ -61,6 +62,19 @@ export const SpaDetailsView: FC<DetailProps> = ({
               height={360}
               showThumbnails
             />
+            <View style={styles.likeButton}>
+              <TouchableOpacity onPress={() => onToggleFavorite(item)}>
+                <MaterialCommunityIcons
+                  name={
+                    isFavorite
+                      ? 'heart'
+                      : 'heart-plus'
+                  }
+                  color={isFavorite ? 'rgb(156, 42, 58)' : 'rgba(216, 166, 121, 0.45)'}
+                  size={54}
+                />
+              </TouchableOpacity>
+          </View>
           </View>
         )}
 
@@ -111,12 +125,18 @@ export const SpaDetailsView: FC<DetailProps> = ({
             {item.description}
           </TextMarkup>
         </View>
-        
-        <View style={{ marginTop: 12}}>
-          <TextMarkup variant="boldItalic" style={styles.title}>
-            Reviews
-          </TextMarkup>
-          <ShowReviews spaId={item.id} />
+
+        <View style={{ marginTop: 12 }}>
+          {hasReviews && (
+            <TextMarkup variant="boldItalic" style={styles.title}>
+              Reviews
+            </TextMarkup>
+          )}
+
+          <ShowReviews
+            spaId={item.id}
+            onHasReviews={setHasReviews}
+          />
         </View>
 
         <View
@@ -147,6 +167,12 @@ export const SpaDetailsView: FC<DetailProps> = ({
             </TextMarkup>
           ))}
         </View>
+        
+        <GlassButton
+          title="Beoordeling schrijven"
+          onPress={() => setShowWriteReview(true)}
+          style={{ marginVertical: 24, marginHorizontal: 16 }}
+        />
 
         <View style={styles.iconContainer}>
           <MaterialCommunityIcons
@@ -187,22 +213,6 @@ export const SpaDetailsView: FC<DetailProps> = ({
                 bgColor={backgroundBase}
               />
             )}
-
-            <TouchableOpacity onPress={() => onToggleFavorite(item)}>
-              <MaterialCommunityIcons
-                style={[
-                  styles.favoriteButton,
-                  { backgroundColor: backgroundBase },
-                ]}
-                name={
-                  isFavorite
-                    ? 'heart-circle'
-                    : 'heart-circle-outline'
-                }
-                color={isFavorite ? '#E0245E' : '#D8A679'}
-                size={64}
-              />
-            </TouchableOpacity>
           </View>
         )}
       </ScrollView>
@@ -225,12 +235,6 @@ export const SpaDetailsView: FC<DetailProps> = ({
           data={item}
           evenColor={backgroundLight}
           oddColor={backgroundBase}
-        />
-
-        <GlassButton
-          title="Beoordeling schrijven"
-          onPress={() => setShowWriteReview(true)}
-          style={{ marginTop: 50, marginBottom: 50 }}
         />
       </View>
     </Modal>
@@ -318,15 +322,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 40,
-    gap: 20,
+    paddingHorizontal: 60,
     paddingTop: 10,
     paddingBottom: 25,
   },
-  favoriteButton: {
-    borderRadius: 999,
-    elevation: 5,
-  },
+  likeButton: {
+    position: 'absolute',
+    bottom: 76,
+    right: 6,
+
+    backgroundColor: 'transparent',
+    },
   descriptionContainer: {
     marginTop: 20,
     marginHorizontal: 16,
@@ -387,6 +393,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 26,
     color: '#374151',
+    paddingBottom: 8,
   },
   title: {
     fontSize: 26,
