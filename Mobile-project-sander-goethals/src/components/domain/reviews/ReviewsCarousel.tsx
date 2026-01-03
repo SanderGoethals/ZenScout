@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 
-import { getReviewsBySpaId } from "../../../services/reviews.service";
+import { getReviewsBySpaId, getReviewsByUserId } from "../../../services/reviews.service";
 import { Review } from "./review.types";
 import GlassDisplay from "../../ui/GlassDisplay";
 import RatingStars from "../../ui/RatingStars";
@@ -19,7 +19,7 @@ const { width } = Dimensions.get("window");
 
 const COMMENT_HEIGHT = 120;
 
-const ShowReviews: FC<ShowReviewsProps> = ({ spaId }) => {
+const ShowReviews: FC<ShowReviewsProps> = ({ spaId, userId }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -33,25 +33,23 @@ const ShowReviews: FC<ShowReviewsProps> = ({ spaId }) => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const data = await getReviewsBySpaId(spaId);
+        let data: Review[] = [];
+
+        if (userId) {
+          data = await getReviewsByUserId(userId);
+        } else if (spaId) {
+          data = await getReviewsBySpaId(spaId);
+        }
+
         setReviews(data);
-      } catch {
+      } catch (error) {
+        console.log(error);
         setError("Reviews konden niet geladen worden.");
       }
     };
 
-    if (spaId) {
-      fetchReviews();
-    }
-  }, [spaId]);
-
-  if (error) {
-    return (
-      <View style={styles.center}>
-        <Text>{error}</Text>
-      </View>
-    );
-  }
+    fetchReviews();
+  }, [spaId, userId]);
 
   if (reviews.length === 0) {
     return null;
@@ -59,8 +57,6 @@ const ShowReviews: FC<ShowReviewsProps> = ({ spaId }) => {
 
   return (
     <View style={styles.container}>
-      <TextMarkup style={styles.title}>Reviews</TextMarkup>
-
       <FlatList
         data={reviews}
         horizontal
@@ -78,15 +74,15 @@ const ShowReviews: FC<ShowReviewsProps> = ({ spaId }) => {
                 <RatingStars score={Number(item.rating)} size={22} />
               </View>
 
-              <GlassDisplay containerStyle={styles.commentOuter}>
+              <GlassDisplay containerStyle={{backgroundColor: "rgba(255, 255, 255, 0.7)", borderRadius: 16}}>
                 <View style={styles.commentFixedHeight}>
                   <ScrollView
                     showsVerticalScrollIndicator
                     nestedScrollEnabled
                   >
-                    <Text style={styles.commentText}>
+                    <TextMarkup style={styles.commentText}>
                       {item.comment}
-                    </Text>
+                    </TextMarkup>
                   </ScrollView>
                 </View>
               </GlassDisplay>
@@ -120,12 +116,6 @@ const styles = StyleSheet.create({
     padding: 16,
     alignItems: "center",
   },
-  title: {
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 12,
-    paddingHorizontal: 16,
-  },
   slide: {
     width,
     paddingHorizontal: 16,
@@ -133,11 +123,8 @@ const styles = StyleSheet.create({
   ratingRow: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: -8,
+    marginTop: -20,
     marginBottom: 8,
-  },
-  commentOuter: {
-    marginTop: 12,
   },
   commentFixedHeight: {
     height: COMMENT_HEIGHT,

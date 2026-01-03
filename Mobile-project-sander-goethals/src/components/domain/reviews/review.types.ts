@@ -15,5 +15,6 @@ export interface AddReviewProps {
 };
 
 export interface ShowReviewsProps {
-  spaId: string;
+  spaId?: string;
+  userId?: string;
 }

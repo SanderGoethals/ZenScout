@@ -1,46 +1,42 @@
 export const categoryColors = {
   wellness: {
-    first: "#DFF3F5",
-    second: "#C6E7EB",
-    third: "#7FCAD3",
+    first: "rgb(223, 243, 245)",
+    second: "rgb(198, 231, 235)",
+    third: "rgb(127, 202, 211)",
   },
   publicSauna: {
-    first: '#EEE7F4',
-    second: '#D8CDE8',
-    third:'#9B86B8'
+    first: "rgb(238, 231, 244)",
+    second: "rgb(216, 205, 232)",
+    third: "rgb(155, 134, 184)",
   },
   privateSauna: {
-    first: '#DCE9F2', 
-    second: '#C4D7E6', 
-    third: '#7FA9C9', 
+    first: "rgb(220, 233, 242)",
+    second: "rgb(196, 215, 230)",
+    third: "rgb(127, 169, 201)",
   },
   massageAndBeauty: {
-    first: '#F2DDD8', 
-    second: '#E6C7BF', 
-    third: '#B27C76', 
+    first: "rgb(242, 221, 216)",
+    second: "rgb(230, 199, 191)",
+    third: "rgb(178, 124, 118)",
   },
   spaBasic: {
-    first:  "rgb(190, 225,  255, 0.8)",
-    second: "rgb(178, 225,  255, 0.8)",
-    third:  "rgb(78, 225, 255, 0.8)"
-
+    first: "rgb(190, 225, 255, 0.8)",
+    second: "rgb(178, 225, 255, 0.8)",
+    third: "rgb(78, 225, 255, 0.8)",
   },
   main: {
-    first: '#C8DAD3',
-    second: '#A3C1AD',
-    third: '#DFF3F5'
+    first: "rgb(200, 218, 211)",
+    second: "rgb(163, 193, 173)",
+    third: "rgb(223, 243, 245)",
   },
   profile: {
-    first: '#E2D6BF',
-    second: '#EEE6D6',
-    third: '#F5EFE6'
+    first: "rgb(226, 214, 191)",
+    second: "rgb(238, 230, 214)",
+    third: "rgb(245, 239, 230)",
   },
   login: {
-    buttonColor: '#8B6F47',
-    backgroundColor: '#F5F1EB',
-    disabledButtonColor: '#C3B8A3',
+    buttonColor: "rgb(139, 111, 71)",
+    backgroundColor: "rgb(245, 241, 235)",
+    disabledButtonColor: "rgb(195, 184, 163)",
   },
 } as const;
-
-export type CategoryKey = keyof typeof categoryColors;
-export type Variant = 'loader' | 'buttonColor' | 'backgroundColor' | 'disabledButtonColor' | 'first' | 'second' | 'third';

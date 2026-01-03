@@ -20,6 +20,7 @@ import {
   updateDoc,
   serverTimestamp,
 } from "firebase/firestore";
+import ReviewsCarousel from "../../components/domain/reviews/ReviewsCarousel";
 
 const ProfileScreen = () => {
   const favorites = useAppSelector((store) => store.favorites);
@@ -169,9 +170,17 @@ const ProfileScreen = () => {
             <TextMarkup variant="blackItalic" style={styles.sectionTitle}>
               Jouw favorieten
             </TextMarkup>
-            <FavoritesCarousel favorites={favorites} />
+              <FavoritesCarousel favorites={favorites} />
           </View>
         )}
+
+        {/* Reviews */}
+        <View style={styles.section}>
+          <TextMarkup variant="blackItalic" style={styles.sectionTitle}>
+            Jouw reviews
+          </TextMarkup>
+            <ReviewsCarousel userId={auth.currentUser?.uid} />
+        </View>
 
         {/* Logout */}
         <GlassButton

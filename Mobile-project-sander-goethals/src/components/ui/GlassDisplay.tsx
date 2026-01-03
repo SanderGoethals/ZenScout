@@ -15,10 +15,10 @@ const GlassDisplay: FC<GlassDisplayProps> = ({
     <View style={[styles.container, containerStyle]}>
       <BlurView
         intensity={60}
-        tint="light"
+        tint="prominent"
         style={styles.wrapper}
       >
-        {title && <TextMarkup variant="extraBold" style={styles.title}>{title}</TextMarkup>}
+        {title && <TextMarkup variant="boldItalic" style={styles.title}>{title}</TextMarkup>}
         {subtitle && <TextMarkup style={styles.subtitle}>{subtitle}</TextMarkup>}
         <TextMarkup style={styles.content}>{content}</TextMarkup>
         {children}

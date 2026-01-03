@@ -111,8 +111,13 @@ export const SpaDetailsView: FC<DetailProps> = ({
             {item.description}
           </TextMarkup>
         </View>
-
-        <ShowReviews spaId={item.id} />
+        
+        <View style={{ marginTop: 12}}>
+          <TextMarkup variant="boldItalic" style={styles.title}>
+            Reviews
+          </TextMarkup>
+          <ShowReviews spaId={item.id} />
+        </View>
 
         <View
           style={[
@@ -382,5 +387,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 26,
     color: '#374151',
+  },
+  title: {
+    fontSize: 26,
+    marginHorizontal: 16,
+    marginBottom: -14,
+    letterSpacing: 0.7,
+    color: "#2F3E3E",
   },
 })

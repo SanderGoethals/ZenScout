@@ -32,7 +32,7 @@ export const createReview = async ({
   });
 };
 
-export const getReviewsBySpaId = async (spaId: string) => {
+export const getReviewsBySpaId = async (spaId: string): Promise<Review[]> => {
   const reviewsCollection = collection(db, "reviews");
   const reviewsSnap = await getDocs(
     query(reviewsCollection, 
@@ -44,4 +44,21 @@ export const getReviewsBySpaId = async (spaId: string) => {
     ...doc.data(),
   })) as Review[];
   return reviews;
+};
+
+export const getReviewsByUserId = async (userId: string): Promise<Review[]> => {
+  const reviewsCollection = collection(db, "reviews");
+
+  const reviewsSnap = await getDocs(
+    query(
+      reviewsCollection,
+      where("uid", "==", userId),
+      orderBy("createdAt", "desc")
+    )
+  );
+
+  return reviewsSnap.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  })) as Review[];
 };
