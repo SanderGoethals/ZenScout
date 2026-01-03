@@ -28,7 +28,6 @@ const HomeScreen = () => {
 
   const {
     data: spaList,
-    isLoading: spasLoading,
     isError,
     refetch,
     isRefetching,

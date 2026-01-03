@@ -1,6 +1,6 @@
 import { categoryColors } from "./categories";
 
-type CategoryKey = keyof typeof categoryColors;
+export type CategoryKey = keyof typeof categoryColors;
 
 export const getCategoryColor = <
   C extends CategoryKey,

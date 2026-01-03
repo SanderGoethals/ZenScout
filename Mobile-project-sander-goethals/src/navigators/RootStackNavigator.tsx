@@ -8,8 +8,8 @@ import DrawerNavigator from './DrawerNavigator'
 import PublicSaunaDetailsScreen from '../screens/publicSauna/PublicSaunaDetailsScreen'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { TouchableOpacity, StyleSheet, View } from 'react-native'
-import AddSpaScreen from '../screens/AddSpaScreen'
-import SpaDetailsScreen from '../screens/SpaDetailsScreen'
+import AddSpaScreen from '../screens/spaScreens/AddSpaScreen'
+import SpaDetailsScreen from '../screens/spaScreens/SpaDetailsScreen'
 
 const RootStack = createStackNavigator<RootStackParamList>()
 const RootStackNavigator = () => {

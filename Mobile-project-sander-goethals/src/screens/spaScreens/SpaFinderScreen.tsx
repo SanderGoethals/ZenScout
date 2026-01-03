@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, ActivityIndicator, Text } from 'react-native';
-import { useWellnessList } from '../hooks/useWellnessList';
-import { useLocation } from '../hooks/location-hooks/useLocation';
-import { useNearbySpas } from '../hooks/location-hooks/useNearbySpas';
-import { SpaMap } from '../components/domain/geoLocation/SpaMap';
+import { useWellnessList } from '../../hooks/useWellnessList';
+import { useLocation } from '../../hooks/location-hooks/useLocation';
+import { useNearbySpas } from '../../hooks/location-hooks/useNearbySpas';
+import { SpaMap } from '../../components/domain/geoLocation/SpaMap';
 
 export default function SpaMapScreen() {
   const radiusKm = 10;

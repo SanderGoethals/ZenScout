@@ -1,4 +1,5 @@
-import { CategoryKey } from "../../../theme/categories";
+import { CategoryKey } from "../../../theme/categoryHelpers";
+
 
 export interface FavoriteCarouselProps {
   favorites: SpaBase[];

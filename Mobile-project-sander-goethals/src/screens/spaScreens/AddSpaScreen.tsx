@@ -12,9 +12,9 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import * as MailComposer from "expo-mail-composer";
 
-import InputForm from "../components/ui/InputForm";
-import TextMarkup from "../components/ui/TextMarkup";
-import { addSpaValidationSchema } from "../validation/validation";
+import InputForm from "../../components/ui/InputForm";
+import TextMarkup from "../../components/ui/TextMarkup";
+import { addSpaValidationSchema } from "../../validation/validation";
 import { Formik } from "formik";
 
 const AddWellnessScreen = () => {
@@ -43,7 +43,7 @@ const AddWellnessScreen = () => {
 
 return (
     <ImageBackground
-      source={require("../../assets/ZenScout_SplashPage.png")}
+      source={require("../../../assets/ZenScout_SplashPage.png")}
       style={styles.background}
       resizeMode="cover"
     >
