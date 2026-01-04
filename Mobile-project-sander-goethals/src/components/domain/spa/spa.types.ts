@@ -49,3 +49,10 @@ export interface SpaCarouselProps {
   actionIcon?: string;
   actionColor?: string;
 }
+
+export interface FilterProps {
+  visible: boolean;
+  selected: string[];
+  onApply: (facilities: string[]) => void;
+  onClose: () => void;
+}

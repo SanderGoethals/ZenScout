@@ -9,20 +9,15 @@ import {
 } from "react-native";
 import TextMarkup from "../../ui/TextMarkup";
 import { FACILITIES } from "../../../constants/facilities";
+import { FilterProps } from "./spa.types";
 
-interface Props {
-  visible: boolean;
-  selected: string[];
-  onApply: (facilities: string[]) => void;
-  onClose: () => void;
-}
 
 const FacilityFilterModal = ({
   visible,
   selected,
   onApply,
   onClose,
-}: Props) => {
+}: FilterProps) => {
   const [search, setSearch] = useState("");
   const [localSelection, setLocalSelection] = useState<string[]>(selected);
 
