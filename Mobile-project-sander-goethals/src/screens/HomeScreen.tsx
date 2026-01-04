@@ -55,7 +55,7 @@ const HomeScreen = () => {
     );
   }
 
-  if (isError || locationError || !location) {
+  if (isError || locationError) {
     return (
       <View style={styles.container}>
         <TextMarkup>

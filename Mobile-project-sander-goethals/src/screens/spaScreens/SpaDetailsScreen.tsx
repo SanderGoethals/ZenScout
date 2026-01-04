@@ -22,7 +22,7 @@ const SpaDetailsScreen = () => {
       data={data}
       isFavorite={favorites.some(f => f.id === data.id)}
       onToggleFavorite={(item) => dispatch(toggle(item))}
-      category="spaBasic"
+      category="recentlyViewed"
     />
   );
 };

@@ -13,7 +13,7 @@ const FavoritesCarousel = ({ favorites }: FavoriteCarouselProps) => {
       data={favorites}
         getItemColor={(index) =>
         getCategoryColor(
-          'spaBasic',
+          'recentlyViewed',
           index % 2 === 0 ? 'first' : 'second'
         )
       }
