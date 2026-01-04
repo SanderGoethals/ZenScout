@@ -56,3 +56,7 @@ export interface GlassDisplayProps {
   scrollHeight?: number;
 }
 
+export interface RadiusSelectorProps {
+  radiusKm?: number;
+  onChange: (radius?: number) => void;
+}

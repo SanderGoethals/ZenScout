@@ -1,19 +1,19 @@
-import { useMemo } from 'react';
-import { Coordinate } from '../../components/domain/geoLocation/geo.types';
-import { distanceInKm } from '../../components/domain/geoLocation/geo.utils';
+import { useMemo } from "react";
+import { Coordinate } from "../../components/domain/geoLocation/geo.types";
+import { distanceInKm } from "../../components/domain/geoLocation/geo.utils";
 
 export function useNearbySpas(
   userLocation: Coordinate | null,
   spas: SpaBase[],
-  radiusKm: number
-) {
+  radiusKm?: number
+): SpaBase[] {
   return useMemo(() => {
-    if (!userLocation) return [];
+    if (!userLocation || radiusKm === undefined) {
+      return spas;
+    }
 
-    return spas.filter(spa => {
-      return (
-        distanceInKm(userLocation, spa) <= radiusKm
-      );
-    });
+    return spas.filter(
+      (spa) => distanceInKm(userLocation, spa) <= radiusKm
+    );
   }, [userLocation, spas, radiusKm]);
 }

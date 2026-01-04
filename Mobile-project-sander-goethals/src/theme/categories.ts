@@ -37,7 +37,7 @@ export const categoryColors = {
     third: "rgb(245, 239, 230, 0.9)",
   },
   recentlyViewed: {
-    first: "rgb(255, 248, 220, 0.9)",
-    second: "rgb(255, 243, 186, 0.9)",
+    first: "rgba(196, 230, 204, 0.9)",
+    second: "rgba(186, 224, 197, 0.9)",
   }
 } as const;

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import {
-  View,
-  StyleSheet,
-  FlatList,
   ActivityIndicator,
+  StyleSheet,
+  Pressable,
+  FlatList,
+  View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -11,15 +12,16 @@ import { SpaListCard } from "../components/domain/spa/SpaListCard";
 import SpaFilters from "../components/domain/spa/SpaFilters";
 import RecentlyViewedCarousel from "../components/domain/spa/RecentlyViewedCarousel";
 import TextMarkup from "../components/ui/TextMarkup";
+import RadiusSelector from "../components/ui/RadiusSelector";
 
 import { useLocation } from "../hooks/location/useLocation";
 import { useNearbySpas } from "../hooks/location/useNearbySpas";
+import { useFacilityFilter } from "../hooks/useFacilityFilter";
 import { useSpas } from "../hooks/firebase/useSpasFromFirebase";
 import { useAppSelector } from "../hooks/reduxHooks";
 
 import { SpaCategory } from "../constants/categories";
-
-const RADIUS_KM = 10;
+import FacilityFilterModal from "../components/domain/spa/FacilityFilterModal";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -27,6 +29,10 @@ const HomeScreen = () => {
 
   const [category, setCategory] = useState<SpaCategory>("wellness");
   const [province, setProvince] = useState<string | undefined>();
+  const [radiusKm, setRadiusKm] = useState<number | undefined>();
+  const [facilityModalOpen, setFacilityModalOpen] = useState(false);
+  const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
+
 
   const {
     data: spaList,
@@ -45,7 +51,12 @@ const HomeScreen = () => {
   const nearbySpas = useNearbySpas(
     location,
     spaList ?? [],
-    RADIUS_KM
+    radiusKm
+  );
+
+  const filteredSpas = useFacilityFilter(
+    nearbySpas,
+    selectedFacilities
   );
 
   if (isLoading || locationLoading) {
@@ -69,7 +80,7 @@ const HomeScreen = () => {
   return (
     <FlatList
       style={styles.container}
-      data={nearbySpas}
+      data={filteredSpas}
       keyExtractor={(item) => item.id}
       refreshing={isRefetching}
       onRefresh={refetch}
@@ -93,10 +104,37 @@ const HomeScreen = () => {
             onProvinceChange={setProvince}
           />
 
-          {nearbySpas.length === 0 && (
+          <RadiusSelector
+            radiusKm={radiusKm}
+            onChange={setRadiusKm}
+          />
+
+          <Pressable style={styles.categoryChip}
+          onPress={() => setFacilityModalOpen(true)}>
+            <TextMarkup>
+              Faciliteiten
+              {selectedFacilities.length > 0
+                ? ` (${selectedFacilities.length})`
+                : ""}
+            </TextMarkup>
+          </Pressable>
+
+          <FacilityFilterModal
+            visible={facilityModalOpen}
+            selected={selectedFacilities}
+            onApply={(facilities) => {
+              setSelectedFacilities(facilities);
+              setFacilityModalOpen(false);
+            }}
+            onClose={() => setFacilityModalOpen(false)}
+          />
+
+
+          {filteredSpas.length === 0 && (
             <View style={styles.emptyState}>
               <TextMarkup>
-                Geen spa’s gevonden binnen {RADIUS_KM} km.
+                Geen spa’s gevonden
+                {radiusKm ? ` binnen ${radiusKm} km` : ""}.
               </TextMarkup>
             </View>
           )}
@@ -141,5 +179,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  categoryChip: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 16,
+    backgroundColor: "#E6EAEA",
+    alignSelf: "flex-start",
+    marginBottom: 12,
   },
 });
