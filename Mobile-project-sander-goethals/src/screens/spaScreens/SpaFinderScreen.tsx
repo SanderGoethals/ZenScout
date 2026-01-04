@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, ActivityIndicator, Text } from 'react-native';
 import { useWellnessList } from '../../hooks/useWellnessList';
-import { useLocation } from '../../hooks/location-hooks/useLocation';
-import { useNearbySpas } from '../../hooks/location-hooks/useNearbySpas';
+import { useLocation } from '../../hooks/location/useLocation';
+import { useNearbySpas } from '../../hooks/location/useNearbySpas';
 import { SpaMap } from '../../components/domain/geoLocation/SpaMap';
 
 export default function SpaMapScreen() {

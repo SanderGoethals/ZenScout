@@ -4,21 +4,21 @@ import { useNavigation } from '@react-navigation/native';
 import {SpaListCard} from '../../components/domain/spa/SpaListCard';
 import TextMarkup from '../../components/ui/TextMarkup';
 import { useAppSelector } from '../../hooks/reduxHooks';
-import { usePrivateSaunaList } from '../../hooks/usePrivateSaunaList';
+// import { usePrivateSaunaList } from '../../hooks/usePrivateSaunaList';
 import { getCategoryColor } from '../../theme/categoryHelpers';
-
+import { usePrivateSaunasFromFirebase } from '../../hooks/firebase/usePrivateSaunasFromFirebase';
 
 const PrivateSaunaListScreen = () => {
   const navigation = useNavigation();
    const favorites = useAppSelector(store => store.favorites);
 
   const {
-    data: spaList, isLoading, isError, refetch, isRefetching, } = usePrivateSaunaList();
+    data: spaList, isLoading, isError, refetch, isRefetching, } = usePrivateSaunasFromFirebase();
 
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color={getCategoryColor('privateSauna', 'loader')} />
+        <ActivityIndicator size="large" color={getCategoryColor('privateSauna', 'third')} />
       </View>
     );
   }

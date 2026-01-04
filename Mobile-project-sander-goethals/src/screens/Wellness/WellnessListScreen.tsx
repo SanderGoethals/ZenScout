@@ -3,9 +3,10 @@ import { View, StyleSheet, FlatList, ActivityIndicator,} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {SpaListCard} from '../../components/domain/spa/SpaListCard';
 import TextMarkup from '../../components/ui/TextMarkup';
-import { useWellnessList } from '../../hooks/useWellnessList';
+// import { useWellnessList } from '../../hooks/useWellnessList';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { getCategoryColor } from '../../theme/categoryHelpers';
+import { useWellnessFromFirebase } from '../../hooks/firebase/useWellnessFromFirebase';
 
 
 const SpaListScreen = () => {
@@ -13,7 +14,7 @@ const SpaListScreen = () => {
   const favorites = useAppSelector(store => store.favorites);
 
   const {
-    data: spaList, isLoading, isError, refetch, isRefetching, } = useWellnessList();
+    data: spaList, isLoading, isError, refetch, isRefetching, } = useWellnessFromFirebase();
 
   if (isLoading) {
     return (

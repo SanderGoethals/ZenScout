@@ -12,11 +12,12 @@ import { SpaListCard } from '../components/domain/spa/SpaListCard';
 import TextMarkup from '../components/ui/TextMarkup';
 
 import { useWellnessList } from '../hooks/useWellnessList';
-import { useLocation } from '../hooks/location-hooks/useLocation';
-import { useNearbySpas } from '../hooks/location-hooks/useNearbySpas';
+import { useLocation } from '../hooks/location/useLocation';
+import { useNearbySpas } from '../hooks/location/useNearbySpas';
 import { useAppSelector } from '../hooks/reduxHooks';
 
 import RecentlyViewedCarousel from '../components/domain/spa/RecentlyViewedCarousel';
+import WellnessAdminSync from '../services/DataLake/WellnessAdminSync';
 
 const RADIUS_KM = 10;
 
@@ -75,6 +76,9 @@ const HomeScreen = () => {
       )}
       ListHeaderComponent={
         <>
+
+          <WellnessAdminSync />
+
           <Button
             title="Toon spa’s binnen 10 km"
             onPress={() => setShowList(true)}

@@ -4,8 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import {SpaListCard} from '../../components/domain/spa/SpaListCard';
 import TextMarkup from '../../components/ui/TextMarkup';
 import { useAppSelector } from '../../hooks/reduxHooks';
-import { useMassageAndBeautyList } from '../../hooks/useMassageAndBeautyList';
+// import { useMassageAndBeautyList } from '../../hooks/useMassageAndBeautyList';
 import { getCategoryColor } from '../../theme/categoryHelpers';
+
+import { useMassageAndBeautyFromFirebase } from '../../hooks/firebase/useMassageAndBeautyFromFirebase';
 
 
 const MassageAndBeautyListScreen = () => {
@@ -13,12 +15,12 @@ const MassageAndBeautyListScreen = () => {
    const favorites = useAppSelector(store => store.favorites);
 
   const {
-    data: spaList, isLoading, isError, refetch, isRefetching, } = useMassageAndBeautyList();
+    data: spaList, isLoading, isError, refetch, isRefetching, } = useMassageAndBeautyFromFirebase();
 
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color={getCategoryColor('massageAndBeauty', 'loader')} />
+        <ActivityIndicator size="large" color={getCategoryColor('massageAndBeauty', 'third')} />
       </View>
     );
   }

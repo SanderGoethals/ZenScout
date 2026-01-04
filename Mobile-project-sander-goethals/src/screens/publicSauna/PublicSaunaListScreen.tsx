@@ -4,8 +4,9 @@ import { useNavigation } from '@react-navigation/native';
 import {SpaListCard} from '../../components/domain/spa/SpaListCard';
 import TextMarkup from '../../components/ui/TextMarkup';
 import { useAppSelector } from '../../hooks/reduxHooks';
-import { usePublicSaunaList } from '../../hooks/usePublicSaunaList';
+// import { usePublicSaunaList } from '../../hooks/usePublicSaunaList';
 import { getCategoryColor } from '../../theme/categoryHelpers';
+import { usePublicSaunasFromFirebase } from '../../hooks/firebase/usePublicSaunasFromFirebase';
 
 
 const PublicSaunaListScreen = () => {
@@ -13,7 +14,7 @@ const PublicSaunaListScreen = () => {
    const favorites = useAppSelector(store => store.favorites);
 
   const {
-    data: spaList, isLoading, isError, refetch, isRefetching, } = usePublicSaunaList();
+    data: spaList, isLoading, isError, refetch, isRefetching, } = usePublicSaunasFromFirebase();
 
   if (isLoading) {
     return (
