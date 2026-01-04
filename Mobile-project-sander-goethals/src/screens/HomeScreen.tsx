@@ -11,7 +11,8 @@ import { useNavigation } from '@react-navigation/native';
 import { SpaListCard } from '../components/domain/spa/SpaListCard';
 import TextMarkup from '../components/ui/TextMarkup';
 
-import { useWellnessList } from '../hooks/useWellnessList';
+// import { useWellnessList } from '../hooks/useWellnessList';
+import { useWellnessFromFirebase } from '../hooks/firebase/useWellnessFromFirebase';
 import { useLocation } from '../hooks/location/useLocation';
 import { useNearbySpas } from '../hooks/location/useNearbySpas';
 import { useAppSelector } from '../hooks/reduxHooks';
@@ -32,7 +33,7 @@ const HomeScreen = () => {
     isError,
     refetch,
     isRefetching,
-  } = useWellnessList();
+  } = useWellnessFromFirebase();
 
   const {
     location,
@@ -76,9 +77,6 @@ const HomeScreen = () => {
       )}
       ListHeaderComponent={
         <>
-
-          <WellnessAdminSync />
-
           <Button
             title="Toon spa’s binnen 10 km"
             onPress={() => setShowList(true)}

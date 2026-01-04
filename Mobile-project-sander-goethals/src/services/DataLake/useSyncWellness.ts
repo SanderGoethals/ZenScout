@@ -1,7 +1,7 @@
-// import { useWellnessList } from "../../hooks/useWellnessList";
-import { useMassageAndBeautyList } from "../../hooks/useMassageAndBeautyList";
-import { usePrivateSaunaList } from "../../hooks/usePrivateSaunaList";
-import { usePublicSaunaList } from "../../hooks/usePublicSaunaList";
+import { useWellnessList } from "../../hooks/api/useWellnessList";
+import { useMassageAndBeautyList } from "../../hooks/api/useMassageAndBeautyList";
+import { usePrivateSaunaList } from "../../hooks/api/usePrivateSaunaList";
+import { usePublicSaunaList } from "../../hooks/api/usePublicSaunaList";
 import { syncMassageAndBeautyToFirestore, syncPrivateSaunaToFirestore, syncPublicSaunaToFirestore, syncWellnessToFirestore } from "./syncWellnessToFirestore";
 
 export const useSyncWellness = () => {
