@@ -1,39 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
   FlatList,
   ActivityIndicator,
-  Button,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { SpaListCard } from '../components/domain/spa/SpaListCard';
-import { useLocation } from '../hooks/location/useLocation';
-import { useNearbySpas } from '../hooks/location/useNearbySpas';
-import { useAppSelector } from '../hooks/reduxHooks';
-import TextMarkup from '../components/ui/TextMarkup';
-import RecentlyViewedCarousel from '../components/domain/spa/RecentlyViewedCarousel';
-import { SpaCategory } from '../constants/categories';
-import { useSpas } from '../hooks/firebase/useSpasFromFirebase';
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
+import { SpaListCard } from "../components/domain/spa/SpaListCard";
+import SpaFilters from "../components/domain/spa/SpaFilters";
+import RecentlyViewedCarousel from "../components/domain/spa/RecentlyViewedCarousel";
+import TextMarkup from "../components/ui/TextMarkup";
+
+import { useLocation } from "../hooks/location/useLocation";
+import { useNearbySpas } from "../hooks/location/useNearbySpas";
+import { useSpas } from "../hooks/firebase/useSpasFromFirebase";
+import { useAppSelector } from "../hooks/reduxHooks";
+
+import { SpaCategory } from "../constants/categories";
 
 const RADIUS_KM = 10;
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const favorites = useAppSelector(store => store.favorites);
+  const favorites = useAppSelector((store) => store.favorites);
 
-  const category: SpaCategory = "wellness";
-
-  const [showList, setShowList] = useState(false);
+  const [category, setCategory] = useState<SpaCategory>("wellness");
+  const [province, setProvince] = useState<string | undefined>();
 
   const {
     data: spaList,
+    isLoading,
     isError,
     refetch,
     isRefetching,
-    isLoading,
-  } = useSpas(category);
+  } = useSpas(category, province);
 
   const {
     location,
@@ -47,7 +48,7 @@ const HomeScreen = () => {
     RADIUS_KM
   );
 
-  if (isLoading) {
+  if (isLoading || locationLoading) {
     return (
       <View style={styles.center}>
         <ActivityIndicator size="large" />
@@ -57,7 +58,7 @@ const HomeScreen = () => {
 
   if (isError || locationError) {
     return (
-      <View style={styles.container}>
+      <View style={styles.center}>
         <TextMarkup>
           Wellneslijst kon niet geladen worden.
         </TextMarkup>
@@ -68,7 +69,7 @@ const HomeScreen = () => {
   return (
     <FlatList
       style={styles.container}
-      data={showList ? nearbySpas : []}
+      data={nearbySpas}
       keyExtractor={(item) => item.id}
       refreshing={isRefetching}
       onRefresh={refetch}
@@ -76,21 +77,23 @@ const HomeScreen = () => {
         <SpaListCard
           data={item}
           index={index}
-          category="spaBasic"
-          isFavorite={favorites.some(f => f.id === item.id)}
+          category={category}
+          isFavorite={favorites.some((f) => f.id === item.id)}
           onPress={(spa) =>
-            navigation.navigate('spaDetails', { data: spa })
+            navigation.navigate("spaDetails", { data: spa })
           }
         />
       )}
       ListHeaderComponent={
         <>
-          <Button
-            title="Toon spa’s binnen 10 km"
-            onPress={() => setShowList(true)}
+          <SpaFilters
+            category={category}
+            province={province}
+            onCategoryChange={setCategory}
+            onProvinceChange={setProvince}
           />
 
-          {showList && nearbySpas.length === 0 && (
+          {nearbySpas.length === 0 && (
             <View style={styles.emptyState}>
               <TextMarkup>
                 Geen spa’s gevonden binnen {RADIUS_KM} km.
@@ -120,6 +123,7 @@ const styles = StyleSheet.create({
   },
   emptyState: {
     marginVertical: 16,
+    alignItems: "center",
   },
   recentSection: {
     marginTop: 32,
@@ -131,11 +135,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginBottom: 12,
     letterSpacing: 0.6,
-    color: '#2F3E3E',
+    color: "#2F3E3E",
   },
   center: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
