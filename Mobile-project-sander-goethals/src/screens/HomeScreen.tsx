@@ -7,24 +7,23 @@ import {
   Button,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
 import { SpaListCard } from '../components/domain/spa/SpaListCard';
-import TextMarkup from '../components/ui/TextMarkup';
-
-// import { useWellnessList } from '../hooks/useWellnessList';
-import { useWellnessFromFirebase } from '../hooks/firebase/useWellnessFromFirebase';
 import { useLocation } from '../hooks/location/useLocation';
 import { useNearbySpas } from '../hooks/location/useNearbySpas';
 import { useAppSelector } from '../hooks/reduxHooks';
-
+import TextMarkup from '../components/ui/TextMarkup';
 import RecentlyViewedCarousel from '../components/domain/spa/RecentlyViewedCarousel';
-import WellnessAdminSync from '../services/DataLake/WellnessAdminSync';
+import { SpaCategory } from '../constants/categories';
+import { useSpas } from '../hooks/firebase/useSpasFromFirebase';
+
 
 const RADIUS_KM = 10;
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const favorites = useAppSelector(store => store.favorites);
+
+  const category: SpaCategory = "wellness";
 
   const [showList, setShowList] = useState(false);
 
@@ -33,7 +32,8 @@ const HomeScreen = () => {
     isError,
     refetch,
     isRefetching,
-  } = useWellnessFromFirebase();
+    isLoading,
+  } = useSpas(category);
 
   const {
     location,
@@ -46,6 +46,14 @@ const HomeScreen = () => {
     spaList ?? [],
     RADIUS_KM
   );
+
+  if (isLoading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   if (isError || locationError || !location) {
     return (
@@ -124,5 +132,10 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     letterSpacing: 0.6,
     color: '#2F3E3E',
+  },
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

@@ -16,7 +16,7 @@ export const categoryColors = {
     second: "rgb(196, 215, 230, 0.9)",
     third: "rgb(127, 169, 201, 0.9)",
   },
-  massageAndBeauty: {
+  massageBeauty: {
     first: "rgb(242, 221, 216, 0.9)",
     second: "rgb(230, 199, 191, 0.9)",
     third: "rgb(178, 124, 118, 0.9)",

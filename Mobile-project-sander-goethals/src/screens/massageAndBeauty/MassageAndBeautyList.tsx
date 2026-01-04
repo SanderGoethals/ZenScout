@@ -4,23 +4,25 @@ import { useNavigation } from '@react-navigation/native';
 import {SpaListCard} from '../../components/domain/spa/SpaListCard';
 import TextMarkup from '../../components/ui/TextMarkup';
 import { useAppSelector } from '../../hooks/reduxHooks';
-// import { useMassageAndBeautyList } from '../../hooks/useMassageAndBeautyList';
 import { getCategoryColor } from '../../theme/categoryHelpers';
+import { SpaCategory } from '../../constants/categories';
+import { useSpas } from '../../hooks/firebase/useSpasFromFirebase';
 
-import { useMassageAndBeautyFromFirebase } from '../../hooks/firebase/useMassageAndBeautyFromFirebase';
 
 
 const MassageAndBeautyListScreen = () => {
   const navigation = useNavigation();
    const favorites = useAppSelector(store => store.favorites);
 
+  const category: SpaCategory = "massageBeauty";
+
   const {
-    data: spaList, isLoading, isError, refetch, isRefetching, } = useMassageAndBeautyFromFirebase();
+    data: spaList, isLoading, isError, refetch, isRefetching, } = useSpas(category);
 
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color={getCategoryColor('massageAndBeauty', 'third')} />
+        <ActivityIndicator size="large" color={getCategoryColor(category, 'third')} />
       </View>
     );
   }
@@ -47,7 +49,7 @@ const MassageAndBeautyListScreen = () => {
           <SpaListCard
             data={item}
             index={index}
-            category='massageAndBeauty'
+            category={category}
             isFavorite={favorites.some(f => f.id === item.id)}
             onPress={(spa) =>
               navigation.navigate('massageAndBeautyDetails', { data: spa })
@@ -58,7 +60,6 @@ const MassageAndBeautyListScreen = () => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
 center: {

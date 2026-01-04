@@ -4,22 +4,23 @@ import { useNavigation } from '@react-navigation/native';
 import {SpaListCard} from '../../components/domain/spa/SpaListCard';
 import TextMarkup from '../../components/ui/TextMarkup';
 import { useAppSelector } from '../../hooks/reduxHooks';
-// import { usePublicSaunaList } from '../../hooks/usePublicSaunaList';
 import { getCategoryColor } from '../../theme/categoryHelpers';
-import { usePublicSaunasFromFirebase } from '../../hooks/firebase/usePublicSaunasFromFirebase';
-
+import { SpaCategory } from '../../constants/categories';
+import { useSpas } from '../../hooks/firebase/useSpasFromFirebase';
 
 const PublicSaunaListScreen = () => {
   const navigation = useNavigation();
-   const favorites = useAppSelector(store => store.favorites);
+  const favorites = useAppSelector(store => store.favorites);
+  
+  const category: SpaCategory = "publicSauna";
 
   const {
-    data: spaList, isLoading, isError, refetch, isRefetching, } = usePublicSaunasFromFirebase();
+    data: spaList, isLoading, isError, refetch, isRefetching, } = useSpas(category);
 
   if (isLoading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color={getCategoryColor('publicSauna', 'loader')} />
+        <ActivityIndicator size="large" color={getCategoryColor(category, 'third')} />
       </View>
     );
   }
@@ -46,7 +47,7 @@ const PublicSaunaListScreen = () => {
           <SpaListCard
             data={item}
             index={index}
-            category='publicSauna'
+            category={category}
             isFavorite={favorites.some(f => f.id === item.id)}
             onPress={(spa) =>
               navigation.navigate('publicSaunaDetails', { data: spa })
@@ -58,7 +59,6 @@ const PublicSaunaListScreen = () => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
 center: {

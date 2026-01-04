@@ -77,7 +77,6 @@ const AddReview = ({ onClose, spaId }: AddReviewProps) => {
             error={errors.score}
           />
 
-
           <GlassButton
             title={isSubmitting ? "Saving..." : "Verstuur review"}
             onPress={handleSubmit}
