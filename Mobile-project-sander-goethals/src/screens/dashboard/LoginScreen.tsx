@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 15,
     textAlign: "center",
+    color: "#7A6E66",
     marginBottom: 36,
   },
   linkButton: {
