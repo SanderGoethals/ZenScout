@@ -1,5 +1,4 @@
 import {
-  Text,
   View,
   TouchableOpacity,
   KeyboardAvoidingView,
@@ -58,10 +57,10 @@ const LoginScreen = () => {
         resizeMode="cover"
       >
         <View style={styles.innerContainer}>
-          <Text style={styles.title}>Welkom terug</Text>
-          <Text style={styles.subtitle}>
+          <TextMarkup style={styles.title}>Welkom terug</TextMarkup>
+          <TextMarkup style={styles.subtitle}>
             Ontspan en vind jouw wellnessmoment
-          </Text>
+          </TextMarkup>
 
           {authError && (
             <TextMarkup style={styles.error}>
@@ -154,15 +153,12 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontWeight: "500",
     textAlign: "center",
-    color: "#3A2F28",
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 15,
     textAlign: "center",
-    color: "#7A6E66",
     marginBottom: 36,
   },
   linkButton: {

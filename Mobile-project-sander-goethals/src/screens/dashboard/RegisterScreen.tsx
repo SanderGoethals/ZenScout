@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ImageBackground,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import { useNavigation } from "@react-navigation/native";
 
@@ -19,6 +19,8 @@ import { registerValidationSchema } from "../../validation/validation";
 import { registerUser } from "../../services/auth.service";
 
 const RegisterScreen = () => {
+  const [authError, setAuthError] = useState<string | null>(null);
+
   const navigate =
     useNavigation<AuthStackNavProps<"register">["navigation"]>();
 
@@ -29,14 +31,18 @@ const RegisterScreen = () => {
       confirmPassword: "",
     },
     validationSchema: registerValidationSchema,
-    validateOnMount: true,
-    onSubmit: async (values) => {
+    // validateOnMount: true,
+   onSubmit: async (values) => {
+      setAuthError(null);
       try {
         await registerUser({
           email: values.email,
           password: values.password,
         });
       } catch (error) {
+        setAuthError(
+          "Registreren mislukt. Controleer je gegevens of probeer later opnieuw."
+        );
         console.error("Registratiefout:", error);
       }
     },
@@ -60,7 +66,18 @@ const RegisterScreen = () => {
           <TextMarkup style={styles.subtitle}>
             Maak een account aan en begin je wellnesservaring
           </TextMarkup>
+          
+          {authError && (
+            <TextMarkup style={styles.error}>
+              {authError}
+            </TextMarkup>
+          )}
 
+          {formik.touched.email && formik.errors.email && (
+            <TextMarkup style={styles.error}>
+              {formik.errors.email}
+            </TextMarkup>
+          )}
           <InputForm
             placeholder="E-mailadres"
             value={formik.values.email}
@@ -75,6 +92,11 @@ const RegisterScreen = () => {
             }
           />
 
+          {formik.touched.password && formik.errors.password && (
+            <TextMarkup style={styles.error}>
+              {formik.errors.password}
+            </TextMarkup>
+          )}
           <InputForm
             placeholder="Wachtwoord"
             value={formik.values.password}
@@ -88,6 +110,11 @@ const RegisterScreen = () => {
             }
           />
 
+          {formik.touched.confirmPassword && formik.errors.confirmPassword && (
+            <TextMarkup style={styles.error}>
+              {formik.errors.confirmPassword}
+            </TextMarkup>
+          )}
           <InputForm
             placeholder="Bevestig wachtwoord"
             value={formik.values.confirmPassword}
@@ -105,7 +132,7 @@ const RegisterScreen = () => {
             title="Registreren"
             onPress={() => formik.handleSubmit()}
             loading={formik.isSubmitting}
-            disabled={!formik.isValid}
+            // disabled={!formik.isValid}
           />
 
           <View style={styles.footer}>
@@ -169,5 +196,11 @@ const styles = StyleSheet.create({
   footerLink: {
     fontSize: 20,
     color: "#6BA8A9",
+  },
+    error: {
+    marginTop: 4,
+    marginBottom: 8,
+    fontSize: 13,
+    color: "#B45309",
   },
 });
