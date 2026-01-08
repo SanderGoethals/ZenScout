@@ -7,7 +7,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ImageBackground,
-  Text,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import * as MailComposer from "expo-mail-composer";

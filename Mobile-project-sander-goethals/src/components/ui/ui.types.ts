@@ -57,6 +57,6 @@ export interface GlassDisplayProps {
 }
 
 export interface RadiusSelectorProps {
-  radiusKm?: number;
-  onChange: (radius?: number) => void;
+  radiusKm: number;
+  onChange: (radius: number) => void;
 }

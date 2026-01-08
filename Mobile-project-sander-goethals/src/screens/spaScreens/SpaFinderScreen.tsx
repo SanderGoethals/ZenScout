@@ -1,18 +1,21 @@
 import React from 'react';
 import { View, ActivityIndicator, Text } from 'react-native';
-import { useWellnessList } from '../../hooks/useWellnessList';
 import { useLocation } from '../../hooks/location/useLocation';
 import { useNearbySpas } from '../../hooks/location/useNearbySpas';
 import { SpaMap } from '../../components/domain/geoLocation/SpaMap';
+import { useSpas } from '../../hooks/firebase/useSpasFromFirebase';
+import { SpaCategory } from '../../constants/categories';
 
 export default function SpaMapScreen() {
   const radiusKm = 10;
+
+  const category: SpaCategory = 'wellness';
 
   const {
     data: spas,
     isLoading: spasLoading,
     error: spasError,
-  } = useWellnessList();
+  } = useSpas(category);
 
   const {
     location,
@@ -44,4 +47,3 @@ export default function SpaMapScreen() {
     </View>
   );
 }
-

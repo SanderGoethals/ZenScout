@@ -5,12 +5,14 @@ import {
   Pressable,
   FlatList,
   View,
+  Modal
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { SpaListCard } from "../components/domain/spa/SpaListCard";
 import SpaFilters from "../components/domain/spa/SpaFilters";
 import RecentlyViewedCarousel from "../components/domain/spa/RecentlyViewedCarousel";
+import { SpaMap } from "../components/domain/geoLocation/SpaMap";
 import TextMarkup from "../components/ui/TextMarkup";
 import RadiusSelector from "../components/ui/RadiusSelector";
 
@@ -23,6 +25,10 @@ import { useAppSelector } from "../hooks/reduxHooks";
 
 import { SpaCategory } from "../constants/categories";
 import FacilityFilterModal from "../components/domain/spa/FacilityFilterModal";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+// sanderMaptTest@Test.com
+// MapTest1234+
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -30,9 +36,10 @@ const HomeScreen = () => {
 
   const [category, setCategory] = useState<SpaCategory>("wellness");
   const [province, setProvince] = useState<string | undefined>();
-  const [radiusKm, setRadiusKm] = useState<number | undefined>();
+  const [radiusKm, setRadiusKm] = useState<number>(25);
   const [facilityModalOpen, setFacilityModalOpen] = useState(false);
   const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
+  const [spaFinderOpen, setSpaFinderOpen] = useState(false);
 
 
   const {
@@ -105,20 +112,26 @@ const HomeScreen = () => {
             onProvinceChange={setProvince}
           />
 
-          <RadiusSelector
-            radiusKm={radiusKm}
-            onChange={setRadiusKm}
-          />
+          <View style={styles.row}>
+              <RadiusSelector
+                radiusKm={radiusKm}
+                onChange={setRadiusKm}
+              />
 
-          <Pressable style={styles.categoryChip}
-          onPress={() => setFacilityModalOpen(true)}>
-            <TextMarkup>
-              Faciliteiten
-              {selectedFacilities.length > 0
-                ? ` (${selectedFacilities.length})`
-                : ""}
-            </TextMarkup>
-          </Pressable>
+            <Pressable
+              style={styles.categoryChip}
+              onPress={() => setSpaFinderOpen(true)}
+            >
+              <TextMarkup>Kaart</TextMarkup>
+            </Pressable>
+
+            <Pressable
+              style={styles.categoryChip}
+              onPress={() => setFacilityModalOpen(true)}
+            >
+              <TextMarkup>Faciliteiten</TextMarkup>
+            </Pressable>
+          </View>
 
           <FacilityFilterModal
             visible={facilityModalOpen}
@@ -129,6 +142,32 @@ const HomeScreen = () => {
             }}
             onClose={() => setFacilityModalOpen(false)}
           />
+
+          <Modal
+            visible={spaFinderOpen}
+            transparent
+            animationType="fade"
+            onRequestClose={() => setSpaFinderOpen(false)}
+          >
+            <Pressable
+              onPress={() => setSpaFinderOpen(false)}
+            />
+
+            <View style={styles.modalCard}>
+              <Pressable
+                style={styles.closeButton}
+                onPress={() => setSpaFinderOpen(false)}
+              >
+                <MaterialCommunityIcons name="close" size={24} color="#333" />
+              </Pressable>
+
+              <SpaMap
+                userLocation={location}
+                spas={filteredSpas}
+                radiusKm={radiusKm}
+              />
+            </View>
+          </Modal>
 
 
           {filteredSpas.length === 0 && (
@@ -189,4 +228,30 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     marginBottom: 12,
   },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 12,
+  },
+  modalCard: {
+    position: "absolute",
+    top: "10%",
+    alignSelf: "center",
+    width: "92%",
+    height: "75%",
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    overflow: "hidden",
+    elevation: 6,
+  },
+
+closeButton: {
+  position: "absolute",
+  top: 8,
+  right: 8,
+  zIndex: 10,
+  padding: 8,
+  backgroundColor: "rgba(255,255,255,0.9)",
+  borderRadius: 20,
+},
 });

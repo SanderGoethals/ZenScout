@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import MapView, { Marker, Circle } from 'react-native-maps';
-import { StyleSheet, View, ActivityIndicator, Image } from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { SpaMapProps } from './geo.types';
 
 export const SpaMap: FC<SpaMapProps> = ({

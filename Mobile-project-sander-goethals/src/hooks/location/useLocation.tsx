@@ -1,18 +1,6 @@
 import { useEffect, useState } from 'react';
-// import { Platform, PermissionsAndroid } from 'react-native';
-// import Geolocation from 'react-native-geolocation-service';
 import { Coordinate } from '../../components/domain/geoLocation/geo.types';
 import * as Location from 'expo-location';
-
-// async function requestPermission() {
-//   if (Platform.OS === 'android') {
-//     const result = await PermissionsAndroid.request(
-//       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-//     );
-//     return result === PermissionsAndroid.RESULTS.GRANTED;
-//   }
-//   return true;
-// }
 
 export function useLocation() {
   const [location, setLocation] = useState<Coordinate | null>(null);
