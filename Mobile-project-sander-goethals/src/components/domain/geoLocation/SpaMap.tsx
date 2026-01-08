@@ -27,25 +27,38 @@ export const SpaMap: FC<SpaMapProps> = ({
         longitudeDelta: 0.08,
       }}
     >
+
       {/* Radius cirkel */}
-      <Circle
-        center={userLocation}
-        radius={radiusKm * 1000} // km → meters
-        strokeWidth={2}
-        strokeColor="rgba(0,122,255,0.8)"
-        fillColor="rgba(0,122,255,0.2)"
-      />
+      {radiusKm !== undefined && (
+        <Circle
+          center={userLocation}
+          radius={radiusKm * 1000} // km → meters
+          strokeWidth={2}
+          strokeColor="rgba(0,122,255,0.8)"
+          fillColor="rgba(0,122,255,0.2)"
+        />
+      )}
 
       {/* Spa markers */}
-      {spas.map(spa => (
-        <Marker
-          key={spa.id}
-          coordinate={{ latitude: spa.latitude, longitude: spa.longitude }}
-          anchor={{ x: 0.5, y: 1 }}
-          title={spa.name}
-          image={require('../../../../assets/ZenScout_Marker.png')}          
-        />
-      ))}
+      {spas
+        // Alleen spa’s met geldige coördinaten renderen (voorkomt native crash)
+        .filter(
+          (spa) =>
+            typeof spa.latitude === "number" &&
+            typeof spa.longitude === "number"
+        )
+        .map((spa) => (
+          <Marker
+            key={spa.id}
+            coordinate={{
+              latitude: spa.latitude,
+              longitude: spa.longitude,
+            }}
+            anchor={{ x: 0.5, y: 1 }}
+            title={spa.name}
+            image={require('../../../../assets/ZenScout_Marker.png')}
+          />
+        ))}
     </MapView>
   );
 };

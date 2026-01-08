@@ -6,5 +6,5 @@ export interface Coordinate {
 export interface SpaMapProps {
   userLocation: Coordinate | null;
   spas: SpaBase[];
-  radiusKm: number;
+  radiusKm: number | undefined;
 };
