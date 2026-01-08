@@ -24,16 +24,9 @@ const Root = () => {
   const [authChecked, setAuthChecked] = useState(false)
 
   const [fontsLoaded] = useFonts({
-    'Playfair-Black': require('../../assets/fonts/PlayfairDisplay-Black.ttf'),
     'Playfair-BlackItalic': require('../../assets/fonts/PlayfairDisplay-BlackItalic.ttf'),
-    'Playfair-Bold': require('../../assets/fonts/PlayfairDisplay-Bold.ttf'),
     'Playfair-BoldItalic': require('../../assets/fonts/PlayfairDisplay-BoldItalic.ttf'),
     'Playfair-ExtraBold': require('../../assets/fonts/PlayfairDisplay-ExtraBold.ttf'),
-    'Playfair-ExtraBoldItalic': require('../../assets/fonts/PlayfairDisplay-ExtraBoldItalic.ttf'),
-    'Playfair-Italic': require('../../assets/fonts/PlayfairDisplay-Italic.ttf'),
-    'Playfair-Medium': require('../../assets/fonts/PlayfairDisplay-Medium.ttf'),
-    'Playfair-MediumItalic': require('../../assets/fonts/PlayfairDisplay-MediumItalic.ttf'),
-    'Playfair-Regular': require('../../assets/fonts/PlayfairDisplay-Regular.ttf'),
     'Playfair-SemiBold': require('../../assets/fonts/PlayfairDisplay-SemiBold.ttf'),
     'Playfair-SemiBoldItalic': require('../../assets/fonts/PlayfairDisplay-SemiBoldItalic.ttf'),
   })

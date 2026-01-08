@@ -19,11 +19,11 @@ const TextMarkup = ({
 }
 
 const styles = StyleSheet.create({
-  semiBold: { fontFamily: 'Playfair-SemiBold' },
-  semiBoldItalic: { fontFamily: 'Playfair-SemiBoldItalic' },
+  blackItalic: { fontFamily: 'Playfair-BlackItalic' },
   boldItalic: { fontFamily: 'Playfair-BoldItalic' },
   extraBold: { fontFamily: 'Playfair-ExtraBold' },
-  blackItalic: { fontFamily: 'Playfair-BlackItalic' },
+  semiBold: { fontFamily: 'Playfair-SemiBold' },
+  semiBoldItalic: { fontFamily: 'Playfair-SemiBoldItalic' },
 })
 
 export default TextMarkup
