@@ -21,11 +21,13 @@ import { useNearbySpas } from "../hooks/location/useNearbySpas";
 
 import { useFacilityFilter } from "../hooks/useFacilityFilter";
 import { useSpas } from "../hooks/firebase/useSpasFromFirebase";
-import { useAppSelector } from "../hooks/reduxHooks";
 
 import { SpaCategory } from "../constants/categories";
 import FacilityFilterModal from "../components/domain/spa/FacilityFilterModal";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { setRadiusKm } from "../store/searchRadius/slice";
 
 // sanderMaptTest@Test.com
 // MapTest1234+
@@ -33,14 +35,14 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 const HomeScreen = () => {
   const navigation = useNavigation();
   const favorites = useAppSelector((store) => store.favorites);
+  const radiusKm = useAppSelector((store) => store.searchRadius.radiusKm);
+  const dispatch = useAppDispatch();
 
   const [category, setCategory] = useState<SpaCategory>("wellness");
   const [province, setProvince] = useState<string | undefined>();
-  const [radiusKm, setRadiusKm] = useState<number>(25);
   const [facilityModalOpen, setFacilityModalOpen] = useState(false);
   const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
   const [spaFinderOpen, setSpaFinderOpen] = useState(false);
-
 
   const {
     data: spaList,
@@ -115,7 +117,7 @@ const HomeScreen = () => {
           <View style={styles.row}>
               <RadiusSelector
                 radiusKm={radiusKm}
-                onChange={setRadiusKm}
+                onChange={(value) => dispatch(setRadiusKm(value))}
               />
 
             <Pressable
@@ -150,13 +152,11 @@ const HomeScreen = () => {
             onRequestClose={() => setSpaFinderOpen(false)}
           >
             <View style={styles.overlay}>
-              {/* Backdrop */}
               <Pressable
                 style={StyleSheet.absoluteFill}
                 onPress={() => setSpaFinderOpen(false)}
               />
 
-              {/* Modal content */}
               <View style={styles.modalCard}>
                 <Pressable
                   style={styles.closeButton}

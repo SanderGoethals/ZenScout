@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import favoriteReducer from './favorites/slice';
 import recentlyViewedReducer from './recentlyViewed/slice';
+import searchRadiusReducer from './searchRadius/slice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import {
@@ -14,14 +15,15 @@ import {
 } from 'redux-persist';
 
 const persistConfig = {
-  key: 'favorites',
+  key: 'root',
   storage: AsyncStorage,
-  whitelist: ['favorites', 'recentlyViewed'],
+  whitelist: ['favorites', 'recentlyViewed', 'searchRadius'],
 };
 
 const rootReducer = combineReducers({
   favorites: favoriteReducer,
   recentlyViewed: recentlyViewedReducer,
+  searchRadius: searchRadiusReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
