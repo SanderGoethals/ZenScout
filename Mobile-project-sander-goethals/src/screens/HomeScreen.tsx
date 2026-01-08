@@ -149,26 +149,30 @@ const HomeScreen = () => {
             animationType="fade"
             onRequestClose={() => setSpaFinderOpen(false)}
           >
-            <Pressable
-              onPress={() => setSpaFinderOpen(false)}
-            />
-
-            <View style={styles.modalCard}>
+            <View style={styles.overlay}>
+              {/* Backdrop */}
               <Pressable
-                style={styles.closeButton}
+                style={StyleSheet.absoluteFill}
                 onPress={() => setSpaFinderOpen(false)}
-              >
-                <MaterialCommunityIcons name="close" size={24} color="#333" />
-              </Pressable>
-
-              <SpaMap
-                userLocation={location}
-                spas={filteredSpas}
-                radiusKm={radiusKm}
               />
+
+              {/* Modal content */}
+              <View style={styles.modalCard}>
+                <Pressable
+                  style={styles.closeButton}
+                  onPress={() => setSpaFinderOpen(false)}
+                >
+                  <MaterialCommunityIcons name="close" size={24} color="#333" />
+                </Pressable>
+
+                <SpaMap
+                  userLocation={location}
+                  spas={filteredSpas}
+                  radiusKm={radiusKm}
+                />
+              </View>
             </View>
           </Modal>
-
 
           {filteredSpas.length === 0 && (
             <View style={styles.emptyState}>
@@ -233,6 +237,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     gap: 12,
   },
+
   modalCard: {
     position: "absolute",
     top: "10%",
@@ -244,14 +249,19 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     elevation: 6,
   },
-
-closeButton: {
-  position: "absolute",
-  top: 8,
-  right: 8,
-  zIndex: 10,
-  padding: 8,
-  backgroundColor: "rgba(255,255,255,0.9)",
-  borderRadius: 20,
-},
+  closeButton: {
+    position: "absolute",
+    top: 8,
+    right: 8,
+    zIndex: 10,
+    padding: 8,
+    backgroundColor: "rgba(255,255,255,0.9)",
+    borderRadius: 20,
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
