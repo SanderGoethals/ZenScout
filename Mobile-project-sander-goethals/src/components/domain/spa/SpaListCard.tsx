@@ -40,11 +40,17 @@ export const SpaListCard: FC<CardProps> = ({
               <RatingStars score={Number(item.score)} size={24} />
             </View>
 
+          {/* Favorite floating */}
           {isFavorite && (
             <View style={styles.favoriteFloating}>
               <MaterialCommunityIcons name="heart" color="#E0245E" size={34} />
             </View>
           )}
+
+          {/* Price floating */}
+          <View style={styles.priceOverlay}>
+            <TextMarkup style={styles.priceText} >{item.price}</TextMarkup>
+          </View>
 
           <View style={styles.locationRow}>
             <MaterialCommunityIcons name="map-marker" size={22} color="red"/>
@@ -82,30 +88,47 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   imageWrapper: {
-  position: "relative",
+    position: "relative",
   },
   favoriteFloating: {
-  position: "absolute",
-  top: 12,
-  right: 12,
-  backgroundColor: "transparent",
-  padding: 0,
-  borderRadius: 0,
-  elevation: 0,
-  shadowColor: "transparent",
-},
- locationRow: {
+    position: "absolute",
+    top: 12,
+    right: 12,
+    backgroundColor: "transparent",
+    padding: 0,
+    borderRadius: 0,
+    elevation: 0,
+    shadowColor: "transparent",
+  },
+  locationRow: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   ratingFloating: {
-  position: "absolute",
-  top: 12,
-  left: 6,
-  paddingHorizontal: 8,
-  paddingVertical: 4,
-  borderRadius: 8,
-  zIndex: 2,
-},
+    position: "absolute",
+    top: 6,
+    left: 2,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+    zIndex: 2,
+  },
 
+  priceOverlay: {
+    position: 'absolute',
+    right: 6,
+    top: 8,
+    backgroundColor: '#2E7D32',
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderWidth: 2,
+    borderColor: '#FFFFFF',
+    elevation: 6,
+  },  
+  priceText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#FFFFFF',
+  },
  });
