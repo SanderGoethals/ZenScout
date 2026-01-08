@@ -119,7 +119,7 @@ export const SpaDetailsView: FC<DetailProps> = ({
         <View style={{ marginTop: 12 }}>
           <FacilitiesCollapsible
             facilities={item.facilities}
-            collapsedHeight={160}
+            collapsedHeight={170}
             bgColor={backgroundBase}
           />
         </View>

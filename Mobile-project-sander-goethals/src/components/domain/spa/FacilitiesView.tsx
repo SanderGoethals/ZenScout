@@ -14,7 +14,7 @@ const FacilitiesView: FC<FacilitiesViewProps> = ({ facilities }) => {
       <View style={styles.flexContainer}>
         {facilities.map((facility, index) => (
           <View key={`${facility}-${index}`} style={styles.card}>
-            <TextMarkup style={styles.cardText}>{facility}</TextMarkup>
+            <TextMarkup variant='extraBold' style={styles.cardText}>{facility}</TextMarkup>
           </View>
         ))}
       </View>
@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
 
   cardText: {
     fontSize: 15,
-    fontWeight: "bold",
     color: '#374151',
   },
 })
