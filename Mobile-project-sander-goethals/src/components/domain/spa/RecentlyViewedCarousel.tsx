@@ -8,9 +8,17 @@ import { getCategoryColor } from '../../../theme/categoryHelpers';
 
 const RecentlyViewedCarousel = () => {
   const dispatch = useAppDispatch();
+
   const recentlyViewed = useAppSelector(
     (state) => state.recentlyViewed
   );
+
+  const favorites = useAppSelector(
+    (state) => state.favorites
+  );
+
+  const isFavorite = (id: string) =>
+    favorites.some((fav) => fav.id === id);
 
   if (recentlyViewed.length === 0) return null;
 
@@ -20,6 +28,7 @@ const RecentlyViewedCarousel = () => {
         getCategoryColor(
           'recentlyViewed',
           index % 2 === 0 ? 'first' : 'second')}
+        isItemFavorite={(item) => isFavorite(item.id)}
         onActionPress={(item) => dispatch(toggle(item))}
         actionIcon="heart"
         actionColor="#E0245E" />;

@@ -46,6 +46,7 @@ export interface SpaCarouselProps {
   data: SpaBase[];
   getItemColor?: (index: number) => string;
   onActionPress?: (item: SpaBase) => void;
+  isItemFavorite?: (item: SpaBase) => boolean;
   actionIcon?: string;
   actionColor?: string;
 }

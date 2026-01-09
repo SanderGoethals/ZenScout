@@ -12,7 +12,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import TextMarkup from '../../ui/TextMarkup';
 import RatingStars from '../../ui/RatingStars';
-import { getCategoryColor } from '../../../theme/categoryHelpers';
 import { SpaCarouselProps } from './spa.types';
 
 const { width } = Dimensions.get('window');
@@ -24,6 +23,7 @@ const SpaCarousel: FC<SpaCarouselProps> = ({
   onActionPress,
   actionIcon,
   actionColor = '#E0245E',
+  isItemFavorite,
 }) => {
   const navigation = useNavigation();
 
@@ -70,7 +70,7 @@ const SpaCarousel: FC<SpaCarouselProps> = ({
                   <RatingStars score={Number(item.score)} size={22} />
                 </View>
 
-                {onActionPress && actionIcon && (
+                {onActionPress && actionIcon && isItemFavorite?.(item) && (
                   <TouchableOpacity
                     onPress={() => onActionPress(item)}
                     style={styles.favoriteFloating}
