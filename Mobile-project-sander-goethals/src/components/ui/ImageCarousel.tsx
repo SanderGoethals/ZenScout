@@ -52,6 +52,13 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
     });
   };
 
+  const safeImages = Array.isArray(images)
+  ? images.filter(
+      (img): img is { src: string; alt?: string } =>
+        typeof img?.src === "string" && img.src.trim().length > 0
+    )
+  : [];
+
   return (
     <View
       style={[
@@ -66,11 +73,10 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
       {containerWidth > 0 && (
         <FlatList
           ref={mainListRef}
-          data={images}
+          data={safeImages}
           keyExtractor={(_, index) => index.toString()}
           horizontal
           pagingEnabled
-          snapToInterval={containerWidth}
           decelerationRate="fast"
           showsHorizontalScrollIndicator={false}
           onMomentumScrollEnd={onScrollEnd}
@@ -95,7 +101,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
         <View style={styles.thumbnailOverlay}>
           <FlatList
             ref={thumbListRef}
-            data={images}
+            data={safeImages}
             keyExtractor={(_, index) => `thumb-${index}`}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -126,7 +132,7 @@ const ImageCarousel: FC<ImageCarouselProps> = ({
 
       {/* Volledige image viewer */}
       <ImageViewing
-        images={images.map(img => ({ uri: img.src }))}
+        images={safeImages.map(img => ({ uri: img.src }))}
         imageIndex={activeIndex}
         visible={viewerVisible}
         onRequestClose={() => setViewerVisible(false)}

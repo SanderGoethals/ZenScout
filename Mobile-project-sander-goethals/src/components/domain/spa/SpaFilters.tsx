@@ -9,6 +9,7 @@ import {
 } from "../../../constants/categories";
 import { PROVINCES } from "../../../constants/provinces";
 
+const ALL_PROVINCES = "ALL";
 interface SpaFiltersProps {
   category: SpaCategory;
   province?: string;
@@ -52,14 +53,14 @@ const SpaFilters = ({
       {/* Provincie picker */}
       <View style={styles.pickerWrapper}>
         <Picker
-          selectedValue={province}
+          selectedValue={province ?? ALL_PROVINCES}
           onValueChange={(value) =>
-            onProvinceChange(value || undefined)
+            onProvinceChange(value === ALL_PROVINCES ? undefined : value)
           }
         >
           <Picker.Item
             label="Alle provincies"
-            value={undefined}
+            value={ALL_PROVINCES}
           />
           {PROVINCES.map((p) => (
             <Picker.Item key={p} label={p} value={p} />

@@ -30,7 +30,7 @@ export const SpaListCard: FC<CardProps> = ({
         {/* Afbeeldingen + favorite */}
         <View style={styles.imageWrapper}>
           <ImageCarousel 
-            images={item.detailImages.slice(0, 3)}
+            images={(item.detailImages ?? []).slice(0, 3)}
             rounded
             height={200}
           />
@@ -57,9 +57,9 @@ export const SpaListCard: FC<CardProps> = ({
               <TextMarkup style={{ fontSize: 18, letterSpacing: 0.3 }}>
                 {item.city}, {item.province}
               </TextMarkup>
+          </View>
         </View>
 
-          </View>
         {/* Beschrijving KORT */}
           <TextMarkup style={{ fontSize: 16, letterSpacing: 0.3 }} numberOfLines={2} ellipsizeMode="tail" >
             {item.description}
@@ -92,13 +92,14 @@ const styles = StyleSheet.create({
   },
   favoriteFloating: {
     position: "absolute",
-    top: 12,
-    right: 12,
+    bottom: 6,
+    right: 0,
     backgroundColor: "transparent",
     padding: 0,
     borderRadius: 0,
-    elevation: 0,
+    elevation: 10,
     shadowColor: "transparent",
+    zIndex: 10,
   },
   locationRow: {
     flexDirection: 'row',
