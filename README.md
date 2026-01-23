@@ -5,6 +5,7 @@ Het project wordt gestart met Expo in TypeScript.
 <img width="236" height="512" alt="1" src="https://github.com/user-attachments/assets/a642cdfe-80d6-4fbd-86f4-3e93df7f2b38" />
 <img width="236" height="512" alt="2" src="https://github.com/user-attachments/assets/50a8760b-e0bb-451a-89a5-8fb7eea48657" />
 <img width="236" height="512" alt="3" src="https://github.com/user-attachments/assets/54dedabe-a4e3-41c8-8ed9-89071ea4e3f4" />
+<img width="236" height="512" alt="13" src="https://github.com/user-attachments/assets/93173806-fbb7-46f8-bcc8-dc3b3ce4e543" />
 <img width="236" height="512" alt="4" src="https://github.com/user-attachments/assets/5d0629fc-be6a-4cd5-86aa-c3f47c5d4c49" />
 <img width="236" height="512" alt="5" src="https://github.com/user-attachments/assets/97db100b-c31c-400f-8205-a2c3218bf4ac" />
 <img width="236" height="512" alt="6" src="https://github.com/user-attachments/assets/e6e4924e-2099-4778-b118-f9fc0128cdbb" />
